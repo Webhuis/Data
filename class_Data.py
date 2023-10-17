@@ -2,7 +2,7 @@
 
 #import psycopg2 as pq
 from loguru import logger
-from PostgreSQL import PostgreSQL
+from class_PostgreSQL import PostgreSQL
 import class_PostgreSQL as pq
 import os
 import sys
