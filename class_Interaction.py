@@ -4,6 +4,7 @@ from loguru import logger
 from class_Data import Data
 import class_Data
 #import class_ZMQ
+import sys
 import zmq
 
 class Interaction(object):
@@ -34,6 +35,7 @@ class Interaction(object):
           Interaction_error_log.info('Error creating task.{}'.format(e.args))
       except Exception as e:
         ZMQ_error_log.info('Error receiving message {}'.format(e.args))
+        sys.exit(1)
       finally:
         self.socket.close()
 
