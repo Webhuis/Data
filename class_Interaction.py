@@ -22,11 +22,11 @@ class Interaction(object):
         try:
           message = b_message.decode()
           response = self.Data.feed(message)
-          b_response = response.encode('utf8')
+          #b_response = response.encode('utf8')
           #queue.add_task(lambda: process_message(message))
           #queue.join()
           try:
-            socket.send_string(b_response)
+            socket.send_string(response)
           except Exception as e:
             ZMQ_error_log.info('Error sending message {}'.format(e.args))
         except Exception as e:
@@ -34,8 +34,8 @@ class Interaction(object):
       except Exception as e:
         ZMQ_error_log.info('Error receiving message {}'.format(e.args))
         sys.exit(1)
-      finally:
-        socket.close()
+      #finally:
+      # socket.close()
 
 logger.add('/var/log/Data_log/Interaction_event.log', filter = lambda record: 'data' in record['extra'] )
 Interaction_event_log = logger.bind(data = True)
