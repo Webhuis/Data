@@ -8,7 +8,7 @@ class PostgreSQL():
       self.conn = pg.pool.ThreadedConnectionPool(3, 12, user=user, password='webhu15iio', host='10.68.171.111', port='5432', database=db )
     except (Exception, psycopg2.DatabaseError) as error:
       error_log.info("Error while connecting to PostgreSQL {}".format(error.args)
-
+'''
   def pool_connect(self, cursor):
     self.getconn()
 
@@ -21,7 +21,7 @@ class PostgreSQL():
   def close(self):
     self.cur.close()
     self.conn.close()
-
+'''
 logger.add('/var/log/Data_log/PostgreSQL_event.log', filter = lambda record: 'data' in record['extra'] )
 PostgreSQL_event_log = logger.bind(data = True)
 PostgreSQL_event_log.info('Start Data PostgreSQL event logging')
