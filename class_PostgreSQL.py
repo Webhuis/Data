@@ -2,7 +2,7 @@
 
 import psycopg2 as pq
 
-class Data():
+class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
     try:
       self.conn = pg.pool.ThreadedConnectionPool(3, 12, user=user, password='webhu15iio', host='10.68.171.111', port='5432', database=db )
@@ -22,6 +22,11 @@ class Data():
     self.cur.close()
     self.conn.close()
 
-db = MyDatabase()
-db.query("SELECT * FROM table;")
-db.close()
+logger.add('/var/log/Data_log/PostgreSQL_event.log', filter = lambda record: 'data' in record['extra'] )
+PostgreSQL_event_log = logger.bind(data = True)
+PostgreSQL_event_log.info('Start Data PostgreSQL event logging')
+
+logger.add('/var/log/Data_log/PostgreSQL_error.log', filter = lambda record: 'error' in record['extra'] )
+PostgreSQL_error_log = logger.bind(error = True)
+PostgreSQL_error_log.info('Start Data PostgreSQL error logging')
+

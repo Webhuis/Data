@@ -1,115 +1,58 @@
 #!/usr/bin/env python3
 
-import subprocess as sp
-from threading import Thread   # currentThread is not used
-import multiprocessing as mp
-import loguru as log
-import os
-import time as tm
-import datetime as dt
-import sys
-import zmq
-
-import classes_Data as d
-import classes_Data as pg
-import classes_feeds as f
-import classes_Taskqueue as t
-
-'''
-Data is an Object oriented program
-https://wiki.webhuis.nl/Data
-'''
-'''
-Start logging first
-'''
-
-log.logger.add('error.log', filter = lambda record: 'error' in record['extra'] )
-error_log = log.logger.bind(error = True)
-log.logger.add('Data.log', filter = lambda record: 'Data' in record['extra'] )
-Data_log = log.logger.bind(Data = True)
-log.logger.add('data_messages.log', filter = lambda record: 'Data' in record['extra'] )
-data_messages_log = log.logger.bind(veres = True)
-
-'''
-Connect to the Data database
-'''
-
-tcpl = pg.Data()
-
-'''
-Start de Taskqueue
-'''
-
-num_worker_threads = 4
-pool = mp.Pool(processes=4)
-queue_manager = mp.Manager()
-queue = t.TaskQueue()
-
-'''
-Start de message queue
-'''
-context = zmq.Context()
-socket = context.socket(zmq.REP)
-socket.bind("tcp://10.68.171.111:5309")
+import class_Ui
 
 def main():
-
-  '''
-  CFEngine start this program daemonised mode
-  1. Initialise the host_objects for the run
-  2. Start the Task queue
-  '''
-
-  while True:
-    try:
-      message = socket.recv()
-      try:
-        queue.add_task(lambda: process_message(message))
-        queue.join()
-        try:
-          socket.send_string(response)
-        except Exception as e:
-          data_messages_log.info('Error sending message {}'.format(e.args))
-      except Exception as e:
-        data_messages_log.info('Error creating task.{}'.format(e.args))
-    except Exception as e:
-      data_messages_log.info('Error receiving message {}'.format(e.args))
-
-  socket.close()
-  data_messages_log.close()
-  Data_log.close()
-  error_log.close()
-
-def process_message(message):
-
-  timestamp = datetime.datetime.now()
-  message_feed = f.Feed(timestamp, message)
-  message_object = id(message_feed)
-  data_messages_log.info('message_feed')
+  ui = Ui()
 
 '''
-    if received:
-      message_object = create_feed_object(message)
-      response = 'Message processed' + '\n'
-      b_response = message.encode('utf8')
-      try:
-        socket.send_string(response)
-        data_messages_log.info('Sending {}.'.format(response))
-      except Exception as e:
-        data_messages_log.info('Error sending message {}'.format(e.args))
+Separates presentation, application processing, and data management functions.
 '''
 
-def create_feed_object(message):
-  message = b_message.decode()
-  return message_object
+class Data(object):
+  ''' Data Store Class '''
 
-def add_feed_queue(message):
-  data_messages_log.info('Receiving {}.'.format(message))
-  data_messages_log.info('Sending {}.'.format(response))
-  message = b_message.decode()
+  products = {
+    'milk': {'price': 1.50, 'quantity': 10},
+    'eggs': {'price': 0.20, 'quantity': 100},
+    'cheese': {'price': 2.00, 'quantity': 10},
+  }
 
-  queue.add_task(message)
-  queue.join()
-  return response
+  def __get__(self, obj, klas):
+    print('(Fetching from Data Store)')
+    return {'products': self.products}
 
-main()
+class BusinessLogic(object):
+  ''' Business logic holding data store instances '''
+
+  data = Data()
+
+  def product_list(self):
+    return self.data['products'].keys()
+
+  def product_information(self, product):
+    return self.data['products'].get(product, None)
+
+class Ui(object):
+  ''' UI interaction class '''
+
+  def __init__(self):
+    self.business_logic = BusinessLogic()
+
+  def get_product_list(self):
+    print('PRODUCT LIST:')
+    for product in self.business_logic.product_list():
+      print(product)
+    print('')
+
+  def get_product_information(self, product):
+    product_info = self.business_logic.product_information(product)
+    if product_info:
+      print('PRODUCT INFORMATION:')
+      print('Name: {0}, Price: {1:.2f}, Quantity: {2:}'.format(product.title(), product_info.get('price', 0), product_info.get('quantity', 0)))
+    else:
+      print('That product {0} does not exist in the records'.format(product))
+
+if __name__ == '__main__':
+  main()
+
