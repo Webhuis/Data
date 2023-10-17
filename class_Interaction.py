@@ -21,7 +21,7 @@ class Interaction(object):
         b_message = socket.recv()
         try:
           message = b_message.decode()
-          response = self.Data.feed(message)
+          self.Data.feed(message)
           #b_response = response.encode('utf8')
           #queue.add_task(lambda: process_message(message))
           #queue.join()
