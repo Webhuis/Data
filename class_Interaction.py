@@ -18,9 +18,9 @@ class Interaction(object):
   def run(self):
     while True:
       try:
-        message = socket.recv()
+        b_message = socket.recv()
         try:
-          #message = b_message.decode()
+          message = b_message.decode()
           #response = ''
           response = self.Data.feed(message)
           #b_response = response.encode('utf8')
