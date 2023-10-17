@@ -23,7 +23,7 @@ class Data(object):
   def __init__(self):
     self.postgres = PostgreSQL()
 
-  def feed(self, message):
+  def feed(self, message, response):
     self.feed = message
     response = 'Response' + message
     return response
