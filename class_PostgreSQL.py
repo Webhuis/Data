@@ -11,7 +11,7 @@ class PostgreSQL():
     except (Exception, psycopg2.DatabaseError) as error:
       PostgreSQL_error_log.info("Error while connecting to PostgreSQL {}".format(error.args)
     '''
-    pass
+    PostgreSQL_event_log.info('Start Data PostgreSQL __init__')
 
   def pool_connect(self, cursor):
     self.getconn()

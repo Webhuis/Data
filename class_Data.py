@@ -3,7 +3,7 @@
 #import psycopg2 as pq
 from loguru import logger
 from class_PostgreSQL import PostgreSQL
-import class_PostgreSQL as pq
+import class_PostgreSQL
 import os
 import sys
 
@@ -21,7 +21,7 @@ class Data(object):
   def __init__(self):
     self.PostgreSQL()
 
-  def feedi(message):
+  def feed(message):
     self.feed = message
     response = 'Response' + message
     return response
