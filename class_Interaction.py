@@ -20,7 +20,8 @@ class Interaction(object):
   def run(self):
     while True:
       try:
-        message = self.socket.recv()
+        b_message = self.socket.recv()
+        message = b_message.decode()
         try:
           response = self.Data.feed(message)
           #queue.add_task(lambda: process_message(message))
