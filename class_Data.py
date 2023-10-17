@@ -23,9 +23,9 @@ class Data(object):
   def __init__(self):
     self.postgres = PostgreSQL()
 
-  def feed(self, message, response):
-    self.feed = message
-    response = 'Response' + message
+  def feed(self, message):
+    self.message = message
+    response = 'Response' + self.message
     return response
 
 logger.add('/var/log/Data_log/Data_event.log', filter = lambda record: 'data' in record['extra'] )

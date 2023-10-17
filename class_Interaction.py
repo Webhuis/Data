@@ -18,11 +18,11 @@ class Interaction(object):
   def run(self):
     while True:
       try:
-        b_message = socket.recv()
+        message = socket.recv()
         try:
-          message = b_message.decode()
-          response = ''
-          self.Data.feed(message, response)
+          #message = b_message.decode()
+          #response = ''
+          response = self.Data.feed(message)
           #b_response = response.encode('utf8')
           #queue.add_task(lambda: process_message(message))
           #queue.join()
@@ -35,8 +35,8 @@ class Interaction(object):
       except Exception as e:
         ZMQ_error_log.info('Error receiving message {}'.format(e.args))
         sys.exit(1)
-      #finally:
-      # socket.close()
+    finally:
+      socket.close()
 
 logger.add('/var/log/Data_log/Interaction_event.log', filter = lambda record: 'data' in record['extra'] )
 Interaction_event_log = logger.bind(data = True)
