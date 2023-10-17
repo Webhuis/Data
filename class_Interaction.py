@@ -14,7 +14,7 @@ class Interaction(object):
   def __init__(self):
     self.Data = Data()
     self.context = zmq.Context()
-    self.socket = context.socket(zmq.REP)
+    self.socket = self.context.socket(zmq.REP)
     self.socket.bind("tcp://10.68.171.111:5309")
     logger.add('/var/log/Data_log/ZMQ_event.log', filter = lambda record: 'data' in record['extra'] )
     ZMQ_event_log = logger.bind(data = True)
