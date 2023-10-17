@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from loguru import logger
+from class_Data import Data
 import class_Data
 #import class_ZMQ
 import zmq
