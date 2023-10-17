@@ -16,13 +16,6 @@ class Interaction(object):
     self.context = zmq.Context()
     self.socket = self.context.socket(zmq.REP)
     self.socket.bind("tcp://10.68.171.111:5309")
-    logger.add('/var/log/Data_log/ZMQ_event.log', filter = lambda record: 'data' in record['extra'] )
-    self.ZMQ_event_log = logger.bind(data = True)
-    self.ZMQ_event_log.info('Start Data ZMQ event logging')
-
-    logger.add('/var/log/Data_log/ZMQ_error.log', filter = lambda record: 'error' in record['extra'] )
-    self.ZMQ_error_log = logger.bind(error = True)
-    self.ZMQ_error_log.info('Start Data ZMQ error logging')
 
   def run(self):
     while True:
@@ -35,11 +28,11 @@ class Interaction(object):
           try:
             self.socket.send_string(response)
           except Exception as e:
-            self.ZMQ_error_log.info('Error sending message {}'.format(e.args))
+            ZMQ_error_log.info('Error sending message {}'.format(e.args))
         except Exception as e:
-          self.Interaction_log.info('Error creating task.{}'.format(e.args))
+          Interaction_log.info('Error creating task.{}'.format(e.args))
       except Exception as e:
-        self.ZMQ_error_log.info('Error receiving message {}'.format(e.args))
+        ZMQ_error_log.info('Error receiving message {}'.format(e.args))
       finally:
         self.socket.close()
 
@@ -50,4 +43,12 @@ Interaction_event_log.info('Start Data Interaction event logging')
 logger.add('/var/log/Data_log/Interaction_error.log', filter = lambda record: 'error' in record['extra'] )
 Interaction_error_log = logger.bind(error = True)
 Interaction_error_log.info('Start Data Interaction error logging')
+
+logger.add('/var/log/Data_log/ZMQ_event.log', filter = lambda record: 'data' in record['extra'] )
+self.ZMQ_event_log = logger.bind(data = True)
+self.ZMQ_event_log.info('Start Data ZMQ event logging')
+
+logger.add('/var/log/Data_log/ZMQ_error.log', filter = lambda record: 'error' in record['extra'] )
+self.ZMQ_error_log = logger.bind(error = True)
+self.ZMQ_error_log.info('Start Data ZMQ error logging')
 
