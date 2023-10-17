@@ -14,21 +14,18 @@ class Interaction(object):
 
   def __init__(self):
     self.Data = Data()
-    self.context = zmq.Context()
-    self.socket = self.context.socket(zmq.REP)
-    self.socket.bind("tcp://10.68.171.111:5309")
 
   def run(self):
     while True:
       try:
-        b_message = self.socket.recv()
+        b_message = socket.recv()
         message = b_message.decode()
         try:
           response = self.Data.feed(message)
           #queue.add_task(lambda: process_message(message))
           #queue.join()
           try:
-            self.socket.send_string(response)
+            socket.send_string(response)
           except Exception as e:
             ZMQ_error_log.info('Error sending message {}'.format(e.args))
         except Exception as e:
@@ -37,7 +34,7 @@ class Interaction(object):
         ZMQ_error_log.info('Error receiving message {}'.format(e.args))
         sys.exit(1)
       finally:
-        self.socket.close()
+        socket.close()
 
 logger.add('/var/log/Data_log/Interaction_event.log', filter = lambda record: 'data' in record['extra'] )
 Interaction_event_log = logger.bind(data = True)
@@ -54,4 +51,8 @@ ZMQ_event_log.info('Start Data ZMQ event logging')
 logger.add('/var/log/Data_log/ZMQ_error.log', filter = lambda record: 'error' in record['extra'] )
 ZMQ_error_log = logger.bind(error = True)
 ZMQ_error_log.info('Start Data ZMQ error logging')
+
+context = zmq.Context()
+context.socket(zmq.REP)
+socket.bind("tcp://10.68.171.111:5309")
 
