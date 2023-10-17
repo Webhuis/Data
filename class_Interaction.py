@@ -45,10 +45,10 @@ Interaction_error_log = logger.bind(error = True)
 Interaction_error_log.info('Start Data Interaction error logging')
 
 logger.add('/var/log/Data_log/ZMQ_event.log', filter = lambda record: 'data' in record['extra'] )
-self.ZMQ_event_log = logger.bind(data = True)
-self.ZMQ_event_log.info('Start Data ZMQ event logging')
+ZMQ_event_log = logger.bind(data = True)
+ZMQ_event_log.info('Start Data ZMQ event logging')
 
 logger.add('/var/log/Data_log/ZMQ_error.log', filter = lambda record: 'error' in record['extra'] )
-self.ZMQ_error_log = logger.bind(error = True)
-self.ZMQ_error_log.info('Start Data ZMQ error logging')
+ZMQ_error_log = logger.bind(error = True)
+ZMQ_error_log.info('Start Data ZMQ error logging')
 
