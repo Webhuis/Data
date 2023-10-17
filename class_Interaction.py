@@ -30,7 +30,7 @@ class Interaction(object):
           except Exception as e:
             ZMQ_error_log.info('Error sending message {}'.format(e.args))
         except Exception as e:
-          Interaction_log.info('Error creating task.{}'.format(e.args))
+          Interaction_error_log.info('Error creating task.{}'.format(e.args))
       except Exception as e:
         ZMQ_error_log.info('Error receiving message {}'.format(e.args))
       finally:
