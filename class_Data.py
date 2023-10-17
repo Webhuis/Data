@@ -1,7 +1,7 @@
 #!/bin/env python3
 
 #import psycopg2 as pq
-import postgreSQL as pq
+import class_PostgreSQL as pq
 import os
 import sys
 
