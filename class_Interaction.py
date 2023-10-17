@@ -22,10 +22,11 @@ class Interaction(object):
         try:
           message = b_message.decode()
           response = self.Data.feed(message)
+          b_response = response.encode('utf8')
           #queue.add_task(lambda: process_message(message))
           #queue.join()
           try:
-            socket.send_string(response)
+            socket.send_string(b_response)
           except Exception as e:
             ZMQ_error_log.info('Error sending message {}'.format(e.args))
         except Exception as e:
