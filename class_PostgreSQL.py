@@ -1,5 +1,6 @@
 #!/bin/env python3
 
+from loguru import logger
 import psycopg2 as pq
 
 class PostgreSQL():
