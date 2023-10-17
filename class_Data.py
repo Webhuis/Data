@@ -26,6 +26,7 @@ class Data(object):
   def feed(self, message):
     self.message = message
     response = 'Response' + self.message
+    print(response)
     return response
 
 logger.add('/var/log/Data_log/Data_event.log', filter = lambda record: 'data' in record['extra'] )
