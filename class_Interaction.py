@@ -35,7 +35,7 @@ class Interaction(object):
       except Exception as e:
         ZMQ_error_log.info('Error receiving message {}'.format(e.args))
         sys.exit(1)
-    finally:
+    else:
       socket.close()
 
 logger.add('/var/log/Data_log/Interaction_event.log', filter = lambda record: 'data' in record['extra'] )
