@@ -19,11 +19,11 @@ class Data(object):
   __metaclass__ = IterClass
 
   postgres = PostgreSQL()
-  '''
+
   def __init__(self):
-    self.PostgreSQL()
-  '''
-  def feed(message):
+    self.postgres = PostgreSQL()
+
+  def feed(self, message):
     self.feed = message
     response = 'Response' + message
     return response

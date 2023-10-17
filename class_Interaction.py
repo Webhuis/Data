@@ -35,11 +35,11 @@ class Interaction(object):
           try:
             self.socket.send_string(response)
           except Exception as e:
-            ZMQ_log.info('Error sending message {}'.format(e.args))
+            self.ZMQ_error_log.info('Error sending message {}'.format(e.args))
         except Exception as e:
-          Interaction_log.info('Error creating task.{}'.format(e.args))
+          self.Interaction_log.info('Error creating task.{}'.format(e.args))
       except Exception as e:
-        ZMQ_error_log.info('Error receiving message {}'.format(e.args))
+        self.ZMQ_error_log.info('Error receiving message {}'.format(e.args))
       finally:
         self.socket.close()
 
