@@ -53,6 +53,6 @@ ZMQ_error_log = logger.bind(error = True)
 ZMQ_error_log.info('Start Data ZMQ error logging')
 
 context = zmq.Context()
-context.socket(zmq.REP)
+socket = context.socket(zmq.REP)
 socket.bind("tcp://10.68.171.111:5309")
 
