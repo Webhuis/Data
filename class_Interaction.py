@@ -46,11 +46,11 @@ logger.add('/var/log/Data_log/Interaction_error.log', filter = lambda record: 'I
 Interaction_error_log = logger.bind(Interaction = True)
 Interaction_error_log.error('Start Data Interaction error logging')
 
-logger.add('/var/log/Data_log/ZMQ_event.log', rotation='1 day', retention='1 week', compression='gzip' , format='{time}{level}{extra[ip]}{message}', filter = lambda record: 'ZMQ' in record['extra'])
+logger.add('/var/log/Data_log/ZMQ_event.log', rotation='1 day', retention='1 week', compression='bz2' , format='{time}{level}{extra[ip]}{message}', filter = lambda record: 'ZMQ' in record['extra'])
 ZMQ_event.log = logger.bind(ZMQ = True)
 ZMQ_event.log.info('Start Data ZMQ event logging')
 
-logger.add('/var/log/Data_log/ZMQ_error.log', rotation='1 day', retention='1 week', compression='gzip', format='{time}{level}{extra[ip]}{message}', filter = lambda record: 'ZMQ' in record['extra'] )
+logger.add('/var/log/Data_log/ZMQ_error.log', rotation='1 day', retention='1 week', compression='bz2', format='{time}{level}{extra[ip]}{message}', filter = lambda record: 'ZMQ' in record['extra'] )
 ZMQ_error.log = logger.bind(ZMQ = True)
 ZMQ_error.log.error('Start Data ZMQ error logging')
 
