@@ -51,7 +51,7 @@ logger.add(sink='/var/log/Data_log/ZMQ_event.log', rotation="1 day", retention="
 ZMQ_event_log = logger.bind(ZMQ=True)
 ZMQ_event_log.info('Start Data ZMQ event logging')
 
-logger.add(sink='/var/log/Data_log/ZMQ_error.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'ZMQ' in record['extra'], level="error"  )
+logger.add(sink='/var/log/Data_log/ZMQ_error.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'ZMQ' in record['extra'], level="ERROR"  )
 ZMQ_error_log = logger.bind(ZMQ = True)
 ZMQ_error_log.error('Start Data ZMQ error logging')
 
