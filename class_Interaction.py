@@ -47,7 +47,7 @@ logger.add('/var/log/Data_log/Interaction_error.log', filter = lambda record: 'I
 Interaction_error_log = logger.bind(Interaction = True)
 Interaction_error_log.error('Start Data Interaction error logging')
 
-logger.add(sink='/var/log/Data_log/ZMQ_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: True if 'ZMQ' and 'Response' in record['extra'] else False)
+logger.add(sink='/var/log/Data_log/ZMQ_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: { 1: 'ZMQ', 2: 'Response'} in record['extra'])
 ZMQ_event_log = logger.bind(ZMQ=True)
 ZMQ_event_log.info('Start Data ZMQ event logging')
 
