@@ -28,6 +28,7 @@ class Interaction(object):
           #queue.join()
           try:
             socket.send_string(response)
+            ZMQ_event_log.info(response)
           except Exception as e:
             ZMQ_error_log.info('Error sending message {}'.format(e.args))
         except Exception as e:
