@@ -51,8 +51,8 @@ ZMQ_event_log = logger.bind(ZMQ=True)
 ZMQ_event_log.info('Start Data ZMQ event logging')
 
 logger.add('/var/log/Data_log/ZMQ_error.log', rotation='1 day', retention='1 week', compression='bz2', format='{time}{level}{extra[ip]}{message}', filter = lambda record: 'ZMQ' in record['extra'] )
-ZMQ_error.log = logger.bind(ZMQ = True)
-ZMQ_error.log.error('Start Data ZMQ error logging')
+ZMQ_error_log = logger.bind(ZMQ = True)
+ZMQ_error_log.error('Start Data ZMQ error logging')
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
