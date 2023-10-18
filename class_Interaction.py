@@ -38,11 +38,11 @@ class Interaction(object):
     else:
       socket.close()
 
-logger.add('/var/log/Data_log/Interaction_event.log', filter = lambda record: record['extra'][name='Interaction'])
+logger.add('/var/log/Data_log/Interaction_event.log', filter = lambda record: record['extra'][name == 'Interaction'])
 Interaction_event_log = logger.bind(Interaction = True)
 Interaction_event_log.info('Start Data Interaction event logging')
 
-logger.add('/var/log/Data_log/Interaction_error.log', filter = lambda record: record['extra'][name='Interaction'])
+logger.add('/var/log/Data_log/Interaction_error.log', filter = lambda record: record['extra'][name == 'Interaction'])
 Interaction_error_log = logger.bind(Interaction = True)
 Interaction_error_log.error('Start Data Interaction error logging')
 
