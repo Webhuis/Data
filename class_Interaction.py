@@ -46,13 +46,13 @@ logger.add('/var/log/Data_log/Interaction_error.log', filter = lambda record: re
 Interaction_error_log = logger.bind(Interaction = True)
 Interaction_error_log.error('Start Data Interaction error logging')
 
-logger.add('/var/log/Data_log/ZMQ_event_{ddd}.log',rotation='ddd', format='{time {level}{message}', filter = lambda record: 'ZMQ' in record['extra'])
-ZMQ_event_{ddd}.log = logger.bind(ZMQ = True)
-ZMQ_event_{ddd}log.info('Start Data ZMQ event logging')
+logger.add('/var/log/Data_log/ZMQ_event.log', rotation='ddd', format='{time {level}{message}', filter = lambda record: 'ZMQ' in record['extra'])
+ZMQ_event.log = logger.bind(ZMQ = True)
+ZMQ_event.log.info('Start Data ZMQ event logging')
 
-logger.add('/var/log/Data_log/ZMQ_error_{ddd}.log', filter = lambda record: 'ZMQ' in record['extra'] )
-ZMQ_error_{ddd}log = logger.bind(ZMQ = True)
-ZMQ_error_{ddd}log.error('Start Data ZMQ error logging')
+logger.add('/var/log/Data_log/ZMQ_error.log', rotation='ddd', filter = lambda record: 'ZMQ' in record['extra'] )
+ZMQ_error.log = logger.bind(ZMQ = True)
+ZMQ_error.log.error('Start Data ZMQ error logging')
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
