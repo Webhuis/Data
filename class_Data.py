@@ -61,7 +61,7 @@ class Data(object):
     print(response)
     return response
 
-  def write_feed(self.message):
+  def write_feed(self, message):
     pass
 
 class role(object):
