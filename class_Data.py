@@ -41,9 +41,9 @@ class Data(object):
   def feed(self, message):
     self.message = message
 
-    write_feed(message)
+    self.write_feed(message)
 
-    response = process_message(message)
+    response = self.process_message(message)
 
     return response
 
