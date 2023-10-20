@@ -64,7 +64,8 @@ class Data(object):
   def write_feed(message):
     pass
 
-class role(object)
+class role(object):
+  pass
 logger.add('/var/log/Data_log/Data_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'] )
 Data_event_log = logger.bind(data = True)
 Data_event_log.info('Start Data Data event logging')
