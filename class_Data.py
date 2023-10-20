@@ -51,7 +51,7 @@ class Data(object):
 
     message_json = json.loads(message)
 
-    Data_event_log.info(response_json)
+    Data_event_log.info(message_json)
     response = 'Response' + self.message
     return response
 
