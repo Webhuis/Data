@@ -1,7 +1,7 @@
 #!/bin/env python3
 
 from loguru import logger
-import psycopg2 as pq
+import psycopg2 as pg
 
 class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
