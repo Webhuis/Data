@@ -6,10 +6,10 @@ import psycopg2 as pq
 class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
     try:
-      self.conn = pg.pool.ThreadedConnectionPool(3, 12, user='www_data', password='webhu15iio', host='10.68.171.50', port='5432', database=db )
+      self.conn = pg.pool.ThreadedConnectionPool(3, 12, user=user password='webhu15iio', host='10.68.171.50', port='5432', database=db )
       PostgreSQL_event_log.info('Start Data PostgreSQL __init__')
     except (Exception, psycopg2.DatabaseError) as error:
-      PostgreSQL_error_log.info("Error while connecting to PostgreSQL {}".format(error.args)
+      PostgreSQL_error_log.info("Error while connecting to PostgreSQL {}".format(error.args))
 
   def pool_connect(self, cursor):
     self.getconn()
