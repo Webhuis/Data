@@ -8,7 +8,7 @@ class PostgreSQL():
     try:
       self.conn = pg.pool.ThreadedConnectionPool(3, 12, user=user, password='webhu15iio', host='10.68.171.50', port='5432', database=db )
       PostgreSQL_event_log.info('Start Data PostgreSQL __init__')
-    except (Exception, psycopg2.DatabaseError) as error:
+    except (Exception, pg.DatabaseError) as error:
       PostgreSQL_error_log.info("Error while connecting to PostgreSQL {}".format(error.args))
 
   def pool_connect(self, cursor):
