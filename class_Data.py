@@ -47,7 +47,7 @@ class Data(object):
 
     return response
 
-  def process_message(message):
+  def process_message(self, message):
 
     message_json = json.loads(message)
 
