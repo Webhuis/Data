@@ -28,8 +28,8 @@ class Interaction(object):
           try:
             s_response = str(response[0])
             print(type(s_response), s_response)
-            b_response = s_response.encode('utf8')
-            socket.send_string(b_response)
+            #b_response = s_response.encode('utf8')
+            socket.send_string(s_response)
             ZMQ_event_log.info(response)
           except Exception as e:
             ZMQ_error_log.info('Error sending message {}'.format(e.args))
