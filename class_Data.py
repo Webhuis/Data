@@ -50,7 +50,7 @@ class Data(object):
 
   def process_message(self, message):
 
-    message_json = json.loads(message)
+    message_json = json.dumps(message)
 
     Data_event_log.info(message_json)
     timestamp = datetime.now()
