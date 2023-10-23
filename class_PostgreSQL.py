@@ -7,14 +7,14 @@ from psycopg2 import pool
 class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
     try:
-      self.conn = pg.pool.ThreadedConnectionPool(3, 12, user=user, password='we8hu15iio', host='10.68.171.50', port='5432', database=db )
+      self.pg_pool = pg.pool.ThreadedConnectionPool(3, 12, user=user, password='we8hu15iio', host='10.68.171.50', port='5432', database=db )
       PostgreSQL_event_log.info('Start Data PostgreSQL __init__')
     except (Exception, pg.DatabaseError) as error:
       PostgreSQL_error_log.info("Error while connecting to PostgreSQL {}".format(error.args))
 
   def pool_query(self, query):
     try:
-      pg_conn = data.pg_pool.getconn()
+      pg_conn = self.pg_pool.getconn()
       pg_cursor = pg_conn.cursor()
       pg_cursor.execute(query)
       result = pg_cursor.fetchall()
