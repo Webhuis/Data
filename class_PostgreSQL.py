@@ -2,6 +2,7 @@
 
 from loguru import logger
 import psycopg2 as pg
+from psycopg2 import pool
 
 class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
@@ -10,6 +11,17 @@ class PostgreSQL():
       PostgreSQL_event_log.info('Start Data PostgreSQL __init__')
     except (Exception, pg.DatabaseError) as error:
       PostgreSQL_error_log.info("Error while connecting to PostgreSQL {}".format(error.args))
+
+  def pool_query(self, query):
+    try:
+      pg_conn = data.pg_pool.getconn()
+      pg_cursor = pg_conn.cursor()
+      pg_cursor.execute(query)
+      result = pg_cursor.fetchall()
+    except (Exception, pg.DatabaseError) as error:
+      print("Error while selecting from PostgreSQL {}".format(error.args))
+
+    return result
 
   def pool_connect(self, cursor):
     self.getconn()

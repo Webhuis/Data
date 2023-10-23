@@ -4,6 +4,7 @@
 from loguru import logger
 from class_PostgreSQL import PostgreSQL
 import class_PostgreSQL
+import datetime as dt
 import json
 import os
 import sys
@@ -52,7 +53,9 @@ class Data(object):
     message_json = json.loads(message)
 
     Data_event_log.info(message_json)
-    response = 'Response' + self.message
+    timestamp - dt.datetime(now)
+    query = ('insert into feeds.json_in ( message_time, message_in, message_flow ) values ( timestamp, message_json, 0 );')
+    response = postgres.pool_query(query) 
     return response
 
   def decompose_json(message):
