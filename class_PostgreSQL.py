@@ -23,6 +23,14 @@ class PostgreSQL():
 
     return result
 
+  def pool_insert(self, query):
+    try:
+      pg_conn = self.pg_pool.getconn()
+      pg_cursor = pg_conn.cursor()
+      pg_cursor.execute(query)
+    except (Exception, pg.DatabaseError) as error:
+      print("Error while selecting from PostgreSQL {}".format(error.args))
+
   def pool_connect(self, cursor):
     self.getconn()
 

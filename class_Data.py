@@ -57,7 +57,7 @@ class Data(object):
     print(type(timestamp), timestamp)
     query = ("insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' );".format( timestamp , message_json ) )
     print(query)
-    response = self.postgres.pool_query(query) 
+    response = self.postgres.pool_insert(query) 
     return response
 
   def decompose_json(message):
