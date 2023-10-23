@@ -54,11 +54,9 @@ class Data(object):
 
     Data_event_log.info(message_json)
     timestamp = datetime.now(timezone.utc)
-    print(type(timestamp), timestamp)
-    query = ("insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' );".format( timestamp , message_json ) )
-    print(query)
-    self.postgres.pool_insert(query) 
-    response = 'Response' + self.message
+    query = ("insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json ) )
+    response = self.postgres.pool_insert(query) 
+    #response = 'Response' + self.message
     return response
 
   def decompose_json(message):
