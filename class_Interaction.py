@@ -27,6 +27,7 @@ class Interaction(object):
           #queue.join()
           try:
             s_response = str(response[0])
+            print(type(s_response), s_response)
             b_response = s_response.encode('utf8')
             socket.send_string(b_response)
             ZMQ_event_log.info(response)
