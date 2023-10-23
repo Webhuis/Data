@@ -54,7 +54,7 @@ class Data(object):
 
     Data_event_log.info(message_json)
     timestamp = datetime.now()
-    query = ('insert into feeds.json_in ( message_time, message_in ) values ( {}, {} );'.format( timestamp, message_json )
+    query = ('insert into feeds.json_in ( message_time, message_in ) values ( {}, {} );'.format( timestamp, message_json ))
     response = self.postgres.pool_query(query) 
     return response
 
