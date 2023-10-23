@@ -26,8 +26,8 @@ class Interaction(object):
           #queue.add_task(lambda: process_message(message))
           #queue.join()
           try:
-            #b_response = response.encode('utf8')
-            socket.send_string(response)
+            b_response = response.encode('utf8')
+            socket.send_string(b_response)
             ZMQ_event_log.info(response)
           except Exception as e:
             ZMQ_error_log.info('Error sending message {}'.format(e.args))
