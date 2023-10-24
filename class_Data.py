@@ -62,18 +62,18 @@ class Data(object):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     id_feed = self.postgres.pool_insert(query)
-    feed = Feed(message)
-    query = feed.read_hard_classes()
+    self.feed = Feed(message)
+    query = slef.feed.read_hard_classes()
     exists = self.postgres.check_exists('select exists({})'.format(query))
     if exists:
       values = self.postgres.pool_query(query)
-      feed.check_update(values)
+      self.feed.check_update(values)
       if checked:
         pass
       else:
-        feed.update_hard_classes(values)
+        self.feed.update_hard_classes(values)
     else:
-      feed.insert(message)
+      self.feed.insert(message)
     return id_feed
 
 logger.add('/var/log/Data_log/Data_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'] )
