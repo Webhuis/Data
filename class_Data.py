@@ -72,7 +72,7 @@ class Data(object):
       print(query)
       values = self.postgres.pool_query(query)
       print(type(values),values)
-      checked = self.feed.check_update(values)
+      checked = self.feed.check_update(values[0])
       if checked:
         pass
       else:
