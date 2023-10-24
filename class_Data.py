@@ -71,7 +71,7 @@ class Data(object):
       query = self.feed.read_hard_classes()
       print(query)
       values = self.postgres.pool_query(query)
-      print(values)
+      print(type(values),values)
       checked = self.feed.check_update(values)
       if checked:
         pass
