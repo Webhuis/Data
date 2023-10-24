@@ -74,7 +74,7 @@ class Data(object):
       if checked:
         pass
       else:
-        query = self.feed.update_hard_classes(values)
+        query = self.feed.update_hard_classes(values[0])
         id_hard_classes = self.postgres.pool_insert(query)
     else:
       query = self.feed.insert_feed(message)
