@@ -35,7 +35,7 @@ class PostgreSQL():
       pg_conn.commit()
       result = pg_cursor.fetchall()[0]
       pg_cursor.close()
-      pg_conn.putconn()
+      self.pg_pool..putconn()
     except (Exception, pg.DatabaseError) as error:
       print("Error while selecting from PostgreSQL {}".format(error.args))
     return result
