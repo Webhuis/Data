@@ -66,6 +66,7 @@ class Data(object):
     self.feed = Feed(message)
     query = self.feed.check_exists()
     exists = self.postgres.check_exists(query)
+    print('Bestaat fqdn', exists)
     if exists == True:
       values = self.postgres.pool_query(query)
       checked = self.feed.check_update(values)
