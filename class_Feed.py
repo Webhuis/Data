@@ -34,7 +34,7 @@ class Feed(object):
     return query
 
   def insert_feed(self, message):
-    query = "insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch) values ('{}', '{}', '{}', '{}', '{}', '{}', '{}');".format(self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch)
+    query = "insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch) values ('{}', '{}', '{}', '{}', '{}', '{}', '{}') returning id;".format(self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch)
     return query
 
   def check_update(self, values):
