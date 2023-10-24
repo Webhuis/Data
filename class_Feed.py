@@ -34,12 +34,10 @@ class Feed(object):
     return query
 
   def insert_feed(self, message):
-    print(self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, type(self.cpus), self.arch)
     query = "insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch) values ('{}', '{}', '{}', '{}', '{}', {}, '{}') returning id;".format(self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch)
     return query
 
   def check_update(self, values):
-    print(values, self.cpus, values[5])
     if self.cpus == values[5]:
       checked = True
     else:

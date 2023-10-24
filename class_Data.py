@@ -51,7 +51,6 @@ class Data(object):
   def process_message(self, message):
 
     response = self.hard_classes(message)
-    print(response)
     #write_feed = feed.hard_classes()
     #response = 'Response' + self.message
     return response
@@ -71,7 +70,6 @@ class Data(object):
     if exists:
       query = self.feed.read_hard_classes()
       values = self.postgres.pool_query(query)
-      print(type(values[0]),values[0])
       checked = self.feed.check_update(values[0])
       if checked:
         Data_event_log.info('Already up to date', values[0][0], values[0][1])
