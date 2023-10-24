@@ -72,10 +72,12 @@ class Data(object):
       if checked:
         pass
       else:
-        self.feed.update_hard_classes(values)
+        query = self.feed.update_hard_classes(values)
+        id_hard_classes = self.postgres.pool_insert(query)
     else:
       print(exists)
-      self.feed.insert_feed(message)
+      query = self.feed.insert_feed(message)
+      id_hard_classes = self.postgres.pool_insert(query)
     return id_feed
 
 logger.add('/var/log/Data_log/Data_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'] )
