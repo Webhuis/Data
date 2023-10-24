@@ -38,7 +38,6 @@ class Feed(object):
     return query
 
   def check_update(self, values):
-    values = values[0]
     if self.cpus == values[5]:
       checked = True
     else:
