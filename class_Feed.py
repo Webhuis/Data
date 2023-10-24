@@ -26,7 +26,7 @@ class Feed(object):
     self.arch   = message_json["arch"]
 
   def read_hard_classes(self):
-    query = "select uqhost, domain, os, ostype, flavor, cpus, arch from feeds.hard_classes where uqhost = '{}' and domain = '{}';".format(self.uqhost, self.domain)
+    query = "select uqhost, domain, os, ostype, flavor, cpus, arch from feeds.hard_classes where uqhost = '{}' and domain = '{}'".format(self.uqhost, self.domain)
     return query
 
   def insert_feed(self, message):
