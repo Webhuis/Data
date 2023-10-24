@@ -4,7 +4,7 @@
 from loguru import logger
 from class_PostgreSQL import PostgreSQL
 import class_PostgreSQL
-import class_Feed as Feed
+from class_Feed import Feed
 from datetime import datetime, timezone
 import json
 import os
@@ -62,8 +62,9 @@ class Data(object):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     id_feed = self.postgres.pool_insert(query)
-    self.feed = Feed(message)
-    query = slef.feed.read_hard_classes()
+    print(id_feed)
+    self.feed = self.Feed(message)
+    query = self.feed.read_hard_classes()
     exists = self.postgres.check_exists('select exists({})'.format(query))
     if exists:
       values = self.postgres.pool_query(query)
