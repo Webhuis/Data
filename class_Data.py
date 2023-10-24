@@ -66,8 +66,7 @@ class Data(object):
     self.feed = Feed(message)
     query = self.feed.check_exists()
     exists = self.postgres.check_exists(query)
-    if exists:
-      print(exists)
+    if exists == True:
       values = self.postgres.pool_query(query)
       checked = self.feed.check_update(values)
       if checked:
@@ -76,7 +75,6 @@ class Data(object):
         query = self.feed.update_hard_classes(values)
         id_hard_classes = self.postgres.pool_insert(query)
     else:
-      print(exists)
       query = self.feed.insert_feed(message)
       print(query)
       id_hard_classes = self.postgres.pool_insert(query)
