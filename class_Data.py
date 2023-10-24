@@ -66,6 +66,7 @@ class Data(object):
     query = self.feed.read_hard_classes()
     exists = self.postgres.check_exists("select exists({})".format(query))
     if exists:
+      print(exists)
       values = self.postgres.pool_query(query)
       self.feed.check_update(values)
       if checked:
@@ -73,7 +74,8 @@ class Data(object):
       else:
         self.feed.update_hard_classes(values)
     else:
-      self.feed.insert(message)
+      print(exists)
+      self.feed.insert_feed(message)
     return id_feed
 
 logger.add('/var/log/Data_log/Data_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'] )
