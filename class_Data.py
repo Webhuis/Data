@@ -64,6 +64,7 @@ class Data(object):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     id_feed = self.postgres.pool_insert(query)
+    print(id_feed)
     query = self.feed.check_exists()
     exists = self.postgres.check_exists(query)
     if exists:
