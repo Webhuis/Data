@@ -69,7 +69,9 @@ class Data(object):
     print('Bestaat fqdn', exists)
     if exists:
       query = self.feed.read_hard_classes()
+      print(query)
       values = self.postgres.pool_query(query)
+      print(values)
       checked = self.feed.check_update(values)
       if checked:
         pass
@@ -78,7 +80,6 @@ class Data(object):
         id_hard_classes = self.postgres.pool_insert(query)
     else:
       query = self.feed.insert_feed(message)
-      print(query)
       id_hard_classes = self.postgres.pool_insert(query)
       print(id_hard_classes)
     del(self.feed)
