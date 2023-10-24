@@ -9,7 +9,7 @@ from threading import Semaphore
 class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
     try:
-      self.pg_pool = DataThCP(1, 12, user=user, password='we8hu15iio', host='10.68.171.50', port='5432', database=db )
+      self.pg_pool = DataThCP(1, 8, user=user, password='we8hu15iio', host='10.68.171.50', port='5432', database=db )
       PostgreSQL_event_log.info('Start Data PostgreSQL __init__')
     except (Exception, pg.DatabaseError) as error:
       PostgreSQL_error_log.info("Error while connecting to PostgreSQL {}".format(error.args))
@@ -35,7 +35,7 @@ class PostgreSQL():
       pg_conn.commit()
       result = pg_cursor.fetchall()[0]
       pg_cursor.close()
-      self.pg_pool.putconn()
+      self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
       print("Error while selecting from PostgreSQL {}".format(error.args))
     return result
