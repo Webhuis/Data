@@ -22,7 +22,7 @@ class Feed(object):
     self.os     = message_json["os"]
     self.ostype = message_json["ostype"]
     self.flavor = message_json["flavor"]
-    self.cpus   = message_json["cpus"]
+    self.cpus   = int(message_json["cpus"])
     self.arch   = message_json["arch"]
 
   def check_exists(self):
