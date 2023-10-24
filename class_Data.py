@@ -50,7 +50,7 @@ class Data(object):
 
   def process_message(self, message):
 
-    response = hard_classes(message)
+    response = self.hard_classes(message)
     #write_feed = feed.hard_classes()
     #response = 'Response' + self.message
     return response
@@ -71,7 +71,7 @@ class Data(object):
       if checked:
         pass
       else:
-        update_hard_classes(values)
+        feed.update_hard_classes(values)
     else:
       feed.insert(message)
     return id_feed
