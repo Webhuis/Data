@@ -24,8 +24,8 @@ class PostgreSQL():
       pg_cursor.close()
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
-      print("Error while selecting from PostgreSQL {}".format(error.args))
-
+      result = "Error while selecting from PostgreSQL {}".format(error.args)
+      PostgreSQL_error_log.info(result)
     return result
 
   def pool_query(self, query):
@@ -38,8 +38,8 @@ class PostgreSQL():
       pg_cursor.close()
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
-      print("Error while selecting from PostgreSQL {}".format(error.args))
-
+      result = "Error while selecting from PostgreSQL {}".format(error.args)
+      PostgreSQL_error_log.info(result)
     return result
 
   def pool_insert(self, query):
@@ -52,7 +52,8 @@ class PostgreSQL():
       pg_cursor.close()
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
-      print("Error while selecting from PostgreSQL {}".format(error.args))
+      result = "Error while selecting from PostgreSQL {}".format(error.args)
+      PostgreSQL_error_log.info(result)
     return result
 
   def pool_connect(self, cursor):

@@ -64,8 +64,8 @@ class Data(object):
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     id_feed = self.postgres.pool_insert(query)
     self.feed = Feed(message)
-    query = self.feed.read_hard_classes()
-    exists = self.postgres.check_exists("select exists({})".format(query))
+    query = self.feed.check_exists(self)
+    exists = self.postgres.check_exists(query)
     if exists:
       print(exists)
       values = self.postgres.pool_query(query)
