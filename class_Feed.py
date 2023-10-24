@@ -25,6 +25,10 @@ class Feed(object):
     self.cpus   = message_json["cpus"]
     self.arch   = message_json["arch"]
 
+  def check_exists(self):
+    query = "select exists(select 1 from feeds.hard_classes where uqhost = '{}' and domain = '{}'".format(self.uqhost, self.domain)
+    return query
+
   def read_hard_classes(self):
     query = "select uqhost, domain, os, ostype, flavor, cpus, arch from feeds.hard_classes where uqhost = '{}' and domain = '{}'".format(self.uqhost, self.domain)
     return query
