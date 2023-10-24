@@ -4,7 +4,7 @@
 from loguru import logger
 from class_PostgreSQL import PostgreSQL
 import class_PostgreSQL
-import class_Feeds
+import class_Feed
 from datetime import datetime, timezone
 import json
 import os
