@@ -64,6 +64,7 @@ class Data(object):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     id_feed = self.postgres.pool_insert(query)
+    Data_event_log.info('message', id_feed)
     query = self.feed.check_exists()
     exists = self.postgres.check_exists(query)
     exists = exists[0]
@@ -73,14 +74,15 @@ class Data(object):
       print(type(values[0]),values[0])
       checked = self.feed.check_update(values[0])
       if checked:
-        pass
+        Data_event_log.info('Already up to date', values[0][0], values[0][1])
       else:
         query = self.feed.update_hard_classes(values[0])
         id_hard_classes = self.postgres.pool_insert(query)
+        Data_event_log.info('Updated', values[0][0], values[0][1])
     else:
       query = self.feed.insert_feed(message)
       id_hard_classes = self.postgres.pool_insert(query)
-      print(id_hard_classes)
+      Data_event_log.info('Inserted', id_hard_classes)
     del(self.feed)
     return (id_feed)
 
