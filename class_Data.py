@@ -79,6 +79,7 @@ class Data(object):
         query = self.feed.update_hard_classes(values[0])
         id_hard_classes = self.postgres.pool_insert(query)
     else:
+      print('insert_feed')
       query = self.feed.insert_feed(message)
       print('insert query', query)
       id_hard_classes = self.postgres.pool_insert(query)
