@@ -51,6 +51,7 @@ class Data(object):
   def process_message(self, message):
 
     response = self.hard_classes(message)
+    print(response)
     #write_feed = feed.hard_classes()
     #response = 'Response' + self.message
     return response
@@ -78,7 +79,7 @@ class Data(object):
       print(exists)
       query = self.feed.insert_feed(message)
       id_hard_classes = self.postgres.pool_insert(query)
-    return id_feed
+    return (id_feed, id_hard_classes)
 
 logger.add('/var/log/Data_log/Data_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'] )
 Data_event_log = logger.bind(data = True)
