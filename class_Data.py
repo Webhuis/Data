@@ -67,6 +67,7 @@ class Data(object):
     print(id_feed)
     query = self.feed.check_exists()
     exists = self.postgres.check_exists(query)
+    print(exists)
     if exists:
       query = self.feed.read_hard_classes()
       values = self.postgres.pool_query(query)
