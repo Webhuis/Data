@@ -14,6 +14,19 @@ class PostgreSQL():
     except (Exception, pg.DatabaseError) as error:
       PostgreSQL_error_log.info("Error while connecting to PostgreSQL {}".format(error.args))
 
+  def check_exists(self, query):
+    try:
+      pg_conn = self.pg_pool.getconn()
+      pg_cursor = pg_conn.cursor()
+      pg_cursor.execute(query)
+      result = pg_cursor.fetchall()[0]
+      pg_cursor.close()
+      pg_conn.putconn()
+    except (Exception, pg.DatabaseError) as error:
+      print("Error while selecting from PostgreSQL {}".format(error.args))
+
+    return result
+
   def pool_query(self, query):
     try:
       pg_conn = self.pg_pool.getconn()

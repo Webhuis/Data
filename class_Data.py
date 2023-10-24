@@ -4,6 +4,7 @@
 from loguru import logger
 from class_PostgreSQL import PostgreSQL
 import class_PostgreSQL
+import class_Feeds
 from datetime import datetime, timezone
 import json
 import os
@@ -50,26 +51,31 @@ class Data(object):
 
   def process_message(self, message):
 
-    message_json = json.dumps(message)
-
-    Data_event_log.info(message_json)
-    timestamp = datetime.now(timezone.utc)
-    query = ("insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json ) )
-    response = self.postgres.pool_insert(query) 
+    hard_classes(message)
+    #write_feed = feed.hard_classes()
     #response = 'Response' + self.message
     return response
 
-  def decompose_json(message):
-    self.message = message
-    response = 'Response' + self.message
-    print(response)
-    return response
+  def hard_classes(message):
 
-  def write_feed(self, message):
-    pass
+    message_json = json.dumps(message)
+    Data_event_log.info(message_json)
+    timestamp = datetime.now(timezone.utc)
+    query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
+    id_feed = self.postgres.pool_insert(query)
+    feed = Feed(message)
+    query = feed.read_hard_classes()
+    exists = self.postgres.check_exists('select exists({})'.format(query)
+    if exists:
+      values = self.postgres.pool_query(query)
+      feed.check_update(values)
+      if checked:
+        pass
+      else:
+        update_hard_classes(values)
+    else:
+      feed.insert(message)
 
-class role(object):
-  pass
 logger.add('/var/log/Data_log/Data_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'] )
 Data_event_log = logger.bind(data = True)
 Data_event_log.info('Start Data Data event logging')
