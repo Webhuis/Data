@@ -55,7 +55,7 @@ class Data(object):
     #response = 'Response' + self.message
     return response
 
-  def hard_classes(message):
+  def hard_classes(self, message):
 
     message_json = json.dumps(message)
     Data_event_log.info(message_json)
