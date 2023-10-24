@@ -78,7 +78,7 @@ class Data(object):
       query = self.feed.insert_feed(message)
       print(query)
       id_hard_classes = self.postgres.pool_insert(query)
-      print(id_hard_classe)
+      print(id_hard_classes)
     return (id_feed)
 
 logger.add('/var/log/Data_log/Data_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'] )
