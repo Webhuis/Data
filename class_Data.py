@@ -64,7 +64,7 @@ class Data(object):
     id_feed = self.postgres.pool_insert(query)
     self.feed = Feed(message)
     query = self.feed.read_hard_classes()
-    exists = self.postgres.check_exists("select exists({});".format(query))
+    exists = self.postgres.check_exists("select exists({})".format(query))
     if exists:
       values = self.postgres.pool_query(query)
       self.feed.check_update(values)
