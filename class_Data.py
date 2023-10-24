@@ -59,11 +59,11 @@ class Data(object):
   def hard_classes(self, message):
 
     message_json = json.dumps(message)
+    self.feed = Feed(message)
     Data_event_log.info(message_json)
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     id_feed = self.postgres.pool_insert(query)
-    self.feed = Feed(message)
     query = self.feed.check_exists()
     exists = self.postgres.check_exists(query)
     if exists:
@@ -78,6 +78,7 @@ class Data(object):
         id_hard_classes = self.postgres.pool_insert(query)
     else:
       query = self.feed.insert_feed(message)
+      print(query)
       id_hard_classes = self.postgres.pool_insert(query)
       print(id_hard_classes)
     del(self.feed)
