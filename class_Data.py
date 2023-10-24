@@ -69,7 +69,7 @@ class Data(object):
     if exists:
       print(exists)
       values = self.postgres.pool_query(query)
-      self.feed.check_update(values)
+      checked = self.feed.check_update(values)
       if checked:
         pass
       else:
