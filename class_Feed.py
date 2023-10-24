@@ -17,13 +17,13 @@ class Feed(object):
 
   def __init__(self, message):
     message_json = json.loads(message)
-    uqhost = message_json["uqhost"]
-    domain = message_json["domain"]
-    os     = message_json["os"]
-    ostype = message_json["ostype"]
-    flavor = message_json["flavor"]
-    cpus   = message_json["cpus"]
-    arch   = message_json["arch"]
+    self.uqhost = message_json["uqhost"]
+    self.domain = message_json["domain"]
+    self.os     = message_json["os"]
+    self.ostype = message_json["ostype"]
+    self.flavor = message_json["flavor"]
+    self.cpus   = message_json["cpus"]
+    self.arch   = message_json["arch"]
 
   def read_hard_classes(self):
     query = "select uqhost, domain, os, ostype, flavor, cpus, arch from feeds.hard_classes where uqhost = {} and domain = {};".format(self.uqhost, self.domain)
