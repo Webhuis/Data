@@ -26,7 +26,7 @@ class Feed(object):
     self.arch   = message_json["arch"]
 
   def check_exists(self):
-    query = "select exists(select 1 from feeds.hard_classes where uqhost = '{}' and domain = '{}'".format(self.uqhost, self.domain)
+    query = "select exists(select 1 from feeds.hard_classes where uqhost = '{}' and domain = '{}');".format(self.uqhost, self.domain)
     return query
 
   def read_hard_classes(self):
