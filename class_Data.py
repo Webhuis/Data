@@ -80,7 +80,7 @@ class Data(object):
     del(self.feed)
     return (id_feed)
 
-  def insert_json_feed(message)
+  def insert_json_feed(message):
     message_json = json.dumps(message)
     Data_event_log.info(message_json)
     timestamp = datetime.now(timezone.utc)
