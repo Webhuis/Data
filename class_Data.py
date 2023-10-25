@@ -87,8 +87,8 @@ class Data(object):
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     id_feed = self.postgres.pool_insert(query)
     print('insert_json_in', type(id_feed), id_feed)
-    Data_event_log.info('message', self.id_feed)
-    return id_feed
+    Data_event_log.info('message', id_feed[0])
+    return id_feed[0]
 
 logger.add('/var/log/Data_log/Data_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'] )
 Data_event_log = logger.bind(data = True)
