@@ -58,7 +58,7 @@ class Data(object):
   def hard_classes(self, message):
 
     self.feed = Feed(message)
-    id_feed = insert_json_feed(message)
+    id_feed = self.insert_json_feed(message)
     query = self.feed.check_exists()
     exists = self.postgres.check_exists(query)
     exists = exists[0]
