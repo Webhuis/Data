@@ -57,13 +57,8 @@ class Data(object):
 
   def hard_classes(self, message):
 
-    message_json = json.dumps(message)
     self.feed = Feed(message)
-    Data_event_log.info(message_json)
-    timestamp = datetime.now(timezone.utc)
-    query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
-    id_feed = self.postgres.pool_insert(query)
-    Data_event_log.info('message', id_feed)
+    id_feed = insert_json_feed(message)
     query = self.feed.check_exists()
     exists = self.postgres.check_exists(query)
     exists = exists[0]
@@ -72,7 +67,8 @@ class Data(object):
       values = self.postgres.pool_query(query)
       checked = self.feed.check_update(values[0])
       if checked:
-        Data_event_log.info('Already up to date', values[0][0], values[0][1])
+        '''Data_event_log.info('Already up to date', values[0][0], values[0][1])'''
+        pass
       else:
         query = self.feed.update_hard_classes(values[0])
         id_hard_classes = self.postgres.pool_insert(query)
@@ -83,6 +79,16 @@ class Data(object):
       Data_event_log.info('Inserted', id_hard_classes)
     del(self.feed)
     return (id_feed)
+
+  def insert_json_feed(message)
+    message_json = json.dumps(message)
+    Data_event_log.info(message_json)
+    timestamp = datetime.now(timezone.utc)
+    query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
+    id_feed = self.postgres.pool_insert(query)
+    Data_event_log.info('message', id_feed)
+    print('insert_json_in',id_feed)
+    return id_feed
 
 logger.add('/var/log/Data_log/Data_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'] )
 Data_event_log = logger.bind(data = True)

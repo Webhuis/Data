@@ -42,7 +42,6 @@ class Feed(object):
       checked = True
     else:
       checked = False
-    print(checked)
     return checked
 
   def update_hard_classes(self, values):
