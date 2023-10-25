@@ -75,8 +75,8 @@ class Data(object):
         Data_event_log.info('Updated hard_classes {} {} {}'.format(values[0][0], values[0][1], timestamp))
     else:
       query = self.feed.insert_feed(message)
-      id_hard_classes = self.postgres.pool_insert(query)
-      Data_event_log.info('Inserted hard_classes {} {} {}'.format(values[0][0], values[0][1], id_hard_classes))
+      uqhost, domain, id_hard_classes = self.postgres.pool_insert(query)
+      Data_event_log.info('Inserted hard_classes {} {} {}'.format(uqhost, domain, id_hard_classes))
     del(self.feed)
     return (id_hard_classes)
 
