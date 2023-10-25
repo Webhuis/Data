@@ -31,12 +31,12 @@ class Feed(object):
     return query
 
   def read_hard_classes(self):
-    query = "select uqhost, domain, os, ostype, flavor, cpus, arch, timestamp from feeds.hard_classes where uqhost = '{}' and domain = '{}'".format(self.uqhost, self.domain)
+    query = "select id, uqhost, domain, os, ostype, flavor, cpus, arch, timestamp from feeds.hard_classes where uqhost = '{}' and domain = '{}'".format(self.uqhost, self.domain)
     return query
 
   def insert_feed(self, message):
     timestamp = datetime.now(timezone.utc)
-    query = "insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch, timestamp) values ('{}', '{}', '{}', '{}', '{}', {}, '{}') returning id;".format(self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch, timestamp)
+    query = "insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch, timestamp) values ('{}', '{}', '{}', '{}', '{}', {}, '{}', '{}') returning id;".format(self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch, timestamp)
     return query
 
   def check_update(self, values):
@@ -48,6 +48,6 @@ class Feed(object):
 
   def update_hard_classes(self, values):
     timestamp = datetime.now(timezone.utc)
-    query = "update feeds.hard_classes set ( cpus = {}, timestamp = {} ) where uqhost = {} and domain = {};".format(values[5], timestamp, self.uqhost, self.domain)
+    query = "update feeds.hard_classes set ( cpus = '{}', timestamp = '{}' ) where uqhost = '{}' and domain = '{}';".format(values[5], timestamp, self.uqhost, self.domain)
     return query
 

@@ -52,7 +52,21 @@ class PostgreSQL():
       pg_cursor.close()
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
-      result = "Error while selecting from PostgreSQL {}".format(error.args)
+      result = "Error while inserting into PostgreSQL {}".format(error.args)
+      PostgreSQL_error_log.info(result)
+    return result
+
+  def pool_update(self, query):
+    try:
+      pg_conn = self.pg_pool.getconn()
+      pg_cursor = pg_conn.cursor()
+      pg_cursor.execute(query)
+      pg_conn.commit()
+      result = pg_cursor.fetchall()[0]
+      pg_cursor.close()
+      self.pg_pool.putconn(pg_conn)
+    except (Exception, pg.DatabaseError) as error:
+      result = "Error while updating PostgreSQL {}".format(error.args)
       PostgreSQL_error_log.info(result)
     return result
 
