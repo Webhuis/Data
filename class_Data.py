@@ -66,7 +66,9 @@ class Data(object):
       query = self.feed.read_hard_classes()
       values = self.postgres.pool_query(query)
       id_hard_classes = values[0][0]
+      print('id_hard_classes', id_hard_classes)
       checked = self.feed.check_update(values[0])
+      print('checked', checked)
       if checked:
         Data_event_log.info('Already up to date'.format(values[0][1], values[0][2]))
       else:
@@ -78,7 +80,7 @@ class Data(object):
       uqhost, domain, id_hard_classes = self.postgres.pool_insert(query)
       Data_event_log.info('Inserted hard_classes {} {} {}'.format(uqhost, domain, id_hard_classes))
     del(self.feed)
-    return (id_hard_classes)
+    return (id_hard_classes,)
 
   def insert_json_feed(self, message):
     message_json = json.dumps(message)
