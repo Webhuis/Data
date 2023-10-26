@@ -8,6 +8,7 @@ from class_Interaction import Interaction
 import class_Interaction
 
 objects = {}
+
 def main():
   interaction = Interaction()
   while True:
