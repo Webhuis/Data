@@ -9,7 +9,7 @@ import zmq
 
 import functions_Data as fd
 
-objects = {}
+global objects = {}
 
 class Interaction(object):
   '''
