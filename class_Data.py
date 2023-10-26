@@ -37,8 +37,8 @@ class Data(object):
       print(objects)
     except Exception as e:
       print('in de __init__ voor de global', e.args)
-    global objects
     try:
+      global objects
       print(objects)
     except Exception as e:
       print('in de __init__ na de global', e.args)
