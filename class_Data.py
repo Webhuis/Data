@@ -33,8 +33,9 @@ class Data(object):
 
   def __init__(self):
     self.postgres = PostgreSQL()
+    print(fd.objects)
     fd.dict_update(fd.objects, 'Postgres', id(self.postgres))
-    print(objects)
+    print(fd.objects)
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
     host_object_id = self.feed(message)
