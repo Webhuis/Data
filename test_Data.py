@@ -10,6 +10,8 @@ import class_Interaction
 objects = {}
 
 def main():
+  global objects
+  print(objects)
   interaction = Interaction()
   while True:
     interaction.run()
