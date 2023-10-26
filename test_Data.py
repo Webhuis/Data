@@ -4,7 +4,7 @@
 Separates presentation, application processing, and data management functions.
 '''
 
-global objects
+nonlocal objects
 objects = {}
 
 from class_Interaction import Interaction
