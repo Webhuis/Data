@@ -35,12 +35,12 @@ class Data(object):
     self.postgres = PostgreSQL()
     try:
       print(objects)
-    except Exception as e
+    except Exception as e:
       print('in de __init__ voor de global', e.args)
     global objects
     try:
       print(objects)
-    except Exception as e
+    except Exception as e:
       print('in de __init__ na de global', e.args)
     fd.dict_update(objects, 'Postgres', id(self.postgres))
     print(objects)
