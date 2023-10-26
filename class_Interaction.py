@@ -9,9 +9,6 @@ import zmq
 
 import functions_Data as fd
 
-global objects
-objects = {}
-
 class Interaction(object):
   '''
   Interaction class
@@ -19,9 +16,11 @@ class Interaction(object):
 
   def __init__(self):
     self.Data = Data()
-    fd.dict_update(objects, 'Data', id(self.Data))
 
   def run(self):
+    global objects
+    objects = {}
+    fd.dict_update(objects, 'Data', id(self.Data))
     print(objects)
     while True:
       try:
