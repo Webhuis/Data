@@ -8,8 +8,6 @@ from class_Interaction import Interaction
 import class_Interaction
 
 def main():
-  nonlocal objects
-  objects = {}
   interaction = Interaction()
   while True:
     interaction.run()
