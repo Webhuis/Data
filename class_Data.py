@@ -33,7 +33,7 @@ class Data(object):
 
   def __init__(self):
     self.postgres = PostgreSQL()
-    #global objects
+    global objects
     fd.dict_update(objects, 'Postgres', id(self.postgres))
     print(objects)
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
