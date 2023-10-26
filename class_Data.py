@@ -13,12 +13,6 @@ import sys
 
 import functions_Data as fd
 
-class IterClass(type):
-  def __init__(classobject, classname, baseclasses, attrs):
-    pass
-  def __iter__(cls):
-    return iter(cls._allObjects)
-
 class Data(object):
   '''
   The Data class architecture has convergence in mind. Convergence is the theoretical model in which agents convergently work towards their desired state.
