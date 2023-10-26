@@ -17,6 +17,31 @@ class Feed(object):
   __metaclass__ = IterClass
 
   def __init__(self, message):
+    self.message = message
+    self.insert_feed()
+    self.insert_feed()
+
+  def insert_feed(self):
+    timestamp = datetime.now(timezone.utc)
+    query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
+    return query
+
+  def update_feed(self):
+    timestamp = datetime.now(timezone.utc)
+    query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
+    return query
+
+  def delete_feed(self):
+    timestamp = datetime.now(timezone.utc)
+    query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
+    return query
+
+class HardClass(object):
+  _allObjects = []
+
+  __metaclass__ = IterClass
+
+  def __init__(self, message):
     message_json = json.loads(message)
     self.uqhost = message_json["uqhost"]
     self.domain = message_json["domain"]

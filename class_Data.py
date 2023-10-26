@@ -4,11 +4,14 @@
 from loguru import logger
 from class_PostgreSQL import PostgreSQL
 import class_PostgreSQL
-from class_Feed import Feed
+from class_Feeds import Feed, HardClass, HostObject
+from class_Context import Host
 from datetime import datetime, timezone
 import json
 import os
 import sys
+
+import functions_Data as fd
 
 class IterClass(type):
   def __init__(classobject, classname, baseclasses, attrs):
@@ -35,30 +38,37 @@ class Data(object):
 
   __metaclass__ = IterClass
 
-  postgres = PostgreSQL()
+  #postgres = PostgreSQL()
 
   def __init__(self):
     self.postgres = PostgreSQL()
+    dict_update(objects, 'Postgres', id(self.postgres))
+    print(objects)
+  def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
-  def feed(self, message):
+    host_object_id = self.feed(message)
 
-    self.message = message
+  def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
 
-    response = self.process_message(message)
-
-    return response
-
-  def process_message(self, message):
-
-    response = self.hard_classes(message)
+    host_object_id = self.hard_classes(message)
+    ''' We will create the context objects first, with convergence in mind. '''
+    host_object = self.feeds_host_object(id_hard_classes)
+    response = self.hard_classes(id_hard_classes)
     #write_feed = feed.hard_classes()
     #response = 'Response' + self.message
     return response
 
-  def hard_classes(self, message):
+  def feed(self, message): # provide the agent
 
     self.feed = Feed(message)
-    id_feed = self.insert_json_feed(message)
+
+    response = self.process_message(message)
+
+    return host_object_id
+
+  def hard_classes(self, message): # meer convergent hard_class_desired
+
+    id_feed = self.feed.insert_feed()
     query = self.feed.check_exists()
     exists = self.postgres.check_exists(query)
     exists = exists[0]
@@ -66,9 +76,7 @@ class Data(object):
       query = self.feed.read_hard_classes()
       values = self.postgres.pool_query(query)
       id_hard_classes = values[0][0]
-      print('id_hard_classes', id_hard_classes)
       checked = self.feed.check_update(values[0])
-      print('checked', checked)
       if checked:
         Data_event_log.info('Already up to date'.format(values[0][1], values[0][2]))
       else:
@@ -81,6 +89,14 @@ class Data(object):
       Data_event_log.info('Inserted hard_classes {} {} {}'.format(uqhost, domain, id_hard_classes))
     del(self.feed)
     return (id_hard_classes,)
+
+  def feeds_host_object(id_hard_classes): # host_object_desired
+    query = 'select uqhost, domain from feeds.hard_classes where id = {}'.format(id_hard_classes)
+    uqhost, domain = self.postgres.pool_query(query)
+    self.host = Host(uqhost, domain)
+    ''' Now store the Host object_id in feeds.host_objects, for later use '''
+    exists = self.postgres.check_exists(query
+    return host_object
 
   def insert_json_feed(self, message):
     message_json = json.dumps(message)

@@ -7,6 +7,10 @@ import class_Data
 import sys
 import zmq
 
+import functions_Data as fd
+
+objects = {}
+
 class Interaction(object):
   '''
   Interaction class
@@ -14,14 +18,16 @@ class Interaction(object):
 
   def __init__(self):
     self.Data = Data()
+    fd.dict_update(objects, 'Data', id(self.Data))
 
   def run(self):
+    print(objects)
     while True:
       try:
         b_message = socket.recv()
         try:
           message = b_message.decode()
-          response = self.Data.feed(message)
+          response = self.Data.provide_view(message)
           #b_response = response.encode('utf8')
           #queue.add_task(lambda: process_message(message))
           #queue.join()
