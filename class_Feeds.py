@@ -76,3 +76,22 @@ class HardClass(object):
     query = "update feeds.hard_classes set ( cpus = '{}', timestamp = '{}' ) where uqhost = '{}' and domain = '{}';".format(values[5], timestamp, self.uqhost, self.domain)
     return query
 
+class HostObject(object):
+  _allObjects = []
+
+  __metaclass__ = IterClass
+
+  def __init__(self, message):
+    message_json = json.loads(message)
+    self.uqhost = message_json["uqhost"]
+    self.domain = message_json["domain"]
+    self.os     = message_json["os"]
+    self.ostype = message_json["ostype"]
+    self.flavor = message_json["flavor"]
+    self.cpus   = int(message_json["cpus"])
+    self.arch   = message_json["arch"]
+
+  def check_exists(self):
+    query = "select exists(select 1 from feeds.hard_classes where uqhost = '{}' and domain = '{}');".format(self.uqhost, self.domain)
+    return query
+
