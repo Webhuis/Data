@@ -18,8 +18,8 @@ class Interaction(object):
     self.Data = Data()
 
   def run(self):
-    fd.dict_update(objects, 'Data', id(self.Data))
-    print(objects)
+    fd.dict_update(fd.objects, 'Data', id(self.Data))
+    print(fd.objects)
     while True:
       try:
         b_message = socket.recv()
