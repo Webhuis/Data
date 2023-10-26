@@ -16,4 +16,4 @@ def dict_update(dict, key, value):
     except:
         dict[key] = [value]
 
-global objects
+objects = {}
