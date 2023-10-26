@@ -2,27 +2,15 @@
 
 class Domain(object):
 
-  _allObjects = []
-
-  __metaclass__ = IterClass
-
-  def __init__(self, domain_name):
-    self.domain_name = domain_name
+  def __init__(self, role_code):
+    self.role_code = role_code
 
 class Role(object):
-
-  _allObjects = []
-
-  __metaclass__ = IterClass
 
   def __init__(self, role_code):
     self.role_code = role_code
 
 class Host(object):
-
-  _allObjects = []
-
-  __metaclass__ = IterClass
 
   def __init__(self, uqhost, domain):
     self.uqhost = uqhost
