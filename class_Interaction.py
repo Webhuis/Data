@@ -13,7 +13,7 @@ class Interaction(object):
   '''
   Interaction class
   '''
-
+  global objects
   def __init__(self):
     self.Data = Data()
 
