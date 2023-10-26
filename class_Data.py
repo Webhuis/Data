@@ -95,7 +95,7 @@ class Data(object):
     uqhost, domain = self.postgres.pool_query(query)
     self.host = Host(uqhost, domain)
     ''' Now store the Host object_id in feeds.host_objects, for later use '''
-    exists = self.postgres.check_exists(query
+    exists = self.postgres.check_exists(query)
     return host_object
 
   def insert_json_feed(self, message):
