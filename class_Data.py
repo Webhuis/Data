@@ -28,9 +28,6 @@ class Data(object):
 
   Data receives a message from an agent with agent specific information, which triggers a response containing the above information from Data to the agent.
   '''
-  _allObjects = []
-
-  __metaclass__ = IterClass
 
   #postgres = PostgreSQL()
 
