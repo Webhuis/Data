@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import loglib
 import re
 import sys
 
