@@ -14,9 +14,9 @@ class Feed(object):
     self.postgres = fd.fetch_objects(fd.objects, 'Postgres')
     self.pg_id_feed = self.insert_feed()
     message_json = json.loads(message)
-    self.host_object_id = HardClass(message_json)
+    self.hardclass = HardClass(message_json)
     #(id, uqhost, domain) = self.hardclass.insert_feed
-    return (self.host_object_id
+    return (self)
 
   def insert_feed(self):
     timestamp = datetime.now(timezone.utc)
@@ -45,48 +45,31 @@ class HardClass(object):
     self.cpus   = int(message_json["cpus"])
     self.arch   = message_json["arch"]
     self.postgres = fd.fetch_objects(fd.objects, 'Postgres')
-    self.postgres.pool_query(query)
+    self.exists = self.exists()
+    self.timestamp = datetime.now(timezone.utc)
 
-    if self.exists():
-      query = self.feed.read_hard_classes()
-      values = self.postgres.pool_query(query)
-      id_hard_classes = values[0][0]
-      checked = self.feed.check_update(values[0])
-      if checked:
-        Data_event_log.info('Already up to date'.format(values[0][1], values[0][2]))
-      else:
-        query = self.feed.update_hard_classes(values[0])
-        timestamp = self.postgres.pool_update(query)
-        Data_event_log.info('Updated hard_classes {} {} {}'.format(values[0][0], values[0][1], timestamp))
+    if self.exists == '1':
+      query = self.update_hard_classes()
     else:
-      query = self.feed.insert_feed(message)
-      uqhost, domain, id_hard_classes = self.postgres.pool_insert(query)
-      Data_event_log.info('Inserted hard_classes {} {} {}'.format(uqhost, domain, id_hard_classes))
-    del(self.feed)
+      query = self.feed.insert_hard_classes()
+    uqhost, domain, id_hard_classes = self.postgres.pool_insert(query)
+    Data_event_log.info('Hard_classes {} {} {}'.format(self.uqhost, self.domain, id))
+    return(self)
 
   def check_exists(self):
-    query = "select exists(select 1 from feeds.hard_classes where uqhost = '{}' and domain = '{}');".format(self.uqhost, self.domain)
-    return query
+    query = "select exists(select 1 from feeds.hard_classes where uqhost = '{}' and domain = '{}') return exists;".format(self.uqhost, self.domain)
+    self.exists = self.postgres.pool_query(query)
 
   def read_hard_classes(self):
     query = "select id, uqhost, domain, os, ostype, flavor, cpus, arch, timestamp from feeds.hard_classes where uqhost = '{}' and domain = '{}'".format(self.uqhost, self.domain)
     return query
 
-  def insert_feed(self, message):
-    timestamp = datetime.now(timezone.utc)
-    query = "insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch, timestamp) values ('{}', '{}', '{}', '{}', '{}', {}, '{}', '{}') returning id, uqhost, domain;".format(self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch, timestamp)
+  def insert_hard_classes(self, self.timestamp):
+    query = "insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch, timestamp) values ('{}', '{}', '{}', '{}', '{}', {}, '{}', '{}') returning id;".format(self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch, timestamp)
     return query
 
-  def check_update(self, values):
-    if self.cpus == values[6]:
-      checked = True
-    else:
-      checked = False
-    return checked
-
-  def update_hard_classes(self, values):
-    timestamp = datetime.now(timezone.utc)
-    query = "update feeds.hard_classes set ( cpus = '{}', timestamp = '{}' ) where uqhost = '{}' and domain = '{}';".format(values[5], timestamp, self.uqhost, self.domain)
+  def update_hard_classes(self, self.timestamp):
+    query = "update feeds.hard_classes set ( cpus = '{}', timestamp = '{}' ) where uqhost = '{}' and domain = '{}' returning id;".format(values[5], timestamp, self.uqhost, self.domain)
     return query
 
 class HostObject(object):
