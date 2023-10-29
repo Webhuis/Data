@@ -22,7 +22,7 @@ class Feed(object):
   def insert_feed(self):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , self.message_json )
-    self.postgres.pool_insert(query)
+    pg_id_feed = self.postgres.pool_insert(query)
     return pg_id_feed
 
   def update_feed(self):
