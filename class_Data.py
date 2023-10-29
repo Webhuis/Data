@@ -33,7 +33,6 @@ class Data(object):
 
   def __init__(self):
     self.postgres = PostgreSQL()
-    print(fd.objects)
     fd.dict_update(fd.objects, 'Postgres', id(self.postgres))
     print(fd.objects)
 
