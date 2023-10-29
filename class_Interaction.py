@@ -18,7 +18,7 @@ class Interaction(object):
     self.Data = Data()
 
   def run(self):
-    fd.dict_update(fd.objects, 'Data', id(self.Data))
+    fd.dict_update(fd.objects, 'Data', self.Data)
     print(fd.objects)
     while True:
       try:
