@@ -36,9 +36,10 @@ class Data(object):
     print(fd.objects)
     fd.dict_update(fd.objects, 'Postgres', id(self.postgres))
     print(fd.objects)
+
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
-    host_object_id = self.feed(message)
+    self.host_object_id = Feed(message)
 
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
 
