@@ -13,6 +13,7 @@ class Feed(object):
     self.message = message
     self.postgres = fd.fetch_object(fd.objects, 'Postgres')
     self.message_json = json.loads(message)
+    print(self.message_json)
     self.pg_id_feed = self.insert_feed()
     print(self.pg_id_feed)
     self.hardclass = HardClass(message_json)
