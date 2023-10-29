@@ -45,8 +45,8 @@ class HardClass(object):
     self.cpus   = int(message_json["cpus"])
     self.arch   = message_json["arch"]
     self.postgres = fd.fetch_objects(fd.objects, 'Postgres')
-    self.exists = self.exists()
     self.timestamp = datetime.now(timezone.utc)
+    self.exists = self.exists()
 
     if self.exists == '1':
       query = self.update_hard_classes()
@@ -64,11 +64,11 @@ class HardClass(object):
     query = "select id, uqhost, domain, os, ostype, flavor, cpus, arch, timestamp from feeds.hard_classes where uqhost = '{}' and domain = '{}'".format(self.uqhost, self.domain)
     return query
 
-  def insert_hard_classes(self, self.timestamp):
+  def insert_hard_classes(self):
     query = "insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch, timestamp) values ('{}', '{}', '{}', '{}', '{}', {}, '{}', '{}') returning id;".format(self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch, timestamp)
     return query
 
-  def update_hard_classes(self, self.timestamp):
+  def update_hard_classes(self):
     query = "update feeds.hard_classes set ( cpus = '{}', timestamp = '{}' ) where uqhost = '{}' and domain = '{}' returning id;".format(values[5], timestamp, self.uqhost, self.domain)
     return query
 
