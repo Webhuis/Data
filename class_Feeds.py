@@ -11,8 +11,10 @@ class Feed(object):
 
   def __init__(self, message):
     self.message = message
+    print(self.message)
     self.postgres = fd.fetch_object(fd.objects, 'Postgres')
     self.pg_id_feed = self.insert_feed()
+    print(self.pg_id_feed)
     self.message_json = json.loads(message)
     self.hardclass = HardClass(message_json)
     #(id, uqhost, domain) = self.hardclass.insert_feed
