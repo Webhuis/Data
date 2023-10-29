@@ -73,9 +73,6 @@ class HardClass(object):
     return query
 
 class HostObject(object):
-  _allObjects = []
-
-  __metaclass__ = IterClass
 
   def __init__(self, message):
     message_json = json.loads(message)
