@@ -26,7 +26,7 @@ class Feed(object):
     try:
       id = self.postgres.pool_insert(query)
     except Exception as e:
-      Data_error_log.info('Feed.insert_feed\n{}'.format(e.args))
+      print('Feed.insert_feed\n{}'.format(e.args))
     return id
 
   def update_feed(self):
