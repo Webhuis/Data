@@ -13,7 +13,7 @@ class Feed(object):
     self.message = message
     self.postgres = fd.fetch_object(fd.objects, 'Postgres')
     self.pg_id_feed = self.insert_feed()
-    message_json = json.loads(message)
+    self.message_json = json.loads(message)
     self.hardclass = HardClass(message_json)
     #(id, uqhost, domain) = self.hardclass.insert_feed
     return (self)
@@ -54,6 +54,7 @@ class HardClass(object):
       query = self.feed.insert_hard_classes()
     uqhost, domain, id_hard_classes = self.postgres.pool_insert(query)
     Data_event_log.info('Hard_classes {} {} {}'.format(self.uqhost, self.domain, id))
+
     return(self)
 
   def check_exists(self):
