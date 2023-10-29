@@ -24,7 +24,7 @@ class Feed(object):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , self.message_json )
     try:
-      id = self.postgres.pool_insert(query)
+      self.postgres.pool_insert(query)
     except Exception as e:
       print('Feed.insert_feed\n{}'.format(e.args))
     return id
