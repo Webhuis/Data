@@ -51,6 +51,7 @@ class PostgreSQL():
       result = pg_cursor.fetchall()[0]
       pg_cursor.close()
       self.pg_pool.putconn(pg_conn)
+      PostgreSQL_event_log.info(result)
     except (Exception, pg.DatabaseError) as error:
       result = "Error while inserting into PostgreSQL {}".format(error.args)
       PostgreSQL_error_log.info(result)
