@@ -40,6 +40,7 @@ class Data(object):
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
     self.feed = Feed(message)
+    print(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
     self.fqdn = FQHost(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
     print(id(self.fqdn))
     print(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
