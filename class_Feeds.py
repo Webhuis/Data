@@ -74,7 +74,7 @@ class HardClass(object):
     return self.query
 
   def update_hard_classes(self):
-    self.query = "update feeds.hard_classes set ( cpus = '{}', timestamp = '{}' ) where uqhost = '{}' and domain = '{}' returning id;".format(values[5], self.timestamp, self.uqhost, self.domain)
+    self.query = "update feeds.hard_classes set ( cpus = '{}', timestamp = '{}' ) where uqhost = '{}' and domain = '{}' returning id;".format(self.cpus, self.timestamp, self.uqhost, self.domain)
     print(self.query)
     return self.query
 
