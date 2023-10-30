@@ -52,7 +52,6 @@ class HardClass(object):
     else:
       query = self.insert_hard_classes()
       self.id = self.postgres.pool_insert(query)
-    print(query)
     Data_event_log.info('Hard_classes {} {} {}'.format(self.uqhost, self.domain, id))
 
     return(self)
