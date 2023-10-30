@@ -104,8 +104,10 @@ class Data(object):
 logger.add('/var/log/Data_log/Data_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'] )
 Data_event_log = logger.bind(data = True)
 Data_event_log.info('Start Data Data event logging')
+fd.dict_update(fd.objects, 'Data_event_log', Data_event_log)
 
 logger.add('/var/log/Data_log/Data_error.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'], level="ERROR")
 Data_error_log = logger.bind(error = True)
 Data_error_log.info('Start Data Data ERROR logging')
+fd.dict_update(fd.objects, 'Data_error_log', Data_error_log)
 
