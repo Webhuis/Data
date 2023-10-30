@@ -41,7 +41,7 @@ class Data(object):
 
     self.feed = Feed(message)
     self.fqdn = FQHost(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
-    self.Data_event_log.info('Actual feeds.FQHosti {} {} in database Data.'.format(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain))
+    self.Data_event_log.info('Actual feeds.FQHost {} {} in database Data.'.format(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain))
     return id(self.fqdn)
 
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
