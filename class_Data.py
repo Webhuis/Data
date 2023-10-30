@@ -34,12 +34,14 @@ class Data(object):
   def __init__(self):
     self.postgres = PostgreSQL()
     fd.dict_update(fd.objects, 'Postgres', self.postgres)
-    print(fd.objects)
+    self.Data_event_log = fd.fetch_object(fd.objects, 'Data_event_log')
+    self.Data_error_log = fd.fetch_object(fd.objects, 'Data_error_log')
 
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
     self.feed = Feed(message)
     self.fqdn = FQHost(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
+    self.Data_event_log.info('Actual feeds.FQHosti {} {} in database Data.'.format(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain))
     return id(self.fqdn)
 
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
