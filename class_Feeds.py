@@ -46,15 +46,12 @@ class HardClass(object):
     self.postgres = fd.fetch_object(fd.objects, 'Postgres')
     self.timestamp = datetime.now(timezone.utc)
     self.exists = self.check_exists()
-    print(self.exists)
     if self.exists == True:
       self.query = self.update_hard_classes()
-      print(self.query)
       self.id_hardclass = self.postgres.pool_update(self.query)
     else:
       self.query = self.insert_hard_classes()
       self.id_hardclass = self.postgres.pool_insert(self.query)
-    print(self.id_hardclass)
     Data_event_log.info('Hard_classes {} {} {}'.format(self.uqhost, self.domain, id))
 
     return(self)
@@ -72,14 +69,12 @@ class HardClass(object):
     self.query = ("insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch, timestamp) "
                   "values ('{}', '{}', '{}', '{}', '{}', {}, '{}', '{}') returning id;").format(
                    self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch, self.timestamp)
-    print(self.query)
     return self.query
 
   def update_hard_classes(self):
     self.query = ("update feeds.hard_classes set os = '{}', ostype = '{}', flavor = '{}', cpus = {} , arch = '{}', timestamp = '{}' "
                   "where uqhost = '{}' and domain = '{}' returning id;").format(
                    self.os, self.ostype, self.flavor, self.cpus, self.arch, self.timestamp, self.uqhost, self.domain)
-    print(self.query)
     return self.query
 
 class HostObject(object):
