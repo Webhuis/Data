@@ -58,8 +58,9 @@ class HardClass(object):
     return(self)
 
   def check_exists(self):
-    query = "select exists(select 1 from feeds.hard_classes where uqhost = '{}' and domain = '{}') return exists;".format(self.uqhost, self.domain)
-    self.exists = self.postgres.pool_query(query)
+    query = "select exists(select 1 from feeds.hard_classes where uqhost = '{}' and domain = '{}');".format(self.uqhost, self.domain)
+    exists = self.postgres.pool_query(query)
+    print(exists)
 
   def read_hard_classes(self):
     query = "select id, uqhost, domain, os, ostype, flavor, cpus, arch, timestamp from feeds.hard_classes where uqhost = '{}' and domain = '{}'".format(self.uqhost, self.domain)
