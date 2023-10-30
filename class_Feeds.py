@@ -49,6 +49,7 @@ class HardClass(object):
     print(self.exists)
     if self.exists == True:
       self.query = self.update_hard_classes()
+      print(self.query)
       self.id_hardclass = self.postgres.pool_update(query)
     else:
       self.query = self.insert_hard_classes()
