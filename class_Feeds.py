@@ -12,15 +12,15 @@ class Feed(object):
   def __init__(self, message):
     self.message = message
     self.postgres = fd.fetch_object(fd.objects, 'Postgres')
-    self.message_json = json.loads(message)
     self.pg_id_feed = self.insert_feed()
+    self.message_json = json.loads(message)
     self.hardclass = HardClass(message_json)
     return (self)
 
   def insert_feed(self):
     timestamp = datetime.now(timezone.utc)
-    query = 'insert into feeds.json_in ( message_time, message_in ) values ( "{}", "{}" ) returning id;'.format( timestamp , self.message_json )
-    print('feed.inset_query', query)
+    query = 'insert into feeds.json_in ( message_time, message_in ) values ( "{}", "{}" ) returning id;'.format( timestamp , self.message )
+    print('feed.insert_query', query)
     id = self.postgres.pool_insert(query)
     return id
 
