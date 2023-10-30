@@ -46,13 +46,13 @@ class HardClass(object):
     self.postgres = fd.fetch_object(fd.objects, 'Postgres')
     self.timestamp = datetime.now(timezone.utc)
     self.exists = self.check_exists()
-    print(self.exists)
-    if self.exists == True:
+    if self.exists:
       query = self.update_hard_classes()
+      self.id = self.postgres.pool_update(query)
     else:
       query = self.insert_hard_classes()
+      self.id = self.postgres.pool_insert(query)
     print(query)
-    uqhost, domain, id_hard_classes = self.postgres.pool_insert(query)
     Data_event_log.info('Hard_classes {} {} {}'.format(self.uqhost, self.domain, id))
 
     return(self)
@@ -60,7 +60,6 @@ class HardClass(object):
   def check_exists(self):
     query = "select exists(select 1 from feeds.hard_classes where uqhost = '{}' and domain = '{}');".format(self.uqhost, self.domain)
     exists = self.postgres.pool_query(query)
-    print(exists)
     return exists[0][0]
 
   def read_hard_classes(self):
