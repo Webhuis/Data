@@ -51,7 +51,7 @@ class HardClass(object):
     if self.exists == True:
       query = self.update_hard_classes()
     else:
-      query = self.feed.insert_hard_classes()
+      query = self.insert_hard_classes()
     uqhost, domain, id_hard_classes = self.postgres.pool_insert(query)
     Data_event_log.info('Hard_classes {} {} {}'.format(self.uqhost, self.domain, id))
 
