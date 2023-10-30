@@ -46,7 +46,7 @@ class HardClass(object):
     self.arch   = message_json["arch"]
     self.postgres = fd.fetch_object(fd.objects, 'Postgres')
     self.timestamp = datetime.now(timezone.utc)
-    self.exists = self.exists()
+    self.exists = self.check_exists()
 
     if self.exists == '1':
       query = self.update_hard_classes()
