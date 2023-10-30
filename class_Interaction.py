@@ -26,6 +26,7 @@ class Interaction(object):
         try:
           message = b_message.decode()
           response = self.Data.provide_view(message)
+          print(response)
           #b_response = response.encode('utf8')
           #queue.add_task(lambda: process_message(message))
           #queue.join()

@@ -69,7 +69,9 @@ class HardClass(object):
     return query
 
   def insert_hard_classes(self):
-    self.query = "insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch, timestamp) values ('{}', '{}', '{}', '{}', '{}', {}, '{}', '{}') returning id;".format(self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch, self.timestamp)
+    self.query = ("insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch, timestamp) "
+                  "values ('{}', '{}', '{}', '{}', '{}', {}, '{}', '{}') returning id;").format(
+                   self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch, self.timestamp)
     print(self.query)
     return self.query
 
