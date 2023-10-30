@@ -50,10 +50,10 @@ class HardClass(object):
     if self.exists == True:
       self.query = self.update_hard_classes()
       print(self.query)
-      self.id_hardclass = self.postgres.pool_update(query)
+      self.id_hardclass = self.postgres.pool_update(self.query)
     else:
       self.query = self.insert_hard_classes()
-      self.id_hardclass = self.postgres.pool_insert(query)
+      self.id_hardclass = self.postgres.pool_insert(self.query)
     print(self.id_hardclass)
     Data_event_log.info('Hard_classes {} {} {}'.format(self.uqhost, self.domain, id))
 
