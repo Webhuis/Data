@@ -19,7 +19,8 @@ class Interaction(object):
 
   def run(self):
     fd.dict_update(fd.objects, 'Data', self.Data)
-    print(fd.objects)
+    self.Data_event_log = fd.fetch_object(fd.objects, 'Data_event_log')
+    self.Data_error_log = fd.fetch_object(fd.objects, 'Data_error_log')
     while True:
       try:
         b_message = socket.recv()
@@ -46,21 +47,25 @@ class Interaction(object):
     else:
       socket.close()
 
-logger.add('/var/log/Data_log/Interaction_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Interaction' in record['extra'])
+logger.add(sink='/var/log/Data_log/Interaction_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Interaction' in record['extra'])
 Interaction_event_log = logger.bind(Interaction = True)
 Interaction_event_log.info('Start Data Interaction event logging')
+fd.dict_update(fd.objects, 'Interaction_event_log', Interaction_event_log)
 
-logger.add('/var/log/Data_log/Interaction_error.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Interaction' in record['extra'], level="ERROR")
+logger.add(sink='/var/log/Data_log/Interaction_error.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Interaction' in record['extra'], level="ERROR")
 Interaction_error_log = logger.bind(Interaction = True)
 Interaction_error_log.error('Start Data Interaction ERROR logging')
+fd.dict_update(fd.objects, 'Interaction_error_log', Interaction_error_log)
 
 logger.add(sink='/var/log/Data_log/ZMQ_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'ZMQ' in record['extra'])
 ZMQ_event_log = logger.bind(ZMQ=True)
 ZMQ_event_log.info('Start Data ZMQ event logging')
+fd.dict_update(fd.objects, 'ZMQ_event_log', ZMQ_event_log)
 
 logger.add(sink='/var/log/Data_log/ZMQ_error.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'ZMQ' in record['extra'], level="ERROR")
 ZMQ_error_log = logger.bind(ZMQ = True)
 ZMQ_error_log.error('Start Data ZMQ ERROR logging')
+fd.dict_update(fd.objects, 'ZMQ_error_log', ZMQ_error_log)
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
