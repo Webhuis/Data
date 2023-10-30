@@ -36,7 +36,7 @@ class Feed(object):
 
 class HardClass(object):
 
-  def __init__(self, message):
+  def __init__(self, message_json):
     self.uqhost = message_json["uqhost"]
     self.domain = message_json["domain"]
     self.os     = message_json["os"]
