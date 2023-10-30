@@ -20,7 +20,6 @@ class Feed(object):
   def insert_feed(self):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , self.message )
-    print('feed.insert_query', query)
     id = self.postgres.pool_insert(query)
     return id
 
@@ -61,7 +60,7 @@ class HardClass(object):
     query = "select exists(select 1 from feeds.hard_classes where uqhost = '{}' and domain = '{}');".format(self.uqhost, self.domain)
     exists = self.postgres.pool_query(query)
     print(exists)
-    return exists[0]
+    return exists[0][0]
 
   def read_hard_classes(self):
     query = "select id, uqhost, domain, os, ostype, flavor, cpus, arch, timestamp from feeds.hard_classes where uqhost = '{}' and domain = '{}'".format(self.uqhost, self.domain)
