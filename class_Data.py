@@ -66,30 +66,6 @@ class Data(object):
 
     return host_object_id
 
-  def hard_classes(self, message): # meer convergent hard_class_desired
-
-    id_feed = self.feed.insert_feed()
-    query = self.feed.check_exists()
-    exists = self.postgres.check_exists(query)
-    exists = exists[0]
-    if exists:
-      query = self.feed.read_hard_classes()
-      values = self.postgres.pool_query(query)
-      id_hard_classes = values[0][0]
-      checked = self.feed.check_update(values[0])
-      if checked:
-        Data_event_log.info('Already up to date'.format(values[0][1], values[0][2]))
-      else:
-        query = self.feed.update_hard_classes(values[0])
-        timestamp = self.postgres.pool_update(query)
-        Data_event_log.info('Updated hard_classes {} {} {}'.format(values[0][0], values[0][1], timestamp))
-    else:
-      query = self.feed.insert_feed(message)
-      uqhost, domain, id_hard_classes = self.postgres.pool_insert(query)
-      Data_event_log.info('Inserted hard_classes {} {} {}'.format(uqhost, domain, id_hard_classes))
-    del(self.feed)
-    return (id_hard_classes,)
-
   def feeds_host_object(id_hard_classes): # host_object_desired
     query = 'select uqhost, domain from feeds.hard_classes where id = {}'.format(id_hard_classes)
     uqhost, domain = self.postgres.pool_query(query)
@@ -97,15 +73,6 @@ class Data(object):
     ''' Now store the Host object_id in feeds.host_objects, for later use '''
     exists = self.postgres.check_exists(query)
     return host_object
-
-  def insert_json_feed(self, message):
-    message_json = json.dumps(message)
-    Data_event_log.info(message_json)
-    timestamp = datetime.now(timezone.utc)
-    query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
-    id_feed = self.postgres.pool_insert(query)
-    Data_event_log.info('json_in message inserted with id {}.'.format(id_feed[0]))
-    return id_feed
 
 logger.add('/var/log/Data_log/Data_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'] )
 Data_event_log = logger.bind(data = True)
