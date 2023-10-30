@@ -68,12 +68,12 @@ class HardClass(object):
     return query
 
   def insert_hard_classes(self):
-    query = "insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch, timestamp) values ('{}', '{}', '{}', '{}', '{}', {}, '{}', '{}') returning id;".format(self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch, self.timestamp)
-    return query
+    self.query = "insert into feeds.hard_classes (uqhost, domain, os, ostype, flavor, cpus, arch, timestamp) values ('{}', '{}', '{}', '{}', '{}', {}, '{}', '{}') returning id;".format(self.uqhost, self.domain, self.os, self.ostype, self.flavor, self.cpus, self.arch, self.timestamp)
+    return self.query
 
   def update_hard_classes(self):
-    query = "update feeds.hard_classes set ( cpus = '{}', timestamp = '{}' ) where uqhost = '{}' and domain = '{}' returning id;".format(values[5], self.timestamp, self.uqhost, self.domain)
-    return query
+    self.query = "update feeds.hard_classes set ( cpus = '{}', timestamp = '{}' ) where uqhost = '{}' and domain = '{}' returning id;".format(values[5], self.timestamp, self.uqhost, self.domain)
+    return self.query
 
 class HostObject(object):
 
