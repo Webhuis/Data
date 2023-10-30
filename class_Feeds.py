@@ -46,6 +46,7 @@ class HardClass(object):
     self.postgres = fd.fetch_object(fd.objects, 'Postgres')
     self.timestamp = datetime.now(timezone.utc)
     self.exists = self.check_exists()
+    print(self.exists)
     if self.exists == True:
       query = self.update_hard_classes()
       self.id = self.postgres.pool_update(query)
