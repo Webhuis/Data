@@ -54,6 +54,7 @@ class PostgreSQL():
       PostgreSQL_event_log.info(result)
     except (Exception, pg.DatabaseError) as error:
       result = "Error while inserting into PostgreSQL {}".format(error.args)
+      print(query)
       PostgreSQL_error_log.info(result)
     return result
 
