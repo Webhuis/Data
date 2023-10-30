@@ -70,4 +70,4 @@ fd.dict_update(fd.objects, 'ZMQ_error_log', ZMQ_error_log)
 context = zmq.Context()
 socket = context.socket(zmq.REP)
 socket.bind("tcp://10.68.171.111:5309")
-
+print(fd.objects)
