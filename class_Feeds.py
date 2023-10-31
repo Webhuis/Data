@@ -44,7 +44,7 @@ class HardClass(object):
     self.cpus   = int(message_json["cpus"])
     self.arch   = message_json["arch"]
 
-  def set_hardclass(self, postgres)
+  def set_hardclass(self, postgres):
     self.postgres = postgres
     self.timestamp = datetime.now(timezone.utc)
     self.exists = self.check_exists()
