@@ -41,7 +41,7 @@ class Data(object):
     self.feed = Feed(message, self.postgres)
     #print(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
     print(id(self.feed))
-    self.Data_event.info('Hard_classes {} {}'.format(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain))
+    self.Data_event.info('Hard_classes {}.'.format(id(self.feed)))
     self.fqdn = FQHost(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
     print(id(self.fqdn))
     print(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
