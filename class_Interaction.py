@@ -28,7 +28,7 @@ class Interaction(object):
         b_message = socket.recv()
         try:
           message = b_message.decode()
-          print(response)
+          print(message)
           response = self.Data.provide_view(message)
           print(response)
           #b_response = response.encode('utf8')
