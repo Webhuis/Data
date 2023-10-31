@@ -4,7 +4,7 @@
 from loguru import logger
 from class_PostgreSQL import PostgreSQL
 import class_PostgreSQL
-from class_Feeds import Feed, HardClass, HostObject
+#from class_Feeds import Feed, HardClass
 from class_Context import FQHost, Domain, Role
 from datetime import datetime, timezone
 import json
