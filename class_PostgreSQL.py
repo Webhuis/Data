@@ -32,7 +32,7 @@ class PostgreSQL():
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
       result = "Error while selecting from PostgreSQL {}".format(error.args)
-      PostgreSQL_error.info(result)
+      self.PostgreSQL_error.info(result)
     return result
 
   def pool_query(self, query):
@@ -46,7 +46,7 @@ class PostgreSQL():
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
       result = "Error while selecting from PostgreSQL {}".format(error.args)
-      PostgreSQL_error.info(result)
+      self.PostgreSQL_error.info(result)
     return result
 
   def pool_insert(self, query):
@@ -61,7 +61,7 @@ class PostgreSQL():
       PostgreSQL_event.info(result)
     except (Exception, pg.DatabaseError) as error:
       result = "Error while inserting into PostgreSQL {}".format(error.args)
-      PostgreSQL_error.info(result)
+      self.PostgreSQL_error.info(result)
     return result
 
   def pool_update(self, query):
@@ -75,7 +75,7 @@ class PostgreSQL():
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
       result = "Error while updating PostgreSQL {}".format(error.args)
-      PostgreSQL_error.info(result)
+      self.PostgreSQL_error.info(result)
     return result
 
   def pool_connect(self, cursor):
