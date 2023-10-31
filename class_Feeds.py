@@ -33,13 +33,13 @@ class HardClass(object):
 
   def __init__(self, message, postgres):
     self.message_json = json.loads(message)
-    self.uqhost = message_json["uqhost"]
-    self.domain = message_json["domain"]
-    self.os     = message_json["os"]
-    self.ostype = message_json["ostype"]
-    self.flavor = message_json["flavor"]
-    self.cpus   = int(message_json["cpus"])
-    self.arch   = message_json["arch"]
+    self.uqhost = self.message_json["uqhost"]
+    self.domain = self.message_json["domain"]
+    self.os     = self.message_json["os"]
+    self.ostype = self.message_json["ostype"]
+    self.flavor = self.message_json["flavor"]
+    self.cpus   = int(self.message_json["cpus"])
+    self.arch   = self.message_json["arch"]
     self.postgres = postgres
 
   def set_hardclass(self):
