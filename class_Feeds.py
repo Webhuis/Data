@@ -1,6 +1,7 @@
 #!/bin/env python3
 
 from datetime import datetime, timezone
+from class_Data import Data
 import json
 import os
 import sys
