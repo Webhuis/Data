@@ -29,13 +29,15 @@ def add_logger(logname):
     print('logger.add gaat fout', e.args)
   try:
     log = logger.bind(task='{}'.format(logname))
-    dict_update(objects, '{}'.format(logname), log)
+    #dict_update(objects, '{}'.format(logname), log)
   except Exception as e:
     print('logger.bind gaat fout', e.args)
   try:
     log.info('Start logging {}'.format(logname))
   except Exception as e:
     print('log.info gaat fout', e.args)
+  print(log, type(log), id(log))
+  return log
 
 def add_Data_logs():
   for logname in ['Interaction_event', 'Interaction_error', 'ZMQ_event', 'ZMQ_error',  'Data_event', 'Data_error',  'PostgreSQL_event', 'PostgreSQL_error']:
