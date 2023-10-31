@@ -33,9 +33,8 @@ class Data(object):
 
   def __init__(self):
     self.postgres = PostgreSQL()
-    fd.dict_update(fd.objects, 'Postgres', self.postgres)
-    self.Data_event_log = fd.fetch_object(fd.objects, 'Data_event_log')
-    self.Data_error_log = fd.fetch_object(fd.objects, 'Data_error_log')
+    self.Data_event = fd.fetch_object(fd.objects, 'Data_event')
+    self.Data_error = fd.fetch_object(fd.objects, 'Data_error')
 
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
@@ -45,7 +44,7 @@ class Data(object):
     self.fqdn = FQHost(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
     print(id(self.fqdn))
     print(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
-    self.Data_event_log.info('Actual feeds.FQHost {} {} in database Data.'.format(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain))
+    self.Data_event.info('Actual feeds.FQHost {} {} in database Data.'.format(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain))
     return id(self.fqdn)
 
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
@@ -73,14 +72,3 @@ class Data(object):
     ''' Now store the Host object_id in feeds.host_objects, for later use '''
     exists = self.postgres.check_exists(query)
     return host_object
-
-logger.add('/var/log/Data_log/Data_event.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'] )
-Data_event_log = logger.bind(data = True)
-Data_event_log.info('Start Data Data event logging')
-fd.dict_update(fd.objects, 'Data_event_log', Data_event_log)
-
-logger.add('/var/log/Data_log/Data_error.log', rotation="1 day", retention="1 week", compression="bz2", filter = lambda record: 'Data' in record['extra'], level="ERROR")
-Data_error_log = logger.bind(error = True)
-Data_error_log.info('Start Data Data ERROR logging')
-fd.dict_update(fd.objects, 'Data_error_log', Data_error_log)
-

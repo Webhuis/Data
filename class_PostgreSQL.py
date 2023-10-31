@@ -8,11 +8,14 @@ from threading import Semaphore
 
 class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
+    self.PostgreSQL_event = fd.fetch_object(fd.objects, 'PostgreSQL_event')
+    self.PostgreSQL_error = fd.fetch_object(fd.objects, 'PostgreSQL_error')
     try:
       self.pg_pool = DataThCP(1, 8, user=user, password='we8hu15iio', host='10.68.171.50', port='5432', database=db )
-      PostgreSQL_event_log.info('Start Data PostgreSQL __init__')
+      PostgreSQL_event.info('Start Data PostgreSQL __init__')
     except (Exception, pg.DatabaseError) as error:
-      PostgreSQL_error_log.info("Error while connecting to PostgreSQL {}".format(error.args))
+      PostgreSQL_errorg.info("Error while connecting to PostgreSQL {}".format(error.args))
+
 
   def check_exists(self, query):
     try:
@@ -25,7 +28,7 @@ class PostgreSQL():
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
       result = "Error while selecting from PostgreSQL {}".format(error.args)
-      PostgreSQL_error_log.info(result)
+      PostgreSQL_error.info(result)
     return result
 
   def pool_query(self, query):
@@ -39,7 +42,7 @@ class PostgreSQL():
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
       result = "Error while selecting from PostgreSQL {}".format(error.args)
-      PostgreSQL_error_log.info(result)
+      PostgreSQL_error.info(result)
     return result
 
   def pool_insert(self, query):
@@ -51,7 +54,7 @@ class PostgreSQL():
       result = pg_cursor.fetchall()[0]
       pg_cursor.close()
       self.pg_pool.putconn(pg_conn)
-      PostgreSQL_event_log.info(result)
+      PostgreSQL_event.info(result)
     except (Exception, pg.DatabaseError) as error:
       result = "Error while inserting into PostgreSQL {}".format(error.args)
       PostgreSQL_error_log.info(result)
@@ -68,7 +71,7 @@ class PostgreSQL():
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
       result = "Error while updating PostgreSQL {}".format(error.args)
-      PostgreSQL_error_log.info(result)
+      PostgreSQL_error.info(result)
     return result
 
   def pool_connect(self, cursor):
@@ -102,12 +105,4 @@ class DataThCP(ThCP):
       super().putconn(*args, **kwargs)
     finally:
       self._semaphore.release()
-
-logger.add('/var/log/Data_log/PostgreSQL_event.log', filter = lambda record: 'data' in record['extra'] )
-PostgreSQL_event_log = logger.bind(data = True)
-PostgreSQL_event_log.info('Start Data PostgreSQL event logging')
-
-logger.add('/var/log/Data_log/PostgreSQL_error.log', filter = lambda record: 'error' in record['extra'] )
-PostgreSQL_error_log = logger.bind(error = True)
-PostgreSQL_error_log.info('Start Data PostgreSQL error logging')
 
