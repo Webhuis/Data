@@ -9,13 +9,12 @@ from threading import Semaphore
 import functions_Data as fd
 
 class PostgreSQL():
+
+  loggers = {}
+
   def __init__(self, db="data", user="www_data"):
-    object_keys = fd.objects.keys()
-    for x in object_keys:
-      print(x)
-      print(x, fd.objects(x))
-    #self.PostgreSQL_event = fd.fetch_object(fd.objects, 'PostgreSQL_event')
-    #self.PostgreSQL_error = fd.fetch_object(fd.objects, 'PostgreSQL_error')
+    self.PostgreSQL_event = fd.fetch_object(PostgreSQL.loggers, 'PostgreSQL_event')
+    self.PostgreSQL_error = fd.fetch_object(PostgreSQL.loggers, 'PostgreSQL_error')
     try:
       self.pg_pool = DataThCP(1, 8, user=user, password='we8hu15iio', host='10.68.171.50', port='5432', database=db )
       #PostgreSQL_event.info('Start Data PostgreSQL __init__')
@@ -112,3 +111,6 @@ class DataThCP(ThCP):
     finally:
       self._semaphore.release()
 
+for logname in ['PostgreSQL_event', 'PostgreSQL_error']:
+  fd.add_logger.log = fd.add_logger(logname)
+  fd.dict_update(PostgreSQL.loggers, '{}'.format(logname), fd.add_logger.log)

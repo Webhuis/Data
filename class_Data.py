@@ -29,12 +29,12 @@ class Data(object):
   Data receives a message from an agent with agent specific information, which triggers a response containing the above information from Data to the agent.
   '''
 
-  #postgres = PostgreSQL()
+  loggers = {}
 
   def __init__(self):
     self.postgres = PostgreSQL()
-    self.Data_event = fd.fetch_object(fd.objects, 'Data_event')
-    self.Data_error = fd.fetch_object(fd.objects, 'Data_error')
+    self.Data_event = fd.fetch_object(Data_loggers, 'Data_event')
+    self.Data_error = fd.fetch_object(Data_loggers, 'Data_error')
 
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
@@ -72,3 +72,8 @@ class Data(object):
     ''' Now store the Host object_id in feeds.host_objects, for later use '''
     exists = self.postgres.check_exists(query)
     return host_object
+
+for logname in ['Data_event', 'Data_error']:
+  fd.add_logger.log = fd.add_logger(logname)
+  fd.dict_update(Data.loggers, '{}'.format(logname), fd.add_logger.log)
+
