@@ -38,7 +38,7 @@ class Data(object):
 
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
-    self.feed, self.uqhost, self.domain = feed_to_hardclass(message)
+    self.feed, self.uqhost, self.domain = self.feed_to_hardclass(message)
     self.fqhost_object = FQHost(self.uqhost, self.domain)
     self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_object))
     response = self.fqhost_object
