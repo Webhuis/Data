@@ -49,6 +49,7 @@ class Interaction(object):
 
 for logname in ['Interaction_event', 'Interaction_error', 'ZMQ_event', 'ZMQ_error']:
   log = fd.add_logger(logname)
+  print(log, type(log), id(log))
   log.info ('Start logging {}.'.format(logname))
   fd.dict_update(Interaction.loggers, '{}'.format(logname), log)
 
