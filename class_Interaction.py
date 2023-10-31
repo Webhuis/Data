@@ -17,16 +17,18 @@ class Interaction(object):
   '''
   def __init__(self):
     self.Data = Data()
-
-  def run(self):
+    self.Interaction_event = fd.fetch_object(Interaction.loggers, 'Interaction_event')
     self.Interaction_error = fd.fetch_object(Interaction.loggers, 'Interaction_error')
     self.ZMQ_error = fd.fetch_object(Interaction.loggers, 'ZMQ_event')
     self.ZMQ_error = fd.fetch_object(Interaction.loggers, 'ZMQ_error')
+
+  def run(self):
     while True:
       try:
         b_message = socket.recv()
         try:
           message = b_message.decode()
+          print(response)
           response = self.Data.provide_view(message)
           print(response)
           #b_response = response.encode('utf8')
