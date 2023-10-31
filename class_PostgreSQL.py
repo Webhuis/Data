@@ -6,6 +6,8 @@ from psycopg2 import pool
 from psycopg2.pool import ThreadedConnectionPool as ThCP
 from threading import Semaphore
 
+import functions_Data as fd
+
 class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
     self.PostgreSQL_event = fd.fetch_object(fd.objects, 'PostgreSQL_event')
