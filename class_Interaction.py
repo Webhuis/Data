@@ -48,10 +48,11 @@ class Interaction(object):
       socket.close()
 
 for logname in ['Interaction_event', 'Interaction_error', 'ZMQ_event', 'ZMQ_error']:
-  self.log = fd.add_logger(logname)
-  print(self.log, type(self.log), id(self.log))
-  self.log.info ('Start logging {}.'.format(logname))
-  fd.dict_update(Interaction.loggers, '{}'.format(logname), self.log)
+  fd.add_logger.log = fd.add_logger(logname)
+  print(fd.add_logger.log)
+  #self.log.info ('Start logging {}.'.format(logname))
+  fd.dict_update(Interaction.loggers, '{}'.format(logname), fd.add_logger.log)
+  print(Interaction.loggers)
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
