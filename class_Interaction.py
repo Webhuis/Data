@@ -28,9 +28,7 @@ class Interaction(object):
         b_message = socket.recv()
         try:
           message = b_message.decode()
-          print(message)
           response = self.Data.provide_view(message)
-          print(response)
           #b_response = response.encode('utf8')
           #queue.add_task(lambda: process_message(message))
           #queue.join()
@@ -52,7 +50,6 @@ class Interaction(object):
 
 for logname in ['Interaction_event', 'Interaction_error', 'ZMQ_event', 'ZMQ_error']:
   fd.add_logger.log = fd.add_logger(logname)
-  #self.log.info ('Start logging {}.'.format(logname))
   fd.dict_update(Interaction.loggers, '{}'.format(logname), fd.add_logger.log)
 
 context = zmq.Context()
