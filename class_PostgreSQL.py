@@ -20,7 +20,6 @@ class PostgreSQL():
       self.PostgreSQL_event.info('Start Data PostgreSQL __init__')
     except (Exception, pg.DatabaseError) as error:
       self.PostgreSQL_error.info("Error while connecting to PostgreSQL {}".format(error.args))
-      pass
 
   def check_exists(self, query):
     try:
@@ -62,7 +61,7 @@ class PostgreSQL():
       PostgreSQL_event.info(result)
     except (Exception, pg.DatabaseError) as error:
       result = "Error while inserting into PostgreSQL {}".format(error.args)
-      PostgreSQL_error_log.info(result)
+      PostgreSQL_error.info(result)
     return result
 
   def pool_update(self, query):
