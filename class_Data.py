@@ -4,7 +4,7 @@
 from loguru import logger
 from class_PostgreSQL import PostgreSQL
 import class_PostgreSQL
-#from class_Feeds import Feed, HardClass
+from class_Feeds import Feed, HardClass
 from class_Context import FQHost, Domain, Role
 from datetime import datetime, timezone
 import json
@@ -38,7 +38,7 @@ class Data(object):
 
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
-    self.feed = Feed(message)
+    self.feed = Feed(message, self.postgres)
     #print(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
     print(id(self.feed))
     self.fqdn = FQHost(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)

@@ -8,13 +8,14 @@ import sys
 
 import functions_Data as fd
 
-class Feed(Data):
+class Feed(object):
 
-  def __init__(self, message):
+  def __init__(self, message, postgres):
     self.message = message
+    self.postgres = postgres
     self.pg_id_feed = self.insert_feed()
     self.message_json = json.loads(message)
-    self.hardclass = HardClass(self.message_json)
+    self.hardclass = HardClass(self.message_json, self.postgres)
     return (self)
 
   def insert_feed(self):
@@ -33,9 +34,9 @@ class Feed(Data):
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     return query
 
-class HardClass(Data):
+class HardClass(object):
 
-  def __init__(self, message_json):
+  def __init__(self, message_json, postgres):
     self.uqhost = message_json["uqhost"]
     self.domain = message_json["domain"]
     self.os     = message_json["os"]
@@ -44,6 +45,7 @@ class HardClass(Data):
     self.cpus   = int(message_json["cpus"])
     self.arch   = message_json["arch"]
     self.timestamp = datetime.now(timezone.utc)
+    self.postgres = postgres
     self.exists = self.check_exists()
     if self.exists == True:
       self.query = self.update_hard_classes()
