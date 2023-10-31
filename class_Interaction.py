@@ -19,7 +19,7 @@ class Interaction(object):
     self.Data = Data()
     self.Interaction_event = fd.fetch_object(Interaction.loggers, 'Interaction_event')
     self.Interaction_error = fd.fetch_object(Interaction.loggers, 'Interaction_error')
-    self.ZMQ_error = fd.fetch_object(Interaction.loggers, 'ZMQ_event')
+    self.ZMQ_event = fd.fetch_object(Interaction.loggers, 'ZMQ_event')
     self.ZMQ_error = fd.fetch_object(Interaction.loggers, 'ZMQ_error')
 
   def run(self):
