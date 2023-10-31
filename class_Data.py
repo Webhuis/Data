@@ -49,9 +49,9 @@ class Data(object):
     host_object_id = self.hard_classes(message)
     ''' We will create the context objects first, with convergence in mind. '''
     host_object = self.feeds_host_object(id_hard_classes)
-    response = self.hard_classes(id_hard_classes)
+    response = json.dumps(self.hard_classes(id_hard_classes))
     #write_feed = feed.hard_classes()
-    #response = 'Response' + self.message
+    print(response)
     return response
 
   def feed_to_hardclass(self, message, postgres):
