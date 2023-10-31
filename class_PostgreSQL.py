@@ -10,7 +10,7 @@ import functions_Data as fd
 
 class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
-    for x in fb.objects():
+    for x in fd.objects():
       print(x)
     self.PostgreSQL_event = fd.fetch_object(fd.objects, 'PostgreSQL_event')
     self.PostgreSQL_error = fd.fetch_object(fd.objects, 'PostgreSQL_error')
