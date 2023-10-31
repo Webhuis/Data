@@ -9,29 +9,25 @@ import functions_Data as fd
 
 class Feed(object):
 
-  def __init__(self, message):
+  def __init__(self, message, postgres):
     self.message = message
     self.pg_id_feed = self.insert_feed()
     self.message_json = json.loads(message)
     self.hardclass = HardClass(self.message_json)
     self.hardclass.set_hardclass = HardClass(self.postgres)
 
-  def insert_feed(self, postgres):
-    self.message = super(self.message)
-    self.postgres = postgres
+  def insert_feed(self):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , self.message )
     id = self.postgres.pool_insert(query)
     return id
 
-  def update_feed(self, postgres):
-    self.postgres = postgres
+  def update_feed(self):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     return query
 
-  def delete_feed(self, postgres):
-    self.postgres = postgres
+  def delete_feed(self):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     return query

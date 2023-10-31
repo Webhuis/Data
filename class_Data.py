@@ -38,7 +38,7 @@ class Data(object):
 
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
-    self.feed, self.uqhost, self.domain = self.feed_to_hardclass(message)
+    self.feed, self.uqhost, self.domain = self.feed_to_hardclass(message, self.postgres)
     self.fqhost_object = FQHost(self.uqhost, self.domain)
     self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_object))
     response = self.fqhost_object
@@ -54,13 +54,13 @@ class Data(object):
     #response = 'Response' + self.message
     return response
 
-  def feed_to_hardclass(self, message): # provide the agent
+  def feed_to_hardclass(self, message, postgres):
 
-    self.feed = Feed(message)
-    self.id_feed = self.feed.insert_feed(self.posgres)
+    self.feed = Feed(message, postgres)
+    self.id_feed = self.feed.insert_feed()
 
-    self.hardclass = HardClass(message)
-    self.uqhost, self.domain = self.hardclass.set_hardclass(self.postgres)
+    self.hardclass = HardClass(message, postgres)
+    self.uqhost, self.domain = self.hardclass.set_hardclass()
 
     self.Data_event.info('Actual feed and fqdn hardclasses {} {} {} in database Data.'.format(self.id_feed, self.uqhost, self.domain))
 
