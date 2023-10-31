@@ -36,11 +36,6 @@ def add_logger(logname):
     log.info('Start logging {}'.format(logname))
   except Exception as e:
     print('log.info gaat fout', e.args)
-  print(log, type(log), id(log))
   return log
-
-def add_Data_logs():
-  for logname in ['Interaction_event', 'Interaction_error', 'ZMQ_event', 'ZMQ_error',  'Data_event', 'Data_error',  'PostgreSQL_event', 'PostgreSQL_error']:
-    add_logger(logname)
 
 objects = {}
