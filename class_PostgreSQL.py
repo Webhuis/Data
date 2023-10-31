@@ -10,9 +10,10 @@ import functions_Data as fd
 
 class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
-    object_keys = fd.objects(keys)
+    object_keys = fd.objects.keys()
     for x in object_keys:
       print(x)
+      print(x, fd.objects(x))
     self.PostgreSQL_event = fd.fetch_object(fd.objects, 'PostgreSQL_event')
     self.PostgreSQL_error = fd.fetch_object(fd.objects, 'PostgreSQL_error')
     try:
