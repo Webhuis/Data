@@ -11,6 +11,7 @@ class Feed(object):
 
   def __init__(self, message, postgres):
     self.message = message
+    self.postgres = postgres
     self.pg_id_feed = self.insert_feed()
     self.message_json = json.loads(message)
     self.hardclass = HardClass(self.message_json)
@@ -34,7 +35,7 @@ class Feed(object):
 
 class HardClass(object):
 
-  def __init__(self, message_json):
+  def __init__(self, message_json, postgres):
     self.uqhost = message_json["uqhost"]
     self.domain = message_json["domain"]
     self.os     = message_json["os"]
@@ -42,9 +43,9 @@ class HardClass(object):
     self.flavor = message_json["flavor"]
     self.cpus   = int(message_json["cpus"])
     self.arch   = message_json["arch"]
-
-  def set_hardclass(self, postgres):
     self.postgres = postgres
+
+  def set_hardclass(self):
     self.timestamp = datetime.now(timezone.utc)
     self.exists = self.check_exists()
     if self.exists == True:
