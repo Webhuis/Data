@@ -17,7 +17,7 @@ class Feed(object):
     self.hardclass.set_hardclass = HardClass(self.postgres)
 
   def insert_feed(self, postgres):
-    self.message = super.(self.message)
+    self.message = super(self.message)
     self.postgres = postgres
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , self.message )
