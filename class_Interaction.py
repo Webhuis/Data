@@ -19,8 +19,9 @@ class Interaction(object):
     self.Data = Data()
 
   def run(self):
-    #self.Interaction_error = fd.fetch_object(fd.objects, 'Interaction_error')
-    #self.ZMQ_error = fd.fetch_object(fd.objects, 'ZMQ_error')
+    self.Interaction_error = fd.fetch_object(Interaction.loggers, 'Interaction_error')
+    self.ZMQ_error = fd.fetch_object(Interaction.loggers, 'ZMQ_event')
+    self.ZMQ_error = fd.fetch_object(Interaction.loggers, 'ZMQ_error')
     while True:
       try:
         b_message = socket.recv()
@@ -36,23 +37,21 @@ class Interaction(object):
             #print(type(s_response), s_response)
             #b_response = s_response.encode('utf8')
             socket.send_string(s_response)
-            Interaction.ZMQ_event.info(response)
+            self.ZMQ_event.info(response)
           except Exception as e:
-            Interaction.self.ZMQ_error.info('Error sending message {}'.format(e.args))
+            self.ZMQ_error.info('Error sending message {}'.format(e.args))
         except Exception as e:
-          Interaction.Interaction_error.info('Error creating task.{}'.format(e.args))
+          self.Interaction_error.info('Error creating task.{}'.format(e.args))
       except Exception as e:
-        Interaction.ZMQ_error.info('Error receiving message {}'.format(e.args))
+        self.ZMQ_error.info('Error receiving message {}'.format(e.args))
         sys.exit(1)
     else:
       socket.close()
 
 for logname in ['Interaction_event', 'Interaction_error', 'ZMQ_event', 'ZMQ_error']:
   fd.add_logger.log = fd.add_logger(logname)
-  print(fd.add_logger.log)
   #self.log.info ('Start logging {}.'.format(logname))
   fd.dict_update(Interaction.loggers, '{}'.format(logname), fd.add_logger.log)
-  print(Interaction.loggers)
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
