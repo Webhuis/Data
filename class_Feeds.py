@@ -9,33 +9,33 @@ import functions_Data as fd
 
 class Feed(object):
 
-  def __init__(self, message, postgres):
+  def __init__(self, message):
     self.message = message
     self.postgres = postgres
     self.pg_id_feed = self.insert_feed()
     self.message_json = json.loads(message)
-    self.hardclass = HardClass(self.message_json, self.postgres)
-    return (self)
+    self.hardclass = HardClass(self.message_json)
+    self.hardclass.set_hardclass = HardClass(self.postgres)
 
-  def insert_feed(self):
+  def insert_feed(self, postgres):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , self.message )
     id = self.postgres.pool_insert(query)
     return id
 
-  def update_feed(self):
+  def update_feed(self, postgres):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     return query
 
-  def delete_feed(self):
+  def delete_feed(self, postgres):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     return query
 
 class HardClass(object):
 
-  def __init__(self, message_json, postgres):
+  def __init__(self, message_json):
     self.uqhost = message_json["uqhost"]
     self.domain = message_json["domain"]
     self.os     = message_json["os"]
@@ -43,8 +43,10 @@ class HardClass(object):
     self.flavor = message_json["flavor"]
     self.cpus   = int(message_json["cpus"])
     self.arch   = message_json["arch"]
-    self.timestamp = datetime.now(timezone.utc)
+
+  def set_hardclass(self, postgres)
     self.postgres = postgres
+    self.timestamp = datetime.now(timezone.utc)
     self.exists = self.check_exists()
     if self.exists == True:
       self.query = self.update_hard_classes()
@@ -54,7 +56,7 @@ class HardClass(object):
       self.id_hardclass = self.postgres.pool_insert(self.query)
     #Data_event.info('Hard_classes {} {} {}'.format(self.uqhost, self.domain, id))
 
-    return(self)
+    return (self.uqhost, self.domain)
 
   def check_exists(self):
     query = "select exists(select 1 from feeds.hard_classes where uqhost = '{}' and domain = '{}');".format(self.uqhost, self.domain)

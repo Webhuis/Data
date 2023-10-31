@@ -38,15 +38,11 @@ class Data(object):
 
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
-    self.feed = Feed(message, self.postgres)
-    #print(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
-    print(id(self.feed))
-    self.Data_event.info('Hard_classes {}.'.format(id(self.feed)))
-    self.fqdn = FQHost(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
-    print(id(self.fqdn))
-    print(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain)
-    self.Data_event.info('Actual feeds.FQHost {} {} in database Data.'.format(self.feed.self.hardclass.uqhost, self.feed.self.hardclass.domain))
-    return id(self.fqdn)
+    self.feed, self.uqhost, self.domain = feed_to_hardclass(message)
+    self.fqhost_object = FQHost(self.uqhost, self.domain)
+    self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_object))
+    response = self.fqhost_object
+    return response
 
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
 
@@ -58,13 +54,17 @@ class Data(object):
     #response = 'Response' + self.message
     return response
 
-  def feed(self, message): # provide the agent
+  def feed_to_hardclass(self, message): # provide the agent
 
     self.feed = Feed(message)
+    self.id_feed = self.feed.insert_feed(self.posgres)
 
-    response = self.process_message(message)
+    self.hardclass = HardClass(message)
+    self.uqhost, self.domain = self.hardclass.set_hardclass(self.postgres)
 
-    return host_object_id
+    self.Data_event.info('Actual feed and fqdn hardclasses {} {} {} in database Data.'.format(self.id_feed, self.uqhost, self.domain))
+
+    return (self.id_feed, self.uqhost, self.domain)
 
   def feeds_host_object(id_hard_classes): # host_object_desired
     query = 'select uqhost, domain from feeds.hard_classes where id = {}'.format(id_hard_classes)

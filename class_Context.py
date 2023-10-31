@@ -7,7 +7,6 @@ class FQHost(object):
     self.domain = domain
     role_code = uqhost[0:4]
     self.role_code = role_code
-    return self
 
 class Role(object):
 
