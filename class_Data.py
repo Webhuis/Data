@@ -34,7 +34,7 @@ class Data(object):
   def __init__(self):
     self.postgres = PostgreSQL()
     self.Data_event = fd.fetch_object(Data.loggers, 'Data_event')
-    self.Data_error = fd.fetch_object(Data,loggers, 'Data_error')
+    self.Data_error = fd.fetch_object(Data.loggers, 'Data_error')
 
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
