@@ -49,7 +49,8 @@ class Data(object):
     host_object_id = self.hard_classes(message)
     ''' We will create the context objects first, with convergence in mind. '''
     host_object = self.feeds_host_object(id_hard_classes)
-    response = json.dumps(self.hard_classes(id_hard_classes))
+    #response = json.dumps(self.hard_classes(id_hard_classes))
+    response = json.dumps(['Dit is een heel verhaal als response', 'vers twee'])
     #write_feed = feed.hard_classes()
     print(response)
     return response
