@@ -12,10 +12,6 @@ class Feed(object):
   def __init__(self, message, postgres):
     self.message = message
     self.postgres = postgres
-    self.pg_id_feed = self.insert_feed()
-    self.message_json = json.loads(message)
-    self.hardclass = HardClass(self.message_json)
-    self.hardclass.set_hardclass = HardClass(self.postgres)
 
   def insert_feed(self):
     timestamp = datetime.now(timezone.utc)
@@ -35,7 +31,8 @@ class Feed(object):
 
 class HardClass(object):
 
-  def __init__(self, message_json, postgres):
+  def __init__(self, message, postgres):
+    self.message_json = json.loads(message)
     self.uqhost = message_json["uqhost"]
     self.domain = message_json["domain"]
     self.os     = message_json["os"]
