@@ -44,7 +44,7 @@ class Data(object):
       self.fqhost_role_view = self.get_fqhost_role_view()
       response = json.dumps(self.fqhost_role_view)
       return response
-    except: Execption as e:
+    except Execption as e:
       self.Data_error.info('Generating response failed, {}.'.format(x.args))
     finally:
       self.fqhost_object.update_fqhost()
