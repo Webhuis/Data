@@ -39,7 +39,7 @@ class FQHost(object):
     self.last_seen = datetime.now(timezone.utc)
     self.query = ("update context.fqhost set (last_seen) = '{}' returning id;").format(self.last_seen)
     self.id_fqhost_update = self.postgres.pool_insert(self.query)
-    return id_fqhost_update
+    return self.id_fqhost_update
 
 class Role(object):
 
