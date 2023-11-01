@@ -40,22 +40,15 @@ class Data(object):
 
     self.id_feed, self.uqhost, self.domain_name = self.feed_to_hardclass(message, self.postgres)
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
+    self.fqhost_role_view = self.get_fqhost_role_view()
+    self.response = json.dumps(self.fqhost_role_view)
     try:
-      self.fqhost_role_view = self.get_fqhost_role_view()
-      self.response = json.dumps(self.fqhost_role_view)
       return self.response
     except Execption as e:
-      self.Data_error.info('Generating response failed, {}.'.format(x.args))
+      self.Data_error.info('returning response failed, {}.'.format(x.args))
     finally:
-      try:
-        print('is de response leeg?', self.response)
-      except Exception as e:
-        print('De resonse is leeg!')
       self.fqhost_object.update_fqhost()
-      try:
-        self.id_response = self.feed.insert_response(self.response)
-      except Exception as e:
-        print('insert response', e.args)
+      self.id_response = self.feed.insert_response(self.response)
       self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_role_view))
 
   def get_fqhost_role_view():
