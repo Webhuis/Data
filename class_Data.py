@@ -48,7 +48,7 @@ class Data(object):
       self.Data_error.info('Generating response failed, {}.'.format(x.args))
     finally:
       self.fqhost_object.update_fqhost()
-      print(self.response)
+      print('is de response leeg?', self.response)
       try:
         self.id_response = self.feed.insert_response(self.response)
       except Exception as e:
