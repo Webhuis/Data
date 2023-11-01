@@ -37,7 +37,7 @@ class FQHost(object):
 
   def update_fqhost(self):
     self.last_seen = datetime.now(timezone.utc)
-    self.query = ("update context.fqhost set (last_seen = '{}') where uqhost = '{}' and domain_name = '{}' returning id;").format(self.last_seen, self.uqhost, self.domain_name)
+    self.query = ("update context.fqhost set last_seen = '{}' where uqhost = '{}' and domain_name = '{}' returning id;").format(self.last_seen, self.uqhost, self.domain_name)
     self.id_fqhost_update = self.postgres.pool_insert(self.query)
     return self.id_fqhost_update
 
