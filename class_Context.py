@@ -20,7 +20,7 @@ class FQHost(object):
       self.id_fqhost = self.postgres.pool_insert(self.query)
 
     self.query = ("select uqhost, domain_name, role_code, service_type, service_port from context.fqhost_role where uqhost = '{}' and domain_name = '{}';"
-             .format(self.uqhost, self.domain_name))
+                 .format(self.uqhost, self.domain_name))
     self.fqhost_role_view = self.postgres.pool_query(self.query)
     return self.fqhost_role_view
 
