@@ -78,7 +78,7 @@ class Data(object):
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
 
     host_object_id = self.hard_classes(message)
-    ''' We will create the context objects first, with convergence in mind. '''
+    We will create the context objects first, with convergence in mind.
     host_object = self.feeds_host_object(id_hard_classes)
     #response = json.dumps(self.hard_classes(id_hard_classes))
     response = json.dumps(['Dit is een heel verhaal als response', 'vers twee'])
@@ -90,7 +90,7 @@ class Data(object):
     query = 'select uqhost, domain from feeds.hard_classes where id = {}'.format(id_hard_classes)
     uqhost, domain = self.postgres.pool_query(query)
     self.host = Host(uqhost, domain)
-    ''' Now store the Host object_id in feeds.host_objects, for later use '''
+    Now store the Host object_id in feeds.host_objects, for later use
     exists = self.postgres.check_exists(query)
     return host_object
   '''
