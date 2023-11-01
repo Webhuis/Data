@@ -21,7 +21,7 @@ class FQHost(object):
 
     self.query = ('select uqhost, domain_name, role_code, service_type, service_port from context.fqhost_role where uqhost = {} and domain_name = {};'
              .format(self.uqhost, self.domain_name))
-    self.fqhost_role_view = self.postgres.pool_query(query)
+    self.fqhost_role_view = self.postgres.pool_query(self.query)
     return self.fqhost_role_view
 
   def check_exists(self):
@@ -32,7 +32,7 @@ class FQHost(object):
   def insert_fqhost(self):
     self.timestamp = datetime.now(timezone.utc)
     self.query = ("insert into context.fqhost (uqhost, domain_name, role_code, timestamp)"
-                  "values ('{}', '{}', '{}', '{}') returning id;)".format(self.uqhost, self.domain_name, self.role_code, self.timestamp))
+                  "values ('{}', '{}', '{}', '{}') returning id;").format(self.uqhost, self.domain_name, self.role_code, self.timestamp)
     return self.query
 
 class Role(object):
