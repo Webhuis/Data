@@ -21,6 +21,7 @@ class FQHost(object):
 
     self.query = ('select uqhost, domain_name, role_code, service_type, service_port from context.fqhost_role where uqhost = {} and domain_name = {};'
              .format(self.uqhost, self.domain_name))
+    print(self.query)
     self.fqhost_role_view = self.postgres.pool_query(self.query)
     return self.fqhost_role_view
 
