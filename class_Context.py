@@ -17,6 +17,7 @@ class FQHost(object):
     else:
       self.query = self.insert_fqhost()
       self.id_fqhost = self.postgres.pool_insert(self.query)
+      self.postgres.commit()
 
     self.query = ('select uqhost, domain_name, role_code, service_type, service_port from context.fqhost_role where uqhost = {} and domain = {};'
              .format(self.uqhost, self.domain))
@@ -30,10 +31,8 @@ class FQHost(object):
 
   def insert_fqhost(self):
     self.timestamp = datetime.now(timezone.utc)
-    self.query = ("begin transaction;
-                   insert into context.fqhost (uqhost, domain, role_code, timestamp)
-                   values ('{}', '{}', '{}', '{}') returning id;".format(self.uqhost, self.domain, self.role_code, self.timestamp)
-                   commit;")
+    self.query = ("insert into context.fqhost (uqhost, domain, role_code, timestamp)
+                   values ('{}', '{}', '{}', '{}') returning id;)".format(self.uqhost, self.domain, self.role_code, self.timestamp)
     return self.query
 
 class Role(object):
