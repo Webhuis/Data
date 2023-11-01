@@ -51,7 +51,10 @@ class Data(object):
         self.fqhost_object.update_fqhost()
       except Exception as e:
         print('update fqhost', e.args)
-      self.id_response = self.feed.insert_response(self.response)
+      try:
+        self.id_response = self.feed.insert_response(self.response)
+      except Exception as e:
+        print('insert response', e.args)
       self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_role_view))
 
   def get_fqhost_role_view():
@@ -71,6 +74,7 @@ class Data(object):
 
     return (self.id_feed, self.uqhost, self.domain)
 
+  '''
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
 
     host_object_id = self.hard_classes(message)
@@ -89,7 +93,7 @@ class Data(object):
     ''' Now store the Host object_id in feeds.host_objects, for later use '''
     exists = self.postgres.check_exists(query)
     return host_object
-
+  '''
 for logname in ['Data_event', 'Data_error']:
   fd.add_logger.log = fd.add_logger(logname)
   fd.dict_update(Data.loggers, '{}'.format(logname), fd.add_logger.log)
