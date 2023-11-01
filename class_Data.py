@@ -46,9 +46,11 @@ class Data(object):
     self.fqhost_object.update_fqhost()
     self.id_response = self.feed.insert_response(self.response)
     self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_role_view))
+    del(self.feed)
+    del(self.fqhost_object)
     return self.response
 
-  def get_fqhost_role_view():
+  def get_fqhost_role_view(self):
 
     self.fqhost_role_view = self.fqhost_object.get_fqhost_role_view()
     return self.fqhost_role_view
@@ -63,7 +65,7 @@ class Data(object):
 
     self.Data_event.info('Actual feed and fqdn hardclasses {} {} {} in database Data.'.format(self.id_feed, self.uqhost, self.domain))
 
-    return (self.id_feed, self.uqhost, self.domain)
+    return (self.feed, self.uqhost, self.domain)
 
   '''
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
