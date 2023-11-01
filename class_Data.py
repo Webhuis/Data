@@ -48,7 +48,7 @@ class Data(object):
       self.Data_error.info('Generating response failed, {}.'.format(x.args))
     finally:
       self.fqhost_object.update_fqhost()
-      self.id_response = self.feed.insert_resonse(response)
+      self.id_response = self.feed.insert_response(response)
       self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_role_view))
 
   def get_fqhost_role_view():
