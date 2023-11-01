@@ -42,13 +42,16 @@ class Data(object):
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
     try:
       self.fqhost_role_view = self.get_fqhost_role_view()
-      response = json.dumps(self.fqhost_role_view)
-      return response
+      self.response = json.dumps(self.fqhost_role_view)
+      return self.response
     except Execption as e:
       self.Data_error.info('Generating response failed, {}.'.format(x.args))
     finally:
-      self.fqhost_object.update_fqhost()
-      self.id_response = self.feed.insert_response(response)
+      try:
+        self.fqhost_object.update_fqhost()
+      except Exception as e:
+        print('update fqhost', e.args)
+      self.id_response = self.feed.insert_response(self.response)
       self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_role_view))
 
   def get_fqhost_role_view():
