@@ -35,6 +35,11 @@ class FQHost(object):
                   "values ('{}', '{}', '{}', '{}') returning id;").format(self.uqhost, self.domain_name, self.role_code, self.timestamp)
     return self.query
 
+  def update_fqhost(self):
+    self.last_seen = datetime.now(timezone.utc)
+    self.query = ("update context.fqhost set (last_seen) = '{}' ".format(self.last_seen)
+    return self.query
+
 class Role(object):
 
   def __init__(self, role_code):

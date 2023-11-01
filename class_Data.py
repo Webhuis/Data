@@ -38,26 +38,23 @@ class Data(object):
 
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
-    self.feed, self.uqhost, self.domain_name = self.feed_to_hardclass(message, self.postgres)
+    self.id_feed, self.uqhost, self.domain_name = self.feed_to_hardclass(message, self.postgres)
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
+    try:
+      self.fqhost_role_view = self.get_fqhost_role_view()
+      response = json.dumps(self.fqhost_role_view)
+      return response
+    except: Execption as e:
+      self.Data_error.info('Generating response failed, {}.'.format(x.args))
+    finally:
+      self.fqhost_object.update_fqhost()
+      self.feed.insert_resonse(response)
+      self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_role_view))
+
+  def get_fqhost_role_view():
+
     self.fqhost_role_view = self.fqhost_object.get_fqhost_role_view()
-    self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_role_view))
-    print(self.fqhost_role_view)
-    response = json.dumps(self.fqhost_role_view)
-    #response = json.dumps(['Dit is een heel verhaal als response', 'vers twee'])
-    print(response)
-    return response
-
-  def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
-
-    host_object_id = self.hard_classes(message)
-    ''' We will create the context objects first, with convergence in mind. '''
-    host_object = self.feeds_host_object(id_hard_classes)
-    #response = json.dumps(self.hard_classes(id_hard_classes))
-    response = json.dumps(['Dit is een heel verhaal als response', 'vers twee'])
-    #write_feed = feed.hard_classes()
-    print(response)
-    return response
+    return self.fqhost_role_view
 
   def feed_to_hardclass(self, message, postgres):
 
@@ -70,6 +67,17 @@ class Data(object):
     self.Data_event.info('Actual feed and fqdn hardclasses {} {} {} in database Data.'.format(self.id_feed, self.uqhost, self.domain))
 
     return (self.id_feed, self.uqhost, self.domain)
+
+  def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
+
+    host_object_id = self.hard_classes(message)
+    ''' We will create the context objects first, with convergence in mind. '''
+    host_object = self.feeds_host_object(id_hard_classes)
+    #response = json.dumps(self.hard_classes(id_hard_classes))
+    response = json.dumps(['Dit is een heel verhaal als response', 'vers twee'])
+    #write_feed = feed.hard_classes()
+    print(response)
+    return response
 
   def feeds_host_object(id_hard_classes): # host_object_desired
     query = 'select uqhost, domain from feeds.hard_classes where id = {}'.format(id_hard_classes)

@@ -14,20 +14,27 @@ class Feed(object):
     self.postgres = postgres
 
   def insert_feed(self):
-    timestamp = datetime.now(timezone.utc)
-    query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , self.message )
+    self.timestamp = datetime.now(timezone.utc)
+    query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( self.timestamp, self.message )
     id = self.postgres.pool_insert(query)
     return id
 
   def update_feed(self):
-    timestamp = datetime.now(timezone.utc)
-    query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
+    self.timestamp = datetime.now(timezone.utc)
+    query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( self.timestamp , message_json )
     return query
 
   def delete_feed(self):
     timestamp = datetime.now(timezone.utc)
     query = "insert into feeds.json_in ( message_time, message_in ) values ( '{}', '{}' ) returning id;".format( timestamp , message_json )
     return query
+
+  def insert_response(self, response):
+    self.response_time = datetime.now(timezone.utc)
+    query = "insert into feeds.response ( feed_message_time, response_tine, message_out ) values ( '{}', '{}', '{}' ) returning id;"
+            .format( self.timestamp, self.response_time, response )
+    id = self.postgres.pool_insert(query)
+    return id
 
 class HardClass(object):
 
