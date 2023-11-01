@@ -30,11 +30,10 @@ class FQHost(object):
 
   def insert_fqhost(self):
     self.timestamp = datetime.now(timezone.utc)
-    self.query = ("begin transaction;"
-                  "insert into context.fqhost (uqhost, domain, role_code, timestamp) "
-                  "values ('{}', '{}', '{}', '{}') returning id;".format(
-                   self.uqhost, self.domain, self.role_code, self.timestamp)
-                  "commit;")
+    self.query = ("begin transaction;
+                   insert into context.fqhost (uqhost, domain, role_code, timestamp)
+                   values ('{}', '{}', '{}', '{}') returning id;".format(self.uqhost, self.domain, self.role_code, self.timestamp)
+                   commit;")
     return self.query
 
 class Role(object):
