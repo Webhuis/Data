@@ -33,8 +33,8 @@ class Feed(object):
     self.response_time = datetime.now(timezone.utc)
     query = ("insert into feeds.response ( feed_message_time, response_tine, message_out )"
              " values ( '{}', '{}', '{}' ) returning id;").format( self.timestamp, self.response_time, response )
-    id = self.postgres.pool_insert(query)
-    return id
+    id_response = self.postgres.pool_insert(query)
+    return id_response 
 
 class HardClass(object):
 
