@@ -42,7 +42,7 @@ class Data(object):
     self.fqhost_object = FQHost(self.uqhost, self.domain)
     self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_object))
     self.fqhost_role_view = self.fqhost_object.get_fqhost_view()
-    print((self.fqhost_role_view)
+    print(self.fqhost_role_view)
     response = json.dumps(self.fqhost_role_view)
     #response = json.dumps(['Dit is een heel verhaal als response', 'vers twee'])
     print(response)
