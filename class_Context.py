@@ -7,6 +7,7 @@ class FQHost(object):
   def __init__(self, uqhost, domain, postgres):
     self.uqhost = uqhost
     self.domain = domain
+    self.postgres = postgres
     role_code = uqhost[0:4]
     self.role_code = role_code
 
