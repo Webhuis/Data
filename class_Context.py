@@ -4,9 +4,9 @@ from datetime import datetime, timezone
 
 class FQHost(object):
 
-  def __init__(self, uqhost, domain, postgres):
+  def __init__(self, uqhost, domain_name, postgres):
     self.uqhost = uqhost
-    self.domain = domain
+    self.domain_name = domain_name
     self.postgres = postgres
     role_code = uqhost[0:4]
     self.role_code = role_code
@@ -20,20 +20,20 @@ class FQHost(object):
       self.id_fqhost = self.postgres.pool_insert(self.query)
       self.postgres.commit()
 
-    self.query = ('select uqhost, domain_name, role_code, service_type, service_port from context.fqhost_role where uqhost = {} and domain = {};'
-             .format(self.uqhost, self.domain))
+    self.query = ('select uqhost, domain_name, role_code, service_type, service_port from context.fqhost_role where uqhost = {} and domain_name = {};'
+             .format(self.uqhost, self.domain_name))
     self.fqhost_role_view = self.postgres.pool_query(query)
     return self.fqhost_role_view
 
   def check_exists(self):
-    query = "select exists(select 1 from context.fqhost where uqhost = '{}' and domain = '{}');".format(self.uqhost, self.domain)
+    query = "select exists(select 1 from context.fqhost where uqhost = '{}' and domain_name = '{}');".format(self.uqhost, self.domain_name)
     exists = self.postgres.pool_query(query)
     return exists[0][0]
 
   def insert_fqhost(self):
     self.timestamp = datetime.now(timezone.utc)
-    self.query = ("insert into context.fqhost (uqhost, domain, role_code, timestamp)"
-                  "values ('{}', '{}', '{}', '{}') returning id;)".format(self.uqhost, self.domain, self.role_code, self.timestamp))
+    self.query = ("insert into context.fqhost (uqhost, domain_name, role_code, timestamp)"
+                  "values ('{}', '{}', '{}', '{}') returning id;)".format(self.uqhost, self.domain_name, self.role_code, self.timestamp))
     return self.query
 
 class Role(object):
@@ -43,6 +43,6 @@ class Role(object):
 
 class Domain(object):
 
-  def __init__(self, domain):
-    self.domain = domain
+  def __init__(self, domain_name):
+    self.domain_name = domain_name
 
