@@ -11,14 +11,13 @@ class FQHost(object):
     role_code = uqhost[0:4]
     self.role_code = role_code
 
-  def get_fqhost_view(self):
+  def get_fqhost_role_view(self):
     self.exists = self.check_exists()
     if self.exists == True:
       pass
     else:
       self.query = self.insert_fqhost()
       self.id_fqhost = self.postgres.pool_insert(self.query)
-      self.postgres.commit()
 
     self.query = ('select uqhost, domain_name, role_code, service_type, service_port from context.fqhost_role where uqhost = {} and domain_name = {};'
              .format(self.uqhost, self.domain_name))

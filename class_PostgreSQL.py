@@ -28,7 +28,6 @@ class PostgreSQL():
       pg_cursor.execute(query)
       result = pg_cursor.fetchall()[0]
       pg_cursor.close()
-      pg_cursor.close()
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
       result = "Error while selecting from PostgreSQL {}".format(error.args)
@@ -41,7 +40,6 @@ class PostgreSQL():
       pg_cursor = pg_conn.cursor()
       pg_cursor.execute(query)
       result = pg_cursor.fetchall()
-      pg_cursor.close()
       pg_cursor.close()
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
