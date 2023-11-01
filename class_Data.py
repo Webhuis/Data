@@ -39,7 +39,7 @@ class Data(object):
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
     self.feed, self.uqhost, self.domain = self.feed_to_hardclass(message, self.postgres)
-    self.fqhost_object = FQHost(self.uqhost, self.domain)
+    self.fqhost_object = FQHost(self.uqhost, self.domain, self.postgres)
     self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_object))
     self.fqhost_role_view = self.fqhost_object.get_fqhost_view()
     print(self.fqhost_role_view)
