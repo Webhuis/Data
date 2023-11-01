@@ -48,8 +48,8 @@ class Data(object):
       self.Data_error.info('Generating response failed, {}.'.format(x.args))
     finally:
       self.fqhost_object.update_fqhost()
+      print(self.response)
       try:
-        print(self.response)
         self.id_response = self.feed.insert_response(self.response)
       except Exception as e:
         print('insert response', e.args)
