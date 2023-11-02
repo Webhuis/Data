@@ -44,7 +44,7 @@ class Data(object):
     self.response = json.dumps(self.fqhost_role_view)
     return self.response, self.feed_object, self.fqhost_object
 
-def work_after_response(self, feed_object, fqhost_object):
+  def work_after_response(self, feed_object, fqhost_object):
 
     self.fqhost_object.update_fqhost()
     self.id_response = self.feed.insert_response(self.response)
