@@ -49,8 +49,12 @@ class Data(object):
     self.fqhost_object.update_fqhost()
     self.id_response = self.feed.insert_response(self.response)
     self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_role_view))
-    del(self.feed_object)
     print(id(self.feed_object))
+    del(self.feed_object)
+    try:
+      print('Het object is er nog!', id(self.feed_object))
+    except Exception as e:
+      print('nu is het object weg!')
     #del(self.fqhost_object)
 
   def get_fqhost_role_view(self):
