@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+!/usr/bin/env python3
 
 from loguru import logger
 from class_Data import Data
@@ -28,7 +28,7 @@ class Interaction(object):
         b_message = socket.recv()
         try:
           message = b_message.decode()
-          response = self.Data.provide_view(message)
+          response = self.Data.provide_view(message) #, feed_object, fqhost_object):
           #b_response = response.encode('utf8')
           #queue.add_task(lambda: process_message(message))
           #queue.join()
@@ -40,6 +40,7 @@ class Interaction(object):
             self.ZMQ_event.info(response)
           except Exception as e:
             self.ZMQ_error.info('Error sending message {}'.format(e.args))
+          self.Data.work_after_response(response[1], response[2]):
         except Exception as e:
           self.Interaction_error.info('Error creating task.{}'.format(e.args))
       except Exception as e:
