@@ -40,7 +40,7 @@ class Interaction(object):
             self.ZMQ_event.info(response)
           except Exception as e:
             self.ZMQ_error.info('Error sending message {}'.format(e.args))
-          self.Data.work_after_response(response[1], response[2]):
+          self.Data.work_after_response(response[1], response[2])
         except Exception as e:
           self.Interaction_error.info('Error creating task.{}'.format(e.args))
       except Exception as e:
