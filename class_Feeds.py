@@ -31,10 +31,10 @@ class Feed(object):
 
   def insert_response(self, response):
     self.response_time = datetime.now(timezone.utc)
-    query = ("insert into feeds.response ( feed_message_time, response_tine, message_out )"
+    query = ("insert into feeds.response ( feed_message_time, response_time, message_out )"
              " values ( '{}', '{}', '{}' ) returning id;").format( self.timestamp, self.response_time, response )
     id_response = self.postgres.pool_insert(query)
-    return id_response 
+    return id_response
 
 class HardClass(object):
 
