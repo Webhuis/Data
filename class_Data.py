@@ -44,23 +44,34 @@ class Data(object):
     self.response = json.dumps(self.fqhost_role_view)
     return self.response, self.feed_object, self.fqhost_object
 
-  def work_after_response(self, feed_object, fqhost_object):
-
-    self.fqhost_object.update_fqhost()
-    self.id_response = self.feed.insert_response(self.response)
-    self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_role_view))
-    print('Het object is er nog!', id(self.feed_object))
-    del(self.feed_object)
-    try:
-      print('Het object is er nog steeds!', id(self.feed_object))
-    except Exception as e:
-      print('nu is het object weg!')
-    #del(self.fqhost_object)
-
   def get_fqhost_role_view(self):
-
+    '''
+    The view consists of the following containers:
+     - common part
+     - domain
+     - role
+     - domain role
+     - services
+    '''
     self.fqhost_role_view = self.fqhost_object.get_fqhost_role_view()
+    self_domain_container()
     return self.fqhost_role_view
+
+  def common_container(self):
+    pass
+
+  def domain_container(self):
+    pass
+
+  def domain_role_container(self):
+    pass
+
+  def role_container(self):
+    '''
+    Contains services
+    '''
+    pass
+
 
   def feed_to_hardclass(self, message, postgres):
 
@@ -73,6 +84,14 @@ class Data(object):
     self.Data_event.info('Actual feed and fqdn hardclasses {} {} {} in database Data.'.format(self.id_feed, self.uqhost, self.domain))
 
     return (self.feed, self.uqhost, self.domain)
+
+  def work_after_response(self, feed_object, fqhost_object):
+
+    self.fqhost_object.update_fqhost()
+    self.id_response = self.feed.insert_response(self.response)
+    self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_role_view))
+    del(self.feed_object)
+    del(self.fqhost_object)
 
   '''
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
