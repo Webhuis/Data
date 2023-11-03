@@ -54,7 +54,7 @@ class Data(object):
      - services
     '''
     self.fqhost_role_view = self.fqhost_object.get_fqhost_role_view()
-    self_domain_container()
+    self.domain_container()
     return self.fqhost_role_view
 
   def common_container(self):
