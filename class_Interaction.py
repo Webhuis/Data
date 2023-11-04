@@ -37,7 +37,7 @@ class Interaction(object):
             #print(type(s_response), s_response)
             #b_response = s_response.encode('utf8')
             socket.send_string(s_response)
-            self.ZMQ_event.info(response)
+            self.ZMQ_event.info(response[0])
           except Exception as e:
             self.ZMQ_error.info('Error sending message {}'.format(e.args))
           self.Data.work_after_response(response[1], response[2])
