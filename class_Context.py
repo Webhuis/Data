@@ -67,6 +67,7 @@ class SubDomain(Domain):
 
     self.domain_combined = self.get_domain_info(self.org_domain)
     self.domain_combined += self.get_domain_info(self.sub_domain)
+
     return self.domain_combined
 
 class webhuis_nl(domain):
