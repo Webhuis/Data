@@ -53,8 +53,9 @@ class Domain(object):
 
   def get_domain_info(domain_name):
 
-    self.query =  ("select domain_data from context.domain where domain_name = '{}';".format(domain_name)
+    self.query =  ("select domain_data from context.domain where domain_name = '{}';").format(domain_name)
     self.domain_data = self.postgres.pool_query(self.query)
+
     return self.domain_data
 
 class SubDomain(Domain):
