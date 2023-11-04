@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
 
 from loguru import logger
-import re
+import json
 import sys
 
 def fetch_object(obj_dict, obj_key):
 
-    object = obj_dict[obj_key][0]
+  object = obj_dict[obj_key][0]
 
-    return object
+  return object
 
 def dict_update(dict, key, value):
 
-    try:
-        dict[key].append(value)
-    except:
-        dict[key] = [value]
+  try:
+    dict[key].append(value)
+  except:
+    dict[key] = [value]
 
 def make_filter(logname):
   def filter(record):
@@ -37,5 +37,13 @@ def add_logger(logname):
   except Exception as e:
     print('log.info gaat fout', e.args)
   return log
+
+def to_json(j_dict, containers):
+
+  json_object = { '{}'.format(j_dict): []}
+  for container in containers:
+    json_object[j_dict].append(container)
+
+  return json_object
 
 objects = {}

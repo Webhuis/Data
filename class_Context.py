@@ -73,30 +73,6 @@ class SubDomain(Domain):
 
     self.domain_combined = self.get_domain_info(self.org_domain)
     self.domain_combined += self.get_domain_info(self.domain_name)
-    #print(self.domain_combined)
+    print(self.domain_combined)
 
     return self.domain_combined
-
-class webhuis_nl(object):
-
-  def __init__(self, vlans):
-
-    self.domain_name = domain_name
-    self.domain_name = domain_name
-    self.vlans = vlans
-    self.resolvers = resolvers
-    self.networks = networks
-
-class sw(webhuis_nl):
-
-  def __init__(self):
-    self.domain_name = domain_name
-    self.networks = networks
-
-  def get_domain_data(self):
-
-    self.query = ("select uqhost, domain_name, role_code, service_type, service_port from context.fqhost_role where uqhost = '{}' and domain_name = '{}';"
-                 .format(self.uqhost, self.domain_name))
-    self.fqhost_role_view = self.postgres.pool_query(self.query)
-    return self.fqhost_role_view
-
