@@ -70,9 +70,8 @@ class SubDomain(Domain):
 
   def get_domain_data(self):
 
-    self.domain_data = self.get_domain_info(self.org_domain)
-    print(self.domain_data)
-    self.domain_combined = self.domain_data + self.get_domain_info(self.sub_domain)
+    self.domain_combined = self.get_domain_info(self.org_domain)
+    self.domain_combined += self.get_domain_info(self.domain_name)
     print(self.domain_combined)
 
     return self.domain_combined
