@@ -60,8 +60,9 @@ class Domain(object):
 
 class SubDomain(Domain):
 
-  def __init__(self, org_domain, sub_domain))
+  def __init__(self, org_domain, sub_domain, postgres):
     super().__init__(org_domain)
+    super().__init__(postgres)
     self.sub_domain = sub_domain
 
   def get_domain_data(self):
@@ -73,7 +74,7 @@ class SubDomain(Domain):
 
 class webhuis_nl(domain):
 
-  def __init__(self, vlans)
+  def __init__(self, vlans):
 
     self.domain_name = domain_name
     self.domain_name = domain_name
@@ -83,7 +84,7 @@ class webhuis_nl(domain):
 
 class sw(webhuis_nl):
 
-  def __init__(self)
+  def __init__(self):
     self.domain_name = domain_name
     self.networks = networks
 
