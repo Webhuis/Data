@@ -44,7 +44,8 @@ class Data(object):
     self.domain_object = SubDomain(self.domain_name, self.postgres)
     self.domain_data = self.domain_object.get_domain_data()
     #print(self.fqhost_role_view,self.domain_data)
-    self.response = json.dumps(self.fqhost_role_view)
+    self.response = json.dumps(self.fqhost_role_view[0],self.domain_data[0])
+    print(self.response)
     return self.response, self.feed_object, self.fqhost_object
 
   def get_fqhost_role_view(self):
