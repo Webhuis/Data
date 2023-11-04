@@ -41,7 +41,7 @@ class Data(object):
     self.feed_object, self.uqhost, self.domain_name = self.feed_to_hardclass(message, self.postgres)
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
     self.fqhost_role_view = self.get_fqhost_role_view()
-    self.domain.data = domain_container(self.domain_name)
+    self.domain.data = self.domain_container(self.domain_name)
     self.response = json.dumps(self.fqhost_role_view)
     return self.response, self.feed_object, self.fqhost_object
 
@@ -62,8 +62,8 @@ class Data(object):
     pass
 
   def domain_container(self, domain_name):
-    self.domain_name = domain_name
-    domain_parts = self.domain_name.split('.')
+    #self.domain_name = domain_name
+    domain_parts = domain_name.split('.')
     org_domain = '.'.join(domain_parts[1:])
     sub_domain = domain_parts[0]
     self.domain_object = subDomain(org_domain, sub_domain)
