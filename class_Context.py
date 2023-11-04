@@ -72,7 +72,7 @@ class SubDomain(Domain):
 
     return self.domain_combined
 
-class webhuis_nl(domain):
+class webhuis_nl(object):
 
   def __init__(self, vlans):
 
