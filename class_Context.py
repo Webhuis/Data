@@ -61,7 +61,10 @@ class Domain(object):
 
 class SubDomain(Domain):
 
-  def __init__(self, org_domain, sub_domain, postgres):
+  def __init__(self, domain_name, postgres):
+    domain_parts = domain_name.split('.') 
+    self.org_domain = '.'.join(domain_parts[1:])
+    self.sub_domain = domain_parts[0]
     super().__init__(org_domain)
     super().__init__(postgres)
     self.sub_domain = sub_domain
