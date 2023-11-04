@@ -62,7 +62,7 @@ class Domain(object):
 class SubDomain(Domain):
 
   def __init__(self, domain_name, postgres):
-    domain_parts = domain_name.split('.') 
+    domain_parts = domain_name.split('.')
     org_domain = '.'.join(domain_parts[1:])
     super().__init__(org_domain, postgres)
     sub_domain = domain_parts[0]
@@ -70,9 +70,9 @@ class SubDomain(Domain):
 
   def get_domain_data(self):
 
-    self.domain_combined = self.get_domain_info(self.org_domain)
-    print(self.domain_combined)
-    self.domain_combined += self.get_domain_info(self.sub_domain)
+    self.domain_data = self.get_domain_info(self.org_domain)
+    print(self.domain_data)
+    self.domain_combined = self.domain_data + self.get_domain_info(self.sub_domain)
     print(self.domain_combined)
 
     return self.domain_combined
