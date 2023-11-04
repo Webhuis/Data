@@ -62,9 +62,9 @@ class Data(object):
   def common_container(self):
     pass
 
-  def domain_container(self, self.domain_name, self.postgres):
+  def domain_container(domain_name, postgres):
     #self.domain_name = domain_name
-    domain_parts = self.domain_name.split('.')
+    domain_parts = domain_name.split('.')
     org_domain = '.'.join(domain_parts[1:])
     sub_domain = domain_parts[0]
     self.domain_object = SubDomain(org_domain, sub_domain, self.postgres)
