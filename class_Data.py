@@ -90,7 +90,7 @@ class Data(object):
 
     self.fqhost_object.update_fqhost()
     self.id_response = self.feed.insert_response(self.response)
-    self.Data_event.info('Actual FQHost {} in database Data.'.format(self.fqhost_role_view))
+    self.Data_event.info('Actual response {}.{} {} in database Data.'.format(self.uqhost, self_domain_name, self.id_response))
     del(self.feed_object)
     del(self.fqhost_object)
 
