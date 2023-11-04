@@ -41,7 +41,7 @@ class Data(object):
     self.feed_object, self.uqhost, self.domain_name = self.feed_to_hardclass(message, self.postgres)
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
     self.fqhost_role_view = self.get_fqhost_role_view()
-    self.domain_data = self.domain_container(self.postgres) # .domain_name, self.postgres)
+    self.domain_data = self.domain_container() # .domain_name, self.postgres)
     self.response = json.dumps(self.fqhost_role_view)
     return self.response, self.feed_object, self.fqhost_object
 
@@ -61,13 +61,14 @@ class Data(object):
   def common_container(self):
     pass
 
-  def domain_container(self, postgres):
+  def domain_container(self):
     #self.domain_name = domain_name
+    #self.postgres = domain_name
     domain_parts = self.domain_name.split('.')
     org_domain = '.'.join(domain_parts[1:])
     sub_domain = domain_parts[0]
     try:
-      self.domain_object = SubDomain(org_domain, sub_domain, postgres)
+      self.domain_object = SubDomain(org_domain, sub_domain, self.postgres)
     except Exception as e:
       print(e.args)
     self.domain_data = self.domain_object.get_domain_data()
