@@ -48,6 +48,47 @@ class Role(object):
 
 class Domain(object):
 
-  def __init__(self, domain_name):
+  def __init__(self, org_domain, postgres):
+    self.org_domain = org_domain
+
+  def get_domain_info(domain_name)
+
+    self.query =  ("select domain_data from context.domain where domain_name = '{}';".format(domain_name)
+    self.domain_data = self.postgres.pool_query(self.query)
+    return self.domain_data
+
+class SubDomain(Domain):
+
+  def __init__(self, org_domain, sub_domain))
+    super().__init__(org_domain)
+    self.sub_domain = sub_domain
+
+  def get_domain_data(self)
+
+    self.domain_combined = self.get_domain_info(self.org_domain)
+    self.domain_combined += self.get_domain_info(self.sub_domain)
+    return self.domain_combined
+
+class webhuis_nl(domain):
+
+  def __init__(self, vlans)
+
     self.domain_name = domain_name
+    self.domain_name = domain_name
+    self.vlans = vlans
+    self.resolvers = resolvers
+    self.networks = networks
+
+class sw(webhuis_nl):
+
+  def __init__(self)
+    self.domain_name = domain_name
+    self.networks = networks
+
+  def get_domain_data(self):
+
+    self.query = ("select uqhost, domain_name, role_code, service_type, service_port from context.fqhost_role where uqhost = '{}' and domain_name = '{}';"
+                 .format(self.uqhost, self.domain_name))
+    self.fqhost_role_view = self.postgres.pool_query(self.query)
+    return self.fqhost_role_view
 
