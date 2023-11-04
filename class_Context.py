@@ -50,8 +50,9 @@ class Domain(object):
 
   def __init__(self, org_domain, postgres):
     self.org_domain = org_domain
+    self.postgres = postgres
 
-  def get_domain_info(domain_name):
+  def get_domain_info(self, domain_name):
 
     self.query =  ("select domain_data from context.domain where domain_name = '{}';").format(domain_name)
     self.domain_data = self.postgres.pool_query(self.query)
