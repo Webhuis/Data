@@ -45,7 +45,7 @@ class Data(object):
     self.domain_data = self.domain_object.get_domain_data()
     #print(self.fqhost_role_view, self.domain_data)
     response_to_json = fd.to_json('fqhost_view', [ self.fqhost_role_view[0], self.domain_data[0] ])
-    self.response = json.dumps(cwresponse_to_json)
+    self.response = json.dumps(response_to_json)
     print(self.response)
     return self.response, self.feed_object, self.fqhost_object
 
