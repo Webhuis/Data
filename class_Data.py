@@ -66,7 +66,10 @@ class Data(object):
     domain_parts = self.domain_name.split('.')
     org_domain = '.'.join(domain_parts[1:])
     sub_domain = domain_parts[0]
-    self.domain_object = SubDomain(org_domain, sub_domain, self.postgres)
+    try:
+      self.domain_object = SubDomain(org_domain, sub_domain, self.postgres)
+    except Exception as e:
+      print(e.args)
     self.domain_data = self.domain_object.get_domain_data()
     print(self.domain_data)
     return self.domain_data
