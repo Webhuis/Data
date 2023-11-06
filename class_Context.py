@@ -8,10 +8,9 @@ class FQHost(object):
     self.uqhost = uqhost
     self.domain_name = domain_name
     self.postgres = postgres
-    role_code = uqhost[0:4]
-    self.role_code = role_code
+    self.role_code = uqhost[0:4]
 
-  def get_fqhost_role_view(self):
+  def get_fqhost_services_view(self):
     self.exists = self.check_exists()
     if self.exists == True:
       pass
@@ -19,7 +18,7 @@ class FQHost(object):
       self.query = self.insert_fqhost()
       self.id_fqhost = self.postgres.pool_insert(self.query)
 
-    self.query = ("select row_to_json(x) from (select uqhost, domain_name, role_code, service_type, service_port from context.fqhost_role where uqhost = '{}' and domain_name = '{}') as x;"
+    self.query = ("select row_to_json(x) from (select uqhost, domain_name, service_type, service_port from context.fqhost_services where uqhost = '{}' and domain_name = '{}') as x;"
                  .format(self.uqhost, self.domain_name))
     self.fqhost_role_view = self.postgres.pool_query(self.query)
     return self.fqhost_role_view
