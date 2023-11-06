@@ -40,15 +40,15 @@ class Data(object):
 
     self.feed_object, self.uqhost, self.domain_name = self.feed_to_hardclass(message, self.postgres)
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
-    self.fqhost_role_view = self.get_fqhost_role_view()
+    self.fqhost_services_view = self.get_fqhost_role_view()
     self.domain_object = SubDomain(self.domain_name, self.postgres)
     self.domain_data = self.domain_object.get_domain_data()
-    response_to_json = fd.to_json('fqhost_view', [ self.fqhost_role_view[0], self.domain_data[0], self.domain_data[1] ])
+    response_to_json = fd.to_json('fqhost_view', [ self.fqhost_services_view[0], self.domain_data[0], self.domain_data[1] ])
     self.response = json.dumps(response_to_json)
     #print(self.response)
     return self.response, self.feed_object, self.fqhost_object
 
-  def get_fqhost_role_view(self):
+  def get_fqhost_services_view(self):
     '''
     The view consists of the following containers:
      - common part
@@ -57,9 +57,9 @@ class Data(object):
      - domain role
      - services
     '''
-    self.fqhost_role_view = self.fqhost_object.get_fqhost_role_view()
+    self.fqhost_services_view = self.fqhost_object.get_fqhost_role_view()
 
-    return self.fqhost_role_view
+    return self.fqhost_services_view
 
   def common_container(self):
     pass
