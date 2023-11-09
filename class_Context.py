@@ -45,8 +45,9 @@ class Role(object):
   def __init__(self, role_code, postgres):
     self.role_code = role_code
     self.postgres = postgres
+    print(self.role_code)
 
-  def get_role_data(self, role_code):
+  def get_role_data(self, role_code, postgres):
 
     self.query =  ("select role_data from context.role where role_code = '{}';").format(role_code)
     self.role_data = self.postgres.pool_query(self.query)
