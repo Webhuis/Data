@@ -40,24 +40,23 @@ class FQHost(object):
     self.id_fqhost_update = self.postgres.pool_insert(self.query)
     return self.id_fqhost_update
 
-class Role(object):
+class Organisation(object):
 
-  def __init__(self, role_code, postgres):
-    self.role_code = role_code
+  def __init__(self, organisation, postgres):
+    self.organisation = organisation
     self.postgres = postgres
-    print('Role__init__', self.role_code)
 
-  def get_role_data(self, role_code):
+  def get_organisation_data(self, organisation_name):
 
-    self.query =  ("select role_data from context.role where role_code = '{}';").format(role_code)
-    self.role_data = self.postgres.pool_query(self.query)
+    self.query =  ("select organisation_name, organisation_data from context.organisation where organisation_name = '{}';").format(organisation_name)
+    self.organisation_data = self.postgres.pool_query(self.query)
 
-    return self.role_data
+    return self.organisation_data
 
 class Domain(object):
 
-  def __init__(self, org_domain, postgres):
-    self.org_domain = org_domain
+  def __init__(self, domain, postgres):
+    self.domain = domain
     self.postgres = postgres
 
   def get_domain_data(self, domain_name):
@@ -66,6 +65,19 @@ class Domain(object):
     self.domain_data = self.postgres.pool_query(self.query)
 
     return self.domain_data
+
+class Role(object):
+
+  def __init__(self, role_code, postgres):
+    self.role_code = role_code
+    self.postgres = postgres
+
+  def get_role_data(self, role_code):
+
+    self.query =  ("select role_data from context.role where role_code = '{}';").format(role_code)
+    self.role_data = self.postgres.pool_query(self.query)
+
+    return self.role_data
 
 class SubDomain(Domain):
 
