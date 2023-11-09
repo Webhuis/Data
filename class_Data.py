@@ -60,7 +60,7 @@ class Data(object):
     self.fqhost_data = self.fqhost_object.get_fqhost_services_view()
     self.domain_data = self.domain_container()
     self.role_data = self.role_container()
-
+    print(self.fqhost_data[0], self.domain_data[0], self.role_data[0] )
     response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data[0], self.domain_data[0], self.role_data[0] ])
     self.response = json.dumps(response_to_json)
 
