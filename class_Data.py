@@ -58,7 +58,6 @@ class Data(object):
     self.role_object = Role(self.uqhost[0:4], self.postgres)
 
     self.fqhost_data = self.fqhost_object.get_fqhost_services_view()
-    print(self.fqhost_data)
     self.domain_data = self.domain_container()
     print(self.domain_data)
     self.role_data = self.role_container()
@@ -74,9 +73,12 @@ class Data(object):
   def domain_container(self):
 
     self.domain_data = self.domain_object.get_domain_data(self.domain_name)
+    return self.domain_data
 
   def domain_role_container(self):
-    pass
+
+    self.role_data = self.role_object.get_role_data(self.role_code)
+    return self.role_data
 
   def role_container(self):
     '''
