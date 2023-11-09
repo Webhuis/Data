@@ -54,9 +54,10 @@ class Data(object):
      - services
     '''
     self.domain_object = Domain(self.domain_name, self.postgres)
-    self.domain_data, organisation_name = self.domain_container()
+    self.domain_all = self.domain_container()
     print(self.domain_data)
-    organisation_name = self.domain_data[0]
+    organisation_name = self.domain_all[0]
+    self.domain_data = self.domain_all[1]
     self.organisation_object = Organisation(organisation_name)
 
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
