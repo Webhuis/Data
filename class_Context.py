@@ -44,6 +44,7 @@ class Role(object):
 
   def __init__(self, role_code, postgres):
     self.role_code = role_code
+    self.postgres = postgres
 
   def get_role_data(self, role_code):
 
