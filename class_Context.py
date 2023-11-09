@@ -45,13 +45,20 @@ class Role(object):
   def __init__(self, role_code):
     self.role_code = role_code
 
+  def get_role_data(self, role_code):
+
+    self.query =  ("select role_data from context.domain where role_code = '{}';").format(role_code)
+    self.role_data = self.postgres.pool_query(self.query)
+
+    return self.role_data
+
 class Domain(object):
 
   def __init__(self, org_domain, postgres):
     self.org_domain = org_domain
     self.postgres = postgres
 
-  def get_domain_info(self, domain_name):
+  def get_domain_data(self, domain_name):
 
     self.query =  ("select domain_data from context.domain where domain_name = '{}';").format(domain_name)
     self.domain_data = self.postgres.pool_query(self.query)
@@ -70,7 +77,7 @@ class SubDomain(Domain):
 
   def get_domain_data(self):
 
-    self.domain_combined = self.get_domain_info(self.org_domain)
+    #self.domain_combined = self.get_domain_info(self.org_domain)
     self.domain_combined += self.get_domain_info(self.domain_name)
     #print('SubDomain',self.domain_combined)
 

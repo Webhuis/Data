@@ -39,30 +39,39 @@ class Data(object):
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
     self.feed_object, self.uqhost, self.domain_name = self.feed_to_hardclass(message, self.postgres)
-    self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
-    self.fqhost_services_view = self.get_fqhost_services_view()
-    self.domain_object = SubDomain(self.domain_name, self.postgres)
-    self.domain_data = self.domain_object.get_domain_data()
-    response_to_json = fd.to_json('fqhost_view', [ self.fqhost_services_view[0], self.domain_data[0], self.domain_data[1] ])
-    self.response = json.dumps(response_to_json)
+    self.fqhost_view = self.get_fqhost_view()
+
     #print(self.response)
     return self.response, self.feed_object, self.fqhost_object
 
-  def get_fqhost_services_view(self):
+  def get_fqhost_view(self):
     '''
     The view consists of the following containers:
-     - common part
+     - organisation
      - domain
      - role
      - domain role
      - services
     '''
-    self.fqhost_services_view = self.fqhost_object.get_fqhost_services_view()
+    self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
+    self.domain_object = Domain(self.domain_name, self.postgres)
+    self.role_object = Role(self.role_code, self.postgres)
 
-    return self.fqhost_services_view
+    self.fqhost_data = self.fqhost_object.get_fqhost_services_view()
+    self.domain_data = self.domain_container()
+    self.role_data = self.role_container()
 
-  def common_container(self):
+    response_to_json = fd.to_json('fqhost_view', [ self.fqhost_view[0], self.domain_data[0], self.role_data[0] ])
+    self.response = json.dumps(response_to_json)
+
+    return self.fqhost_view
+
+  def organisation_container(self):
     pass
+
+  def domain_container(self):
+
+    self.domain_data = self.domain_object.get_domain_data()
 
   def domain_role_container(self):
     pass
@@ -71,7 +80,7 @@ class Data(object):
     '''
     Contains services
     '''
-    pass
+    self.role_data = self.role_object.get_role_data()
 
 
   def feed_to_hardclass(self, message, postgres):
