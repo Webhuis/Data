@@ -55,12 +55,13 @@ class Data(object):
     '''
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
     self.domain_object = Domain(self.domain_name, self.postgres)
-    self.role_object = Role(self.uqhost[0:4], self.postgres)
+    role_code = self.uqhost[0:4]
+    self.role_object = Role(role_code, self.postgres)
 
     self.fqhost_data = self.fqhost_object.get_fqhost_services_view()
     self.domain_data = self.domain_container()
-    self.role_data = self.role_container()
-    print(self.role_data)
+    self.role_data = self.role_container(role_code)
+    print('role_data', self.role_data)
     response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data[0], self.domain_data[0], self.role_data[0] ])
     self.response = json.dumps(response_to_json)
 
@@ -79,11 +80,12 @@ class Data(object):
     self.role_data = self.role_object.get_role_data(self.uqhost[0:4])
     return self.role_data
 
-  def role_container(self):
+  def role_container(self, role_code):
     '''
     Contains services
     '''
-    self.role_data = self.role_object.get_role_data(self.uqhost[0:4])
+    self.role_data = self.role_object.get_role_data(role_code)
+    return self.role_data
 
 
   def feed_to_hardclass(self, message, postgres):
