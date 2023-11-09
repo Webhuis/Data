@@ -62,7 +62,7 @@ class Domain(object):
 
   def get_domain_data(self, domain_name):
 
-    self.query =  ("select domain_data from context.domain where domain_name = '{}';").format(domain_name)
+    self.query =  ("select organisation_name, domain_data from context.domain where domain_name = '{}';").format(domain_name)
     self.domain_data = self.postgres.pool_query(self.query)
 
     return self.domain_data
