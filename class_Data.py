@@ -59,7 +59,6 @@ class Data(object):
 
     self.fqhost_data = self.fqhost_object.get_fqhost_services_view()
     self.domain_data = self.domain_container()
-    print(self.domain_data)
     self.role_data = self.role_container()
     print(self.role_data)
     response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data[0], self.domain_data[0], self.role_data[0] ])
@@ -77,7 +76,7 @@ class Data(object):
 
   def domain_role_container(self):
 
-    self.role_data = self.role_object.get_role_data(self.role_code)
+    self.role_data = self.role_object.get_role_data(self.role_object.role_code)
     return self.role_data
 
   def role_container(self):
