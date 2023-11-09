@@ -55,7 +55,7 @@ class Data(object):
     '''
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
     self.domain_object = Domain(self.domain_name, self.postgres)
-    self.role_object = Role(self.role_code, self.postgres)
+    self.role_object = Role(self.uqhost[0:4], self.postgres)
 
     self.fqhost_data = self.fqhost_object.get_fqhost_services_view()
     self.domain_data = self.domain_container()
