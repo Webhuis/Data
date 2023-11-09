@@ -71,7 +71,7 @@ class Data(object):
 
   def domain_container(self):
 
-    self.domain_data = self.domain_object.get_domain_data()
+    self.domain_data = self.domain_object.get_domain_data(self.domain_name)
 
   def domain_role_container(self):
     pass
@@ -80,7 +80,7 @@ class Data(object):
     '''
     Contains services
     '''
-    self.role_data = self.role_object.get_role_data()
+    self.role_data = self.role_object.get_role_data(self.uqhost[0:4])
 
 
   def feed_to_hardclass(self, message, postgres):
