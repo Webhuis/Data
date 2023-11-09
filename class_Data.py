@@ -62,7 +62,7 @@ class Data(object):
     self.domain_data = self.domain_container()
     print(self.domain_data)
     self.role_data = self.role_container()
-    print(self.role_data
+    print(self.role_data)
     response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data[0], self.domain_data[0], self.role_data[0] ])
     self.response = json.dumps(response_to_json)
 
