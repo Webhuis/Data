@@ -82,7 +82,7 @@ class Role(object):
     self.role_data = self.role_data[0][0]
     self.query =  """select s.service_port, s.service_name, s.check_line, s.interface
                      from context.service as s
-                     join context.role_service as rs"
+                     join context.role_service as rs
                        on s.service_type = rs.service_type
                      where rs.role_code = '{}';""".format(role_code)
     print(self.query)
