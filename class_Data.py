@@ -78,8 +78,11 @@ class Data(object):
 
   def domain_container(self):
 
-    self.organisation_name, self.domain_data = self.domain_object.get_domain_data(self.domain_name)
-    return self.organisation_name, self.domain_data
+    try:
+      self.organisation_name, self.domain_data = self.domain_object.get_domain_data(self.domain_name)
+      return self.organisation_name, self.domain_data
+    except Exception as e:
+      print('domain_container', e.args)
 
   def domain_role_container(self):
 
