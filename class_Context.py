@@ -80,12 +80,14 @@ class Role(object):
     self.query =  ("select role_data from context.role where role_code = '{}';").format(role_code)
     self.role_data = self.postgres.pool_query(self.query)
     self.role_data = self.role_data[0][0]
-    self.query =  """select s.service_port, s.service_name, s.check_line, s.interface from context.service as s
-                      join context.role_service as rs"
-                      on s.service_type = rs.service_type
-                      where rs.role_code = '{}';""".format(role_code)
+    self.query =  """select s.service_port, s.service_name, s.check_line, s.interface
+                     from context.service as s
+                     join context.role_service as rs"
+                       on s.service_type = rs.service_type
+                     where rs.role_code = '{}';""".format(role_code)
+    print(query)
     self.services  = self.postgres.pool_query(self.query)
 
-    print(self.services)
+    print('self.servces', self.services)
 
     return self.role_data, self.services
