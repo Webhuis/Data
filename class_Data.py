@@ -63,9 +63,9 @@ class Data(object):
 
     self.organisation_data = self.organisation_object.get_organisation_data(self.organisation_name)
     self.fqhost_data = self.fqhost_object.get_fqhost_services_view()
-    self.role_data = self.role_container(role_code)
+    self.role_info = self.role_container(role_code)
     print('fqhost_view', [ self.fqhost_data, self.organisation_data, self.domain_data, self.role_data])
-    response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data, self.organisation_data, self.domain_data, self.role_data])
+    response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data, self.organisation_data, self.domain_data, self.role_info])
     self.response = json.dumps(response_to_json)
 
     return self.response
@@ -92,8 +92,8 @@ class Data(object):
     '''
     Contains services
     '''
-    self.role_data = self.role_object.get_role_data(role_code)
-    return self.role_data
+    self.role_info = self.role_object.get_role_data(role_code)
+    return self.role_info
 
 
   def feed_to_hardclass(self, message, postgres):

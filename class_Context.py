@@ -92,5 +92,6 @@ class Role(object):
 
     services_to_json = fd.to_json('services', services)
     self.services = json.dumps(services_to_json)
-
-    return self.role_data, self.services
+    self.role_info = json.dumps(self.role_data, services_to_json)
+    print(self.role_info)
+    return self.role_info
