@@ -67,7 +67,7 @@ class Domain(object):
     domain_data = domain_data_list[0]
     print(domain_data)
     organisation_name = domain_data[0]
-    domain_data = domain_data[1:]
+    domain_data = domain_data[1]
     print(organisation_name, domain_data)
     return organisation_name, domain_data
 
