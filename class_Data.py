@@ -39,7 +39,6 @@ class Data(object):
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
     self.feed_object, self.uqhost, self.domain_name = self.feed_to_hardclass(message, self.postgres)
-    self.role_code = self.uqhost[0:4]
     self.fqhost_view = self.get_fqhost_view()
 
     #print(self.response)
@@ -55,6 +54,8 @@ class Data(object):
      - services
     '''
     self.domain_object = Domain(self.domain_name, self.postgres)
+    self.role_code = self.uqhost[0:4]
+    print(self.domain_name, self.uqhost, self.role)
     self.organisation_name, self.domain_data = self.domain_container()
     print(self.organisation_name, self.domain_data)
     self.organisation_object = Organisation(organisation_name)
