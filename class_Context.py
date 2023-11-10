@@ -63,7 +63,7 @@ class Domain(object):
 
     self.query =  ("select organisation_name, domain_data from context.domain where domain_name = '{}';").format(domain_name)
     self.domain_data = self.postgres.pool_query(self.query)
-
+    print('get_domain_data', self.domain_data)
     return self.domain_data
 
 class Role(object):
