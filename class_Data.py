@@ -55,7 +55,7 @@ class Data(object):
     '''
     self.domain_object = Domain(self.domain_name, self.postgres)
     self.domain_all = self.domain_container()
-    print(self.domain_all)
+    print(type(self.domain_all), self.domain_all)
     organisation_name = self.domain_all[0][0]
     self.domain_data = self.domain_all[0][1]
     self.organisation_object = Organisation(organisation_name)
