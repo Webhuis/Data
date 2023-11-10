@@ -54,15 +54,14 @@ class Data(object):
      - services
     '''
     self.domain_object = Domain(self.domain_name, self.postgres)
-    self.role_code = self.uqhost[0:4]
-    print(self.domain_name, self.uqhost, self.role)
+    role_code = self.uqhost[0:4]
+    print(self.domain_name, self.uqhost, role)
     self.organisation_name, self.domain_data = self.domain_container()
     print(self.organisation_name, self.domain_data)
     self.organisation_object = Organisation(organisation_name)
 
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
-    self.role_code = self.uqhost[0:4]
-    self.role_object = Role(self.role_code, self.postgres)
+    self.role_object = Role(role_code, self.postgres)
 
     self.organisation_data = self.organisation_object.get_organisation_data()
     self.fqhost_data = self.fqhost_object.get_fqhost_services_view()
