@@ -79,7 +79,7 @@ class Data(object):
   def domain_container(self):
 
     self.organisation_name, self.domain_data = self.domain_object.get_domain_data(self.domain_name)
-    return self.domain_data
+    return self.organisation_name, self.domain_data
 
   def domain_role_container(self):
 
