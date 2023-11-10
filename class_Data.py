@@ -56,7 +56,7 @@ class Data(object):
     self.domain_object = Domain(self.domain_name, self.postgres)
     role_code = self.uqhost[0:4]
     print(self.domain_name, self.uqhost, role_code)
-    self.organisation_name, self.domain_data = self.domain_container()
+    self.organisation_name, self.domain_data = self.domain_container(self.domain_name)
     print(self.organisation_name, self.domain_data)
     self.organisation_object = Organisation(organisation_name)
 
@@ -76,10 +76,10 @@ class Data(object):
     self.organisation_data = self.organisation_object.get_organisation_data(organisation_name)
     return self.organisation_data
 
-  def domain_container(self, self.domain_name):
+  def domain_container(self, domain_name):
 
     try:
-      self.organisation_name, self.domain_data = self.domain_object.get_domain_data(self.domain_name)
+      self.organisation_name, self.domain_data = self.domain_object.get_domain_data(domain_name)
       return self.organisation_name, self.domain_data
     except Exception as e:
       print('domain_container', e.args)
