@@ -87,12 +87,11 @@ class Role(object):
                        on s.service_type = rs.service_type
                      where rs.role_code = '{}';""".format(role_code)
     services  = self.postgres.pool_query(self.query)
-    print(services)
     #services.replace('"', "'")
 
     services_to_json = fd.to_json('services', services)
     role_to_json = fd.to_json(self.role_code, [ self.role_data, services_to_json ])
-    print(role_to_json)
+    print('role_to_json', role_to_json)
     self.role_info = json.dumps(role_to_json)
     self.role_info.replace('"', "'")
     return self.role_info
