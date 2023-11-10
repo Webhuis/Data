@@ -85,8 +85,8 @@ class Data(object):
 
   def domain_role_container(self):
 
-    self.role_data = self.role_object.get_role_data(self.uqhost[0:4])
-    return self.role_data
+    self.role_data, role_services = self.role_object.get_role_data(self.uqhost[0:4])
+    return self.role_data, self.services
 
   def role_container(self, role_code):
     '''

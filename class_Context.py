@@ -80,24 +80,12 @@ class Role(object):
     self.query =  ("select role_data from context.role where role_code = '{}';").format(role_code)
     self.role_data = self.postgres.pool_query(self.query)
     self.role_data = self.role_data[0][0]
-    print(self.role_data)
+    self.query =  """select s.service_port, s.service_name, s.check_line, s.interface from context.service as s
+                      join context.role_service as rs"
+                      on s.service_type = rs.service_type
+                      where rs.role_code = '{}';""".format(role_code)
+    self.services  = self.postgres.pool_query(self.query)
 
-    return self.role_data
+    print(self.services)
 
-class SubDomain(Domain):
-
-  def __init__(self, domain_name, postgres):
-    self.domain_name = domain_name
-    domain_parts = domain_name.split('.')
-    org_domain = '.'.join(domain_parts[1:])
-    super().__init__(org_domain, postgres)
-    sub_domain = domain_parts[0]
-    self.sub_domain = sub_domain
-
-  def get_domain_data(self):
-
-    #self.domain_combined = self.get_domain_info(self.org_domain)
-    self.domain_combined += self.get_domain_info(self.domain_name)
-    #print('SubDomain',self.domain_combined)
-
-    return self.domain_combined
+    return self.role_data, self.services
