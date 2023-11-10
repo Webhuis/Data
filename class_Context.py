@@ -64,6 +64,7 @@ class Domain(object):
     self.query =  ("select organisation_name, domain_data from context.domain where domain_name = '{}';").format(domain_name)
     print('query', self.postgres.pool_query(self.query))
     domain_data = self.postgres.pool_query(self.query)
+    print('domain_data', domain_data)
     organisation_name = domain_data[0]
     domain_data = domain_data[1]
     print(organisation_name, domain_data)
