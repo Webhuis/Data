@@ -66,8 +66,8 @@ class Domain(object):
     domain_data_list = self.postgres.pool_query(self.query)
     print('domain_data', domain_data_list)
     domain_data = domain_data_list[0]
-    rint(domain_data)
-    organisation_name = domain_data[0][
+    print(domain_data)
+    organisation_name = domain_data[0]
     print(organisation_name, domain_data)
     return organisation_name, domain_data
 
