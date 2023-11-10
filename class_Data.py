@@ -55,18 +55,16 @@ class Data(object):
     '''
     self.domain_object = Domain(self.domain_name, self.postgres)
     role_code = self.uqhost[0:4]
-    print(self.domain_name, self.uqhost, role_code)
     self.organisation_name, self.domain_data = self.domain_container(self.domain_name)
-    print(self.organisation_name, self.domain_data)
     self.organisation_object = Organisation(self.organisation_name, self.postgres)
 
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
     self.role_object = Role(role_code, self.postgres)
 
-    self.organisation_data = self.organisation_object.get_organisation_data()
+    self.organisation_data = self.organisation_object.get_organisation_data(self.organisation_name)
     self.fqhost_data = self.fqhost_object.get_fqhost_services_view()
     self.role_data = self.role_container(role_code)
-    response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data[0], self.organisation_data[0], self.domain_data[0], self.role_data[0] ])
+    response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data, self.organisation_data, self.domain_data, self.role_data])
     self.response = json.dumps(response_to_json)
 
     return self.response
