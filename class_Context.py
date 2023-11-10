@@ -85,9 +85,9 @@ class Role(object):
                      join context.role_service as rs
                        on s.service_type = rs.service_type
                      where rs.role_code = '{}';""".format(role_code)
-    print(self.query)
-    self.services  = self.postgres.pool_query(self.query)
+    services  = self.postgres.pool_query(self.query)
 
-    print('self.servces', self.services)
+    serviceis_to_json = fd.to_json('services', services)
+    self.services = json.dumps(services)
 
     return self.role_data, self.services
