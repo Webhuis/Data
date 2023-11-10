@@ -58,7 +58,7 @@ class Data(object):
     print(self.domain_name, self.uqhost, role_code)
     self.organisation_name, self.domain_data = self.domain_container(self.domain_name)
     print(self.organisation_name, self.domain_data)
-    self.organisation_object = Organisation(self.organisation_name)
+    self.organisation_object = Organisation(self.organisation_name, self.postgres)
 
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
     self.role_object = Role(role_code, self.postgres)
