@@ -76,7 +76,7 @@ class Data(object):
     self.organisation_data = self.organisation_object.get_organisation_data(organisation_name)
     return self.organisation_data
 
-  def domain_container(self):
+  def domain_container(self, self.domain_name):
 
     try:
       self.organisation_name, self.domain_data = self.domain_object.get_domain_data(self.domain_name)
