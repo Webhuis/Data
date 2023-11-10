@@ -50,7 +50,7 @@ class Organisation(object):
 
     self.query =  ("select organisation_data from context.organisation where organisation_name = '{}';").format(organisation_name)
     self.organisation_data = self.postgres.pool_query(self.query)
-    self.organisation_data = self.organisation_data[0]
+    self.organisation_data = self.organisation_data[0][0]
     print(self.organisation_data)
     return self.organisation_data
 
@@ -79,7 +79,7 @@ class Role(object):
 
     self.query =  ("select role_data from context.role where role_code = '{}';").format(role_code)
     self.role_data = self.postgres.pool_query(self.query)
-    self.role_data = self.role_data[0]
+    self.role_data = self.role_data[0][0]
     print(self.role_data)
 
     return self.role_data
