@@ -85,7 +85,7 @@ class Role(object):
                      join context.role_service as rs"
                        on s.service_type = rs.service_type
                      where rs.role_code = '{}';""".format(role_code)
-    print(query)
+    print(self.query)
     self.services  = self.postgres.pool_query(self.query)
 
     print('self.servces', self.services)
