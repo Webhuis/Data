@@ -88,7 +88,7 @@ class Role(object):
                        on s.service_type = rs.service_type
                      where rs.role_code = '{}';""".format(role_code)
     services  = self.postgres.pool_query(self.query)
-    services = services[0]
+    #services = services[0]
 
     services_to_json = fd.to_json('services', services)
     self.services = json.dumps(services_to_json)
