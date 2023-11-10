@@ -93,5 +93,4 @@ class Role(object):
     print(services_to_json)
     role_to_json = fd.to_json(self.role_code, [ self.role_data, services_to_json ])
     self.role_info = json.dumps(role_to_json)
-    self.role_info.replace('"', "'")
     return self.role_info

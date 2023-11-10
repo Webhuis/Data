@@ -66,6 +66,7 @@ class Data(object):
     self.role_info = self.role_container(role_code)
     print('fqhost_view', [ self.fqhost_data, self.organisation_data, self.domain_data, self.role_info])
     response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data, self.organisation_data, self.domain_data, self.role_info])
+    self.response_to_json.replace('"', "'")
     self.response = json.dumps(response_to_json)
 
     return self.response
