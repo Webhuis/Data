@@ -39,6 +39,7 @@ class Data(object):
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
     self.feed_object, self.uqhost, self.domain_name = self.feed_to_hardclass(message, self.postgres)
+    self.role_code = self.uqhost[0:4]
     self.fqhost_view = self.get_fqhost_view()
 
     #print(self.response)
@@ -54,20 +55,18 @@ class Data(object):
      - services
     '''
     self.domain_object = Domain(self.domain_name, self.postgres)
-    self.domain_all = self.domain_container()
-    print(type(self.domain_all), self.domain_all)
-    organisation_name = self.domain_all[0][0]
-    self.domain_data = self.domain_all[0][1]
+    self.organisation_name, self.domain_data = self.domain_container()
+    print(self.organisation_name, self.domain_data)
     self.organisation_object = Organisation(organisation_name)
 
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
-    role_code = self.uqhost[0:4]
-    self.role_object = Role(role_code, self.postgres)
+    self.role_code = self.uqhost[0:4]
+    self.role_object = Role(self.role_code, self.postgres)
 
     self.organisation_data = self.organisation_object.get_organisation_data()
     self.fqhost_data = self.fqhost_object.get_fqhost_services_view()
     self.role_data = self.role_container(role_code)
-    response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data[0], self.domain_data[0], self.role_data[0] ])
+    response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data[0], self.organisation_data[0], self.domain_data[0], self.role_data[0] ])
     self.response = json.dumps(response_to_json)
 
     return self.response
@@ -79,7 +78,7 @@ class Data(object):
 
   def domain_container(self):
 
-    self.domain_data = self.domain_object.get_domain_data(self.domain_name)
+    self.organisation_name, self.domain_data = self.domain_object.get_domain_data(self.domain_name)
     return self.domain_data
 
   def domain_role_container(self):
