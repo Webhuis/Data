@@ -52,6 +52,7 @@ class FQHost(object):
                        and ndr.role_code = '{}';""".format(self.domain_name, self.role_code)
 
     domain_role_network_view_list = self.postgres.pool_query(self.query)
+    print(domain_role_network_view_list)
     domain_role_network_view = domain_role_network_view_list[0][0]
     print('domain_role_network_view', domain_role_network_view)
 
