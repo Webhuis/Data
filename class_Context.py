@@ -22,10 +22,10 @@ class FQHost(object):
 
     #self.query = ("select row_to_json(x) from (select uqhost, domain_name, fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}') as x;"
     self.query = "select fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}';".format(self.uqhost, self.domain_name)
-    self.fqhost_data = self.postgres.pool_query(self.query)
+    fqhost_data_list = self.postgres.pool_query(self.query)
     print('fqhost_data', self.fqhost_data)
-    self.fqhost_data = self.fqhost_data[0][0]
-    print('fqhost_data', self.fqhost_data)
+    fqhost_data = fqhost_data_list[0][0]
+    print('fqhost_data', fqhost_data)
 
     self.query =  "select organisation_name, domain_data from context.domain where domain_name = '{}';".format(self.domain_name)
     domain_data_list = self.postgres.pool_query(self.query)
