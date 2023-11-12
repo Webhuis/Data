@@ -24,8 +24,8 @@ class FQHost(object):
     self.query = "select fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}';".format(self.uqhost, self.domain_name)
     fqhost_data_list = self.postgres.pool_query(self.query)
     print('fqhost_data', self.fqhost_data)
-    fqhost_data = fqhost_data_list[0][0]
-    print('fqhost_data', fqhost_data)
+    self.fqhost_data = fqhost_data_list[0][0]
+    print('fqhost_data', self.fqhost_data)
 
     self.query =  "select organisation_name, domain_data from context.domain where domain_name = '{}';".format(self.domain_name)
     domain_data_list = self.postgres.pool_query(self.query)
@@ -36,8 +36,8 @@ class FQHost(object):
 
     self.query =  "select organisation_name, organisation_data from context.organisation where organisation_name = '{}';".format(organisation_name)
     organisation_data_list = self.postgres.pool_query(self.query)
-    organisation_name = organisation_data[0][0]
-    organisation_data = organisation_data[0][1]
+    organisation_name = organisation_data_list[0][0]
+    organisation_data = organisation_data_list[0][1]
     organisation_view = fd.to_json(organisation_name, [ organisation_data ])
     print('organisation_view', organisation_view)
 
