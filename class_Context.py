@@ -21,26 +21,26 @@ class FQHost(object):
       self.id_fqhost = self.postgres.pool_insert(self.query)
 
     #self.query = ("select row_to_json(x) from (select uqhost, domain_name, fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}') as x;"
-    self.query = ("select fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}');"
+    self.query = "select fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}';"
                  .format(self.uqhost, self.domain_name))
     self.fqhost_data = self.postgres.pool_query(self.query)
     print('fqhost_data', self.fqhost_data)
 
-    self.query =  ("select organisation_name, domain_data from context.domain where domain_name = '{}';").format(domain_name)
+    self.query =  "select organisation_name, domain_data from context.domain where domain_name = '{}';".format(domain_name)
     domain_data_list = self.postgres.pool_query(self.query)
     domain_data = domain_data_list[0]
     organisation_name = domain_data[0]
     domain_data = domain_data[1]
     print('domain_view', self.domain_view)
 
-    self.query =  ("select organisation_name, organisation_data from context.organisation where organisation_name = '{}';").format(organisation_name)
+    self.query =  "select organisation_name, organisation_data from context.organisation where organisation_name = '{}';".format(organisation_name)
     self.organisation_data_list = self.postgres.pool_query(self.query)
     self.organisation_name = self.organisation_data[0][0]
     self.organisation_data = self.organisation_data[0][1]
     organisation_view = fd.to_json(organisation_name, [ self.organisation_data ])
     print('organisation_view', organisation_view)
 
-    self.query = ("select domain_role_data from context.domain_role where domain_name = '{}' and role_code = '{}');"
+    self.query = "select domain_role_data from context.domain_role where domain_name = '{}' and role_code = '{}';"
                  .format(self.domain_name, self.role_code))
     self.domain_role_data = self.postgres.pool_query(self.query)
     domain_role_view = fd.to_json(domain_role_name, [ self.domain_role_data ])
