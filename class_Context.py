@@ -39,18 +39,20 @@ class FQHost(object):
     print('organisation_view', organisation_view)
 
     self.query = "select domain_role_data from context.domain_role where domain_name = '{}' and role_code = '{}';".format(self.domain_name, self.role_code)
-    domain_role_data = self.postgres.pool_query(self.query)
+    domain_role_data_list = self.postgres.pool_query(self.query)
+    domain_role_data = domain_role_data_list[0][0]
     domain_role_view = fd.to_json('domain_role_data', [ domain_role_data ])
     print('domain_role_view', domain_role_view)
 
-    self.query =  """select row_to_json(x) from (select ndr.vlan_name, ndr.network_name, n.network_address, n.gateway_address
+    self.query =  """select ndr.vlan_name, ndr.network_name, n.network_address, n.gateway_address
                      from context.network_domain_role as ndr
                      join context.network as n
                        on ndr.network_name = n.network_name
                      where ndr.domain_name = '{}'
-                       and ndr.role_code = '{}' as x;""".format(self.domain_name, self.role_code)
+                       and ndr.role_code = '{}';""".format(self.domain_name, self.role_code)
 
-    domain_role_network_view = self.postgres.pool_query(self.query)
+    domain_role_network_view_list = self.postgres.pool_query(self.query)
+    domain_role_network_view = domain_role_network_view_list[0][0]
     print('domain_role_network_view', self.domain_role_network_view)
 
     domain_role_network = fd.to_json('domain_role_network', [ domain_role_view, domain_role_network_view ])
