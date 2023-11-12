@@ -30,6 +30,7 @@ class FQHost(object):
     domain_data = domain_data_list[0]
     organisation_name = domain_data[0]
     domain_data = domain_data[1]
+    domain_view = fd.to_json(slef.domain_name, [ domain_data ])
 
     self.query =  "select organisation_name, organisation_data from context.organisation where organisation_name = '{}';".format(organisation_name)
     organisation_data_list = self.postgres.pool_query(self.query)
@@ -41,8 +42,8 @@ class FQHost(object):
     self.query = "select domain_role_data from context.domain_role where domain_name = '{}' and role_code = '{}';".format(self.domain_name, self.role_code)
     domain_role_data_list = self.postgres.pool_query(self.query)
     domain_role_data = domain_role_data_list[0][0]
-    domain_role_view = fd.to_json('domain_role_data', [ domain_role_data ])
-    print('domain_role_view', domain_role_view)
+    domain_role_view = domain_role_data
+    print('domain_role_data', domain_role_data)
 
     self.query =  """select ndr.vlan_name, ndr.network_name, n.network_address, n.gateway_address
                      from context.network_domain_role as ndr
@@ -52,13 +53,26 @@ class FQHost(object):
                        and ndr.role_code = '{}';""".format(self.domain_name, self.role_code)
 
     domain_role_network_list = self.postgres.pool_query(self.query)
-    print('domain_role_network_list', domain_role_network_list)
-
     domain_role_network = fd.to_json('domain_role_network', [ domain_role_view, domain_role_network_list ])
     print('domain_role_network', domain_role_network)
 
+    self.query =  ("select role_data from context.role where role_code = '{}';").format(self.role_code)
+    role_data = self.postgres.pool_query(self.query)
+    role_data = role_data[0][0]
 
-    fqhost_view = fd.to_json('fqhost_view', [ fqhost_data, organisation_data, domain_data, domain_role_view, domain_role_network])
+    self.query =  """select s.service_port, s.service_name, s.check_line, s.interface
+                     from context.service as s
+                     join context.role_service as rs
+                       on s.service_type = rs.service_type
+                     where rs.role_code = '{}';""".format(self.role_code)
+
+    services  = self.postgres.pool_query(self.query)
+
+    services_to_json = fd.to_json('services', services)
+
+    role_to_json = fd.to_json(self.role_code, [ self.role_data, services_to_json ])
+
+    fqhost_view = fd.to_json('fqhost_view', [ fqhost_data, organisation_view, domain_data, domain_role_view, domain_role_network, role_to_json])
 
     return fqhost_view
 
