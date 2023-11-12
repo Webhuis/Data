@@ -25,7 +25,7 @@ class FQHost(object):
     self.fqhost_data = self.postgres.pool_query(self.query)
     print('fqhost_data', self.fqhost_data)
 
-    self.query =  "select organisation_name, domain_data from context.domain where domain_name = '{}';".format(domain_name)
+    self.query =  "select organisation_name, domain_data from context.domain where domain_name = '{}';".format(self.domain_name)
     domain_data_list = self.postgres.pool_query(self.query)
     domain_data = domain_data_list[0]
     organisation_name = domain_data[0]
