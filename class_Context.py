@@ -53,9 +53,10 @@ class FQHost(object):
 
     domain_role_network_view_list = self.postgres.pool_query(self.query)
     domain_role_network_view = domain_role_network_view_list[0][0]
-    print('domain_role_network_view', self.domain_role_network_view)
+    print('domain_role_network_view', domain_role_network_view)
 
     domain_role_network = fd.to_json('domain_role_network', [ domain_role_view, domain_role_network_view ])
+    print('domain_role_network', domain_role_network)
 
 
     fqhost_view = fd.to_json('fqhost_view', [ self.fqhost_data, self.organisation_data, self.domain_data, self.role_info])
