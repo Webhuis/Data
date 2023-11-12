@@ -42,7 +42,7 @@ class FQHost(object):
     organisation_view = fd.to_json(organisation_name, [ organisation_data ])
     print('organisation_view', organisation_view)
 
-    fqhost_data_view = fd.to_json(organisation_view, domain_view, fqhost_data_view)
+    fqhost_data_view = fd.to_json(fqhost_name, [organisation_view, domain_view, fqhost_data_view])
 
     self.query = "select domain_role_data from context.domain_role where domain_name = '{}' and role_code = '{}';".format(self.domain_name, self.role_code)
     domain_role_data_list = self.postgres.pool_query(self.query)
