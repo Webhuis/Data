@@ -65,9 +65,9 @@ class Data(object):
 
     self.organisation_data = self.organisation_object.get_organisation_data(self.organisation_name)
     self.fqhost_data = self.fqhost_object.get_fqhost_view()
-    self.role_info = self.role_container(role_code)
-    response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data, self.organisation_data, self.domain_data, self.role_info])
-    self.response = json.dumps(response_to_json)
+    #self.role_info = self.role_container(role_code)
+    #response_to_json = fd.to_json('fqhost_view', [ self.fqhost_data, self.organisation_data, self.domain_data, self.role_info])
+    self.response = json.dumps(self.fqhost_data)
 
     return self.response
 
