@@ -12,7 +12,7 @@ class FQHost(object):
     self.postgres = postgres
     self.role_code = uqhost[0:4]
 
-  def get_fqhost_services_view(self):
+  def get_fqhost_view(self):
     self.exists = self.check_exists()
     if self.exists == True:
       pass
@@ -20,9 +20,28 @@ class FQHost(object):
       self.query = self.insert_fqhost()
       self.id_fqhost = self.postgres.pool_insert(self.query)
 
-    self.query = ("select row_to_json(x) from (select uqhost, domain_name, service_type, service_port from context.fqhost_services where uqhost = '{}' and domain_name = '{}') as x;"
+    self.query = ("select row_to_json(x) from (select uqhost, domain_name, fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}') as x;"
                  .format(self.uqhost, self.domain_name))
-    self.fqhost_role_view = self.postgres.pool_query(self.query)
+    self.fqhost_view = self.postgres.pool_query(self.query)
+
+    self.query = ("select row_to_json(x) from (select domain_name, role_code, domain_role_data from context.domain_role where domain_name = '{}' and role_code = '{}') as x;"
+                 .format(self.domain_name, self.role_code))
+    self.domain_role_view = self.postgres.pool_query(self.query)
+    print('domain_role_view', self.domain_role_view)
+
+    self.query =  """select row_to_json(x) from (select ndr.vlan_name, ndr.network_name, n.network_address, n.gateway_address
+                     from context.network_domain_role as ndr
+                     join context.network as n
+                       on ndr.network_name = n.network_name
+                     where ndr.domain_name = '{}'
+                       and ndr.role_code = '{}' as x;""".format(self.domain_name, self.role_code)
+
+    self.query = ("select row_to_json(x) from (select uqhost, domain_name, fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}') as x;"
+                 .format(self.uqhost, self.domain_name))
+
+    self.role_network_view = self.postgres.pool_query(self.query)
+    print('role_network_view', self.role_network_view)
+
     return self.fqhost_role_view
 
   def check_exists(self):
@@ -32,7 +51,7 @@ class FQHost(object):
 
   def insert_fqhost(self):
     self.timestamp = datetime.now(timezone.utc)
-    self.query = ("insert into context.fqhost (uqhost, domain_name, role_code, timestamp)"
+    self.query = ("insert into context.fqhost (uqhost, domain_name, role_code, timestamp, )"
                   "values ('{}', '{}', '{}', '{}') returning id;").format(self.uqhost, self.domain_name, self.role_code, self.timestamp)
     return self.query
 
