@@ -25,6 +25,7 @@ class FQHost(object):
     fqhost_data_list = self.postgres.pool_query(self.query)
     fqhost_data = fqhost_data_list[0][0]
     fqhost_name = '{}.{}'.format(self.uqhost, self.domain_name)
+    print(fqhost_name, fqhost_data)
     fqhost_data_view = fd.to_json(fqhost_name, [ fqhost_data ])
 
     self.query =  "select organisation_name, domain_data from context.domain where domain_name = '{}';".format(self.domain_name)
