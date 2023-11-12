@@ -20,13 +20,30 @@ class FQHost(object):
       self.query = self.insert_fqhost()
       self.id_fqhost = self.postgres.pool_insert(self.query)
 
-    self.query = ("select row_to_json(x) from (select uqhost, domain_name, fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}') as x;"
+    #self.query = ("select row_to_json(x) from (select uqhost, domain_name, fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}') as x;"
+    self.query = ("select fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}') as x;"
                  .format(self.uqhost, self.domain_name))
-    self.fqhost_view = self.postgres.pool_query(self.query)
+    self.fqhost_data = self.postgres.pool_query(self.query)
+    print('fqhost_data', self.fqhost_data)
 
-    self.query = ("select row_to_json(x) from (select domain_name, role_code, domain_role_data from context.domain_role where domain_name = '{}' and role_code = '{}') as x;"
+    self.query =  ("select organisation_name, domain_data from context.domain where domain_name = '{}';").format(domain_name)
+    domain_data_list = self.postgres.pool_query(self.query)
+    domain_data = domain_data_list[0]
+    organisation_name = domain_data[0]
+    domain_data = domain_data[1]
+    print('domain_view', self.domain_view)
+
+    self.query =  ("select organisation_name, organisation_data from context.organisation where organisation_name = '{}';").format(organisation_name)
+    self.organisation_data_list = self.postgres.pool_query(self.query)
+    self.organisation_name = self.organisation_data[0][0]
+    self.organisation_data = self.organisation_data[0][1]
+    organisation_view = fd.to_json(organisation_name, [ self.organisation_data ])
+    print('organisation_view', organisation_view)
+
+    self.query = ("select domain_role_data from context.domain_role where domain_name = '{}' and role_code = '{}') as x;"
                  .format(self.domain_name, self.role_code))
-    self.domain_role_view = self.postgres.pool_query(self.query)
+    self.domain_role_data = self.postgres.pool_query(self.query)
+    domain_role_view = fd.to_json(domain_role_name, [ self.domain_role_data ])
     print('domain_role_view', self.domain_role_view)
 
     self.query =  """select row_to_json(x) from (select ndr.vlan_name, ndr.network_name, n.network_address, n.gateway_address
@@ -39,10 +56,15 @@ class FQHost(object):
     self.query = ("select row_to_json(x) from (select uqhost, domain_name, fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}') as x;"
                  .format(self.uqhost, self.domain_name))
 
-    self.role_network_view = self.postgres.pool_query(self.query)
-    print('role_network_view', self.role_network_view)
+    domain_role_network_view = self.postgres.pool_query(self.query)
+    print('domain_role_network_view', self.domain_role_network_view)
 
-    return self.fqhost_role_view
+    domain_role_network = fd.to_json('domain_role_network', [ domain_role_view, domain_role_network_view ])
+
+
+    fqhost_view = fd.to_json('fqhost_view', [ self.fqhost_data, self.organisation_data, self.domain_data, self.role_info])
+
+    return fqhost_view
 
   def check_exists(self):
     query = "select exists(select 1 from context.fqhost where uqhost = '{}' and domain_name = '{}');".format(self.uqhost, self.domain_name)

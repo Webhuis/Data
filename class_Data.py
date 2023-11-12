@@ -52,6 +52,8 @@ class Data(object):
      - role
      - domain role
      - services
+     - config view
+     - purpose in life view
     '''
     self.domain_object = Domain(self.domain_name, self.postgres)
     role_code = self.uqhost[0:4]
