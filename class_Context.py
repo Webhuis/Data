@@ -25,7 +25,6 @@ class FQHost(object):
     fqhost_data_list = self.postgres.pool_query(self.query)
     fqhost_data = fqhost_data_list[0][0]
     fqhost_name = '{}.{}'.format(self.uqhost, self.domain_name)
-    print(fqhost_name, fqhost_data)
     fqhost_data_view = fd.to_json(fqhost_name, [ fqhost_data ])
 
     self.query =  "select organisation_name, domain_data from context.domain where domain_name = '{}';".format(self.domain_name)
@@ -40,7 +39,6 @@ class FQHost(object):
     organisation_name = organisation_data_list[0][0]
     organisation_data = organisation_data_list[0][1]
     organisation_view = fd.to_json(organisation_name, [ organisation_data ])
-    print('organisation_view', organisation_view)
 
     fqhost_data_view = fd.to_json(fqhost_name, [organisation_view, domain_view, fqhost_data_view])
 
@@ -48,7 +46,6 @@ class FQHost(object):
     domain_role_data_list = self.postgres.pool_query(self.query)
     domain_role_data = domain_role_data_list[0][0]
     domain_role_view = domain_role_data
-    print('domain_role_data', domain_role_data)
 
     self.query =  """select ndr.vlan_name, ndr.network_name, n.network_address, n.gateway_address
                      from context.network_domain_role as ndr
@@ -59,7 +56,6 @@ class FQHost(object):
 
     domain_role_network_list = self.postgres.pool_query(self.query)
     domain_role_network = fd.to_json('domain_role_network', [ domain_role_network_list ])
-    print('domain_role_network', domain_role_network)
 
     self.query =  ("select role_data from context.role where role_code = '{}';").format(self.role_code)
     role_data = self.postgres.pool_query(self.query)
@@ -75,9 +71,9 @@ class FQHost(object):
 
     services_to_json = fd.to_json('services', services)
 
-    role_to_json = fd.to_json(self.role_code, [ role_data, services_to_json ])
+    role_to_json = fd.to_json(self.role_code, [ services_to_json ])
 
-    fqhost_view = fd.to_json('fqhost_view', [ fqhost_data, organisation_view, domain_data, domain_role_view, domain_role_network, role_to_json])
+    fqhost_view = fd.to_json('fqhost_view', [ fqhost_data, organisation_view, domain_data, role_data, domain_role_view, domain_role_network, role_to_json])
 
     return fqhost_view
 
