@@ -55,7 +55,7 @@ class FQHost(object):
                        and ndr.role_code = '{}';""".format(self.domain_name, self.role_code)
 
     domain_role_network_list = self.postgres.pool_query(self.query)
-    domain_role_network = fd.to_json('domain_role_network', [ domain_role_network_list ])
+    domain_role_network = fd.to_json('domain_role_network', domain_role_network_list )
 
     self.query =  ("select role_data from context.role where role_code = '{}';").format(self.role_code)
     role_data = self.postgres.pool_query(self.query)
