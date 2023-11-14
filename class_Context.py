@@ -24,6 +24,7 @@ class FQHost(object):
     self.query = "select fqhost_data from context.fqhost where uqhost = '{}' and domain_name = '{}';".format(self.uqhost, self.domain_name)
     fqhost_data_list = self.postgres.pool_query(self.query)
     fqhost_data = fqhost_data_list[0][0]
+    fqhost_name = '{}.{}'.format(self.uqhost, self.domain_name)
     fqhost_data_view = fd.to_json('fqhost_data', [ fqhost_data ])
 
     self.query =  "select organisation_name, domain_data from context.domain where domain_name = '{}';".format(self.domain_name)
@@ -86,7 +87,6 @@ class FQHost(object):
 
     role_to_json = fd.to_json(self.role_code, [ services_to_json ])
 
-    fqhost_name = '{}.{}'.format(self.uqhost, self.domain_name)
     fqhost_view = fd.to_json(fqhost_name, [ fqhost_data, organisation_view, domain_data, role_data, domain_role_view, domain_role_network, organisation_profile, role_to_json])
 
     return fqhost_view
