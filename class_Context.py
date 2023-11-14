@@ -47,10 +47,13 @@ class FQHost(object):
     domain_role_data = domain_role_data_list[0][0]
     domain_role_view = domain_role_data
 
-    self.query =  """select ndr.vlan_name, ndr.network_name, n.network_address, n.gateway_address
+    self.query =  """select ndr.vlan_name, vi.vlan, vi.interface, ndr.network_name, n.network_address, n.gateway_address
                      from context.network_domain_role as ndr
                      join context.network as n
                        on ndr.network_name = n.network_name
+                     join context.vlan_interface as vi
+                       on ndr.organisation_name = vi.organisation_name
+                      and ndr.vlan_name = vi.vlan_name
                      where ndr.domain_name = '{}'
                        and ndr.role_code = '{}';""".format(self.domain_name, self.role_code)
 
