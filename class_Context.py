@@ -87,7 +87,7 @@ class FQHost(object):
 
     role_to_json = fd.to_json(self.role_code, [ services_to_json ])
 
-    fqhost_view = fd.to_json('fqhost_view', [ fqhost_data, organisation_view, domain_data, role_data, domain_role_view, domain_role_network, organisation_profile, role_to_json])
+    fqhost_view = fd.to_json('fqhost_view', [ fqhost_data_view, organisation_view, domain_data, role_data, domain_role_view, domain_role_network, organisation_profile, role_to_json])
 
     return fqhost_view
 
