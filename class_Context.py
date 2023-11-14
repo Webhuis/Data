@@ -99,7 +99,7 @@ class FQHost(object):
 
   def insert_fqhost(self):
     self.timestamp = datetime.now(timezone.utc)
-    self.query = ("insert into context.fqhost (uqhost, domain_name, role_code, timestamp, )"
+    self.query = ("insert into context.fqhost (uqhost, domain_name, role_code, timestamp )"
                   "values ('{}', '{}', '{}', '{}') returning id;").format(self.uqhost, self.domain_name, self.role_code, self.timestamp)
     return self.query
 
