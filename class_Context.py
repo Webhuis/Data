@@ -75,7 +75,7 @@ class FQHost(object):
     role_data = self.postgres.pool_query(self.query)
     role_data = role_data[0][0]
 
-    self.query =  """select row_to_json(x)(select s.service_port, s.service_name, s.check_line, s.interface
+    self.query =  """select row_to_json(x) from (select s.service_port, s.service_name, s.check_line, s.interface
                      from context.service as s
                      join context.role_service as rs
                        on s.service_type = rs.service_type
