@@ -47,7 +47,7 @@ class FQHost(object):
     domain_role_data = domain_role_data_list[0][0]
     domain_role_view = domain_role_data
 
-    self.query =  """select ndr.vlan_name, vi.vlan, vi.interface, vi.ddns_suffix, ndr.network_name, n.network_address, n.gateway_address
+    self.query =  """select row_to_json(select ndr.vlan_name, vi.vlan, vi.interface, vi.ddns_suffix, ndr.network_name, n.network_address, n.gateway_address
                      from context.network_domain_role as ndr
                      join context.network as n
                        on ndr.network_name = n.network_name
@@ -55,7 +55,7 @@ class FQHost(object):
                        on ndr.organisation_name = vi.organisation_name
                       and ndr.vlan_name = vi.vlan_name
                      where ndr.domain_name = '{}'
-                       and ndr.role_code = '{}';""".format(self.domain_name, self.role_code)
+                       and ndr.role_code = '{}') as x;""".format(self.domain_name, self.role_code)
 
     domain_role_network_list = self.postgres.pool_query(self.query)
     domain_role_network = fd.to_json('domain_role_network', domain_role_network_list )
@@ -75,11 +75,11 @@ class FQHost(object):
     role_data = self.postgres.pool_query(self.query)
     role_data = role_data[0][0]
 
-    self.query =  """select s.service_port, s.service_name, s.check_line, s.interface
+    self.query =  """select row_to_json(select s.service_port, s.service_name, s.check_line, s.interface
                      from context.service as s
                      join context.role_service as rs
                        on s.service_type = rs.service_type
-                     where rs.role_code = '{}';""".format(self.role_code)
+                     where rs.role_code = '{}') as x;""".format(self.role_code)
 
     services  = self.postgres.pool_query(self.query)
 
