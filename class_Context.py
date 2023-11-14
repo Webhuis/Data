@@ -66,7 +66,7 @@ class FQHost(object):
                        on o_r.organisation_name = op.organisation_name
                       and o_r.profile_name = op.profile_name
                      where o_r.organisation_name = '{}'
-                      and o_r.role_code ='{}';""".format(self.organisation_name, self.role_code)
+                      and o_r.role_code ='{}';""".format(organisation_name, self.role_code)
 
     organisation_profile_list = self.postgres.pool_query(self.query)
     organisation_profile = fd.to_json('organisation_profile', organisation_profile_list )
