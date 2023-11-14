@@ -60,6 +60,17 @@ class FQHost(object):
     domain_role_network_list = self.postgres.pool_query(self.query)
     domain_role_network = fd.to_json('domain_role_network', domain_role_network_list )
 
+    self.query =  """select o_r.organisation_name, o_r.role_code, o_r.profile_name, op.profile_data
+                     from context.organisation_role as o_r
+                     join context.organisation_profile as op
+                       on o_r.organisation_name = op.organisation_name
+                      and o_r.profile_name = op.profile_name
+                     where o_r.organisation_name = '{}'
+                      and o_r.role_code ='{}';""".format(self.organisation_name, self.role_code)
+
+    organisation_profile_list = self.postgres.pool_query(self.query)
+    organisation_profile = fd.to_json('organisation_profile', organisation_profile_list )
+
     self.query =  ("select role_data from context.role where role_code = '{}';").format(self.role_code)
     role_data = self.postgres.pool_query(self.query)
     role_data = role_data[0][0]
@@ -76,7 +87,7 @@ class FQHost(object):
 
     role_to_json = fd.to_json(self.role_code, [ services_to_json ])
 
-    fqhost_view = fd.to_json('fqhost_view', [ fqhost_data, organisation_view, domain_data, role_data, domain_role_view, domain_role_network, role_to_json])
+    fqhost_view = fd.to_json('fqhost_view', [ fqhost_data, organisation_view, domain_data, role_data, domain_role_view, domain_role_network, organisation_profile, role_to_json])
 
     return fqhost_view
 
