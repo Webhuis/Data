@@ -47,7 +47,7 @@ class FQHost(object):
     domain_role_data = domain_role_data_list[0][0]
     domain_role_view = domain_role_data
 
-    self.query =  """select ndr.vlan_name, vi.vlan, vi.interface, ndr.network_name, n.network_address, n.gateway_address
+    self.query =  """select ndr.vlan_name, vi.vlan, vi.interface, vi.ddns_suffix, ndr.network_name, n.network_address, n.gateway_address
                      from context.network_domain_role as ndr
                      join context.network as n
                        on ndr.network_name = n.network_name
