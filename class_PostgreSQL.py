@@ -17,7 +17,7 @@ class PostgreSQL():
     self.PostgreSQL_error = fd.fetch_object(PostgreSQL.loggers, 'PostgreSQL_error')
     self.db_connect()
 
-  def db_connect()
+  def db_connect():
     try:
       self.pg_pool = DataThCP(4, 16, user=user, password='we8hu15iio', host='10.68.171.50', port='5432', database=db )
       self.PostgreSQL_event.info('Start Data PostgreSQL __init__')
