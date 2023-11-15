@@ -15,6 +15,9 @@ class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
     self.PostgreSQL_event = fd.fetch_object(PostgreSQL.loggers, 'PostgreSQL_event')
     self.PostgreSQL_error = fd.fetch_object(PostgreSQL.loggers, 'PostgreSQL_error')
+    self.db_connect()
+
+  def db_connect()
     try:
       self.pg_pool = DataThCP(4, 16, user=user, password='we8hu15iio', host='10.68.171.50', port='5432', database=db )
       self.PostgreSQL_event.info('Start Data PostgreSQL __init__')
@@ -45,6 +48,7 @@ class PostgreSQL():
     except (Exception, pg.DatabaseError) as error:
       result = "Error while selecting from PostgreSQL {}".format(error.args)
       self.PostgreSQL_error.info(result)
+      self.db_connect()
     return result
 
   def pool_insert(self, query):
