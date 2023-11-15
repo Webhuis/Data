@@ -1,5 +1,17 @@
 # Data
-Data mining, messaging and Data distribution in CFEngine
+Data mining, messaging and Data distribution, thus providing external data throughout the IT landscape.
+Data serves any item that is able to send, receive and process messages.
+There are, for now two types of messages:
+- Feeds
+- Service views
+The items in the landscape provide Data with facts or hard classes of itself in the feed message, which triggers a response by Data with a cinfiguration view.
+The services views are separate requests to Data and trigger responses to the requestor concerning information about the landscape.
+
+Data makes use of a PostgreSQL backend that has schema's accordingly:
+- feeds
+- context
+- knowledge
+
 Help on module class_Data:
 
 NAME
