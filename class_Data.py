@@ -52,8 +52,8 @@ class Data(object):
      - role
      - domain role
      - services
-     - config view
-     - purpose in life view
+     - config view, every agent
+     - purpose in life view, for agents that need knowledge about other agents
     '''
     self.domain_object = Domain(self.domain_name, self.postgres)
     role_code = self.uqhost[0:4]

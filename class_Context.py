@@ -99,7 +99,7 @@ class FQHost(object):
 
   def insert_fqhost(self):
 
-    fqhost_data = json.dumps({"domain_data": ""})
+    fqhost_data = json.dumps({"fqhost_data": ""})
     self.timestamp = datetime.now(timezone.utc)
     self.query = ("insert into context.fqhost (uqhost, domain_name, role_code, timestamp, fqhost_data )"
                   "values ('{}', '{}', '{}', '{}', '{}') returning id;").format(self.uqhost, self.domain_name, self.role_code, self.timestamp, fqhost_data)
