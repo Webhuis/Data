@@ -19,7 +19,7 @@ class PostgreSQL():
 
   def db_connect(self, user, db):
     try:
-      self.pg_pool = DataThCP(4, 16, user=user, password='we8hu15iio', host='10.68.171.50', port='5432', database=db )
+      self.pg_pool = DataThCP(8, 16, user=user, password='we8hu15iio', host='10.68.171.50', port='5432', database=db )
       self.PostgreSQL_event.info('Start Data PostgreSQL __init__')
     except (Exception, pg.DatabaseError) as error:
       self.PostgreSQL_error.info("Error while connecting to PostgreSQL {}".format(error.args))
@@ -33,7 +33,7 @@ class PostgreSQL():
       pg_cursor.close()
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
-      result = "Error while selecting from PostgreSQL {}".format(error.args)
+      result = ("Error while selecting from PostgreSQL {}".format(error.args),)
       self.PostgreSQL_error.info(result)
     return result
 
@@ -46,9 +46,9 @@ class PostgreSQL():
       pg_cursor.close()
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
-      result = "Error while selecting from PostgreSQL {}".format(error.args)
+      result = ("Error while selecting from PostgreSQL {}".format(error.args),)
       self.PostgreSQL_error.info(result)
-      self.db_connect()
+      self.db_connect(self, db="data", user="www_data")
     return result
 
   def pool_insert(self, query):
@@ -62,7 +62,7 @@ class PostgreSQL():
       self.pg_pool.putconn(pg_conn)
       #self.PostgreSQL_event.info(result)
     except (Exception, pg.DatabaseError) as error:
-      result = "Error while inserting into PostgreSQL {}".format(error.args)
+      result = ("Error while inserting into PostgreSQL {}".format(error.args),)
       self.PostgreSQL_error.info(result)
     return result
 
@@ -76,7 +76,7 @@ class PostgreSQL():
       pg_cursor.close()
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
-      result = "Error while updating PostgreSQL {}".format(error.args)
+      result = ("Error while updating PostgreSQL {}".format(error.args),)
       self.PostgreSQL_error.info(result)
     return result
 
