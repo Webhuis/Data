@@ -46,9 +46,9 @@ class PostgreSQL():
       pg_cursor.close()
       self.pg_pool.putconn(pg_conn)
     except (Exception, pg.DatabaseError) as error:
-      result = ("Error while selecting from PostgreSQL {}".format(error.args),)
+      result = ("Error while selecting from PostgreSQL, time issue? {}".format(error.args),)
+      print(type(result))
       self.PostgreSQL_error.info(result)
-    print(type(result))
     return result
 
   def pool_insert(self, query):
