@@ -48,7 +48,6 @@ class PostgreSQL():
     except (Exception, pg.DatabaseError) as error:
       result = ("Error while selecting from PostgreSQL {}".format(error.args),)
       self.PostgreSQL_error.info(result)
-      self.db_connect(self, db="data", user="www_data")
     return result
 
   def pool_insert(self, query):
