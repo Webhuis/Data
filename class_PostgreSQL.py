@@ -15,7 +15,7 @@ class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
     self.PostgreSQL_event = fd.fetch_object(PostgreSQL.loggers, 'PostgreSQL_event')
     self.PostgreSQL_error = fd.fetch_object(PostgreSQL.loggers, 'PostgreSQL_error')
-    self.db_connect()
+    self.pg_pool = self.db_connect()
 
   def db_connect(self):
     try:
