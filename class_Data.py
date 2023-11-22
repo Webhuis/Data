@@ -107,7 +107,6 @@ class Data(object):
 
     self.Data_event.info('Actual feed and fqdn hardclasses {} {} {} in database Data.'.format(self.id_feed, self.uqhost, self.domain))
 
-    print(self.id_feed, self.uqhost, self.domain)
     return (self.feed, self.uqhost, self.domain)
 
   def work_after_response(self, feed_object, fqhost_object):
@@ -128,7 +127,7 @@ class Data(object):
     else:
       del(self.postgresql)
       self.postgres = PostgreSQL()
-    print('check_pool', row_num)
+      self.Data_error.info('Row_num = {}. Restart PostgreSQL instance.'.format(row_num))
 
   '''
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
