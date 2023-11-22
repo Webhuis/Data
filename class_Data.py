@@ -117,7 +117,7 @@ class Data(object):
     del(self.feed_object)
     del(self.fqhost_object)
 
-  def check_pool()
+  def check_pool():
 
     self.query = 'select 1;'
     rows = self.postgres.pool_query(self.query)
