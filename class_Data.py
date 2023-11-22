@@ -113,7 +113,7 @@ class Data(object):
     self.Data_event.info('Actual response {}.{} {} in database Data.'.format(self.uqhost, self.domain_name, self.id_response))
     del(self.feed_object)
     del(self.fqhost_object)
-    self.postgres.closeall()
+    self.postgres.db_close()
 
   def check_pool(self):
 

@@ -15,14 +15,28 @@ class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
     self.PostgreSQL_event = fd.fetch_object(PostgreSQL.loggers, 'PostgreSQL_event')
     self.PostgreSQL_error = fd.fetch_object(PostgreSQL.loggers, 'PostgreSQL_error')
-    self.db_connect(user, db)
+    self.db_connect()
 
-  def db_connect(self, user, db):
+  def db_connect(self):
     try:
-      self.pg_pool = DataThCP(8, 16, user=user, password='we8hu15iio', host='10.68.171.50', port='5432', database=db )
+      self.pg_pool = DataThCP(8, 16, user="www_data", password='we8hu15iio', host='10.68.171.50', port='5432', database="data" )
       self.PostgreSQL_event.info('Start Data PostgreSQL __init__')
     except (Exception, pg.DatabaseError) as error:
       self.PostgreSQL_error.info("Error while connecting to PostgreSQL {}".format(error.args))
+
+  def db_reconnect(self):
+    try:
+      self.db_closel()
+      self.PostgreSQL_event.info('Close PostgreSQL connections')
+    except (Exception, pg.DatabaseError) as error:
+      self.PostgreSQL_error.info("Error while closing connections to PostgreSQL {}".format(error.args))
+    self.db_connect()
+
+  def db_close(self):
+    try:
+      self.pg_pool.closeall()
+    except (Exception, pg.DatabaseError) as error:
+      self.PostgreSQL_error.info("Error while closing connections to PostgreSQL {}".format(error.args))
 
   def check_exists(self, query):
     try:
