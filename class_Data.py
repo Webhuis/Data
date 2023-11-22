@@ -39,7 +39,7 @@ class Data(object):
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
     self.check_pool()
-    self.feed_object, self.uqhost, self.domain_name, sql_status = self.feed_to_hardclass(message, self.postgres)
+    self.feed_object, self.uqhost, self.domain_name = self.feed_to_hardclass(message, self.postgres)
     self.fqhost_view = self.get_fqhost_view()
     return self.response, self.feed_object, self.fqhost_object
 
