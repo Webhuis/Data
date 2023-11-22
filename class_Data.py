@@ -122,13 +122,13 @@ class Data(object):
 
     self.query = 'select 1;'
     rows = self.postgres.pool_query(self.query)
-    print(type(rows), rows)
     row_num = rows[0][0]
     if row_num == 1:
       pass
     else:
       del(self.postgresql)
       self.postgres = PostgreSQL()
+    print('check_pool', row_num)
 
   '''
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
