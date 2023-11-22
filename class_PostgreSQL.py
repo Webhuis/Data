@@ -15,12 +15,12 @@ class PostgreSQL():
   def __init__(self, db="data", user="www_data"):
     self.PostgreSQL_event = fd.fetch_object(PostgreSQL.loggers, 'PostgreSQL_event')
     self.PostgreSQL_error = fd.fetch_object(PostgreSQL.loggers, 'PostgreSQL_error')
-    self.pg_pool = DataThCP(8, 16, user="www_data", password='we8hu15iio', host='10.68.171.50', port='5432', database="data" )
+    self.pg_pool = DataThCP(8, 16, user="www_data", password='we8hu15iio', host='10.68.171.50', port='5432', database="data", connect_timeout=5 )
     self.PostgreSQL_event.info('Start Data PostgreSQL __init__')
 
   def db_connect(self):
     try:
-      self.pg_pool = DataThCP(8, 16, user="www_data", password='we8hu15iio', host='10.68.171.50', port='5432', database="data" )
+      self.pg_pool = DataThCP(8, 16, user="www_data", password='we8hu15iio', host='10.68.171.50', port='5432', database="data", connect_timeout=5  )
       self.PostgreSQL_event.info('Start Data PostgreSQL db_connect.')
     except (Exception, pg.DatabaseError) as error:
       self.PostgreSQL_error.info("Error while connecting to PostgreSQL {}".format(error.args))
