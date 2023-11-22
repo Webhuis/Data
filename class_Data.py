@@ -43,9 +43,6 @@ class Data(object):
     self.fqhost_view = self.get_fqhost_view()
     return self.response, self.feed_object, self.fqhost_object
 
-    #print(self.response)
-    return self.response, self.feed_object, self.fqhost_object
-
   def get_fqhost_view(self):
     '''
     The view consists of the following containers:
@@ -116,6 +113,7 @@ class Data(object):
     self.Data_event.info('Actual response {}.{} {} in database Data.'.format(self.uqhost, self.domain_name, self.id_response))
     del(self.feed_object)
     del(self.fqhost_object)
+    self.postgres.closeall()
 
   def check_pool(self):
 
