@@ -38,8 +38,10 @@ class Data(object):
 
   def provide_view(self, message): # provide the agent, dit is de aanloop, geen Data
 
-    self.feed_object, self.uqhost, self.domain_name = self.feed_to_hardclass(message, self.postgres)
+    self.check_pool()
+    self.feed_object, self.uqhost, self.domain_name, sql_status = self.feed_to_hardclass(message, self.postgres)
     self.fqhost_view = self.get_fqhost_view()
+    return self.response, self.feed_object, self.fqhost_object
 
     #print(self.response)
     return self.response, self.feed_object, self.fqhost_object
@@ -114,6 +116,17 @@ class Data(object):
     self.Data_event.info('Actual response {}.{} {} in database Data.'.format(self.uqhost, self.domain_name, self.id_response))
     del(self.feed_object)
     del(self.fqhost_object)
+
+  def check_pool()
+
+    self.query = 'select 1;'
+    rows = self.postgres.pool_query(self.query)
+    print(type(rows), rows)
+    if rows == 1:
+      pass
+    else:
+      del(self.postgresql)
+      self.postgres = PostgreSQL()
 
   '''
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
