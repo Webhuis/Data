@@ -17,9 +17,9 @@ class PostgreSQL():
     self.PostgreSQL_error = fd.fetch_object(PostgreSQL.loggers, 'PostgreSQL_error')
     self.pg_pool = DataThCP(8, 16, user="www_data", password='we8hu15iio', host='10.68.171.50', port='5432', database="data"
                                    , connect_timeout=5
-                                   , keepalives=1,
-                                   , keepalives_idle=30,
-                                   , keepalives_interval=10,
+                                   , keepalives=1
+                                   , keepalives_idle=30
+                                   , keepalives_interval=10
                                    , keepalives_count=5)
 
     self.PostgreSQL_event.info('Start Data PostgreSQL __init__')
@@ -28,9 +28,9 @@ class PostgreSQL():
     try:
       self.pg_pool = DataThCP(8, 16, user="www_data", password='we8hu15iio', host='10.68.171.50', port='5432', database="data"
                                    , connect_timeout=5
-                                   , keepalives=1,
-                                   , keepalives_idle=30,
-                                   , keepalives_interval=10,
+                                   , keepalives=1
+                                   , keepalives_idle=30
+                                   , keepalives_interval=10
                                    , keepalives_count=5)
       self.PostgreSQL_event.info('Start Data PostgreSQL db_connect.')
     except (Exception, pg.DatabaseError) as error:
