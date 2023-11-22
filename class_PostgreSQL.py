@@ -80,29 +80,6 @@ class PostgreSQL():
       self.PostgreSQL_error.info(result)
     return result
 
-  def get_conn(self)
-
-    try:
-      pg_conn = self.pg_pool.getconn()
-      try:
-        pg_cursor = pg_conn.cursor()
-        return(pg_conn)
-      except (Exception, pg.DatabaseError) as error::
-        self.PostgreSQL_error.info(result)
-    except (Exception, pg.DatabaseError) as error::
-      self.PostgreSQL_error.info(result)
-
-  def put_conn(self)
-
-    try:
-      pg_conn = self.pg_pool.getconn()
-      try:
-        pg_cursor = pg_conn.cursor()
-        return(pg_conn)
-      except (Exception, pg.DatabaseError) as error::
-        self.PostgreSQL_error.info(result)
-    except (Exception, pg.DatabaseError) as error::
-
   def pool_connect(self, cursor):
     self.getconn()
 
