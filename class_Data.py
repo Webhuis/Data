@@ -113,7 +113,7 @@ class Data(object):
     self.Data_event.info('Actual response {}.{} {} in database Data.'.format(self.uqhost, self.domain_name, self.id_response))
     del(self.feed_object)
     del(self.fqhost_object)
-    self.postgres.db_close()
+    s#elf.postgres.db_close()
 
   def check_pool(self):
 
@@ -123,7 +123,8 @@ class Data(object):
     if row_num == 1:
       pass
     else:
-      del(self.postgresql)
+      self.postgres.db_close()
+      del(self.postgres)
       self.postgres = PostgreSQL()
       self.Data_error.info('Row_num = {}. Restart PostgreSQL instance.'.format(row_num))
 
