@@ -60,10 +60,10 @@ class Data(object):
     self.organisation_object = Organisation(self.organisation_name, self.postgres)
 
     self.fqhost_object = FQHost(self.uqhost, self.domain_name, self.postgres)
-    print('fqhost_object', self.fqhost_object)
     self.role_object = Role(role_code, self.postgres)
 
     self.organisation_data = self.organisation_object.get_organisation_data(self.organisation_name)
+    print('forganisation_data', self.organisation_data)
     self.fqhost_data = self.fqhost_object.get_fqhost_view()
     self.response = json.dumps(self.fqhost_data)
 
