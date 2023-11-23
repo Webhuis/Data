@@ -38,13 +38,13 @@ class PostgreSQL():
 
   def db_reconnect(self):
     try:
-      self.db_closel()
+      self.db_closeconn()
       self.PostgreSQL_event.info('Close PostgreSQL connections')
     except (Exception, pg.DatabaseError) as error:
       self.PostgreSQL_error.info("Error while closing connections to PostgreSQL {}".format(error.args))
     self.db_connect()
 
-  def db_close(self):
+  def db_closeconn(self):
     try:
       self.pg_pool.closeall()
     except (Exception, pg.DatabaseError) as error:

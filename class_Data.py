@@ -123,10 +123,8 @@ class Data(object):
     if row_num == 1:
       pass
     else:
-      self.postgres.db_close()
-      del(self.postgres)
-      self.postgres = PostgreSQL()
       self.Data_error.info('Row_num = {}. Restart PostgreSQL instance.'.format(row_num))
+      self.postgres.db_reconnect()
 
   '''
   def process_message(self, message): # provide the agent, dit is de aanloop, geen Data
