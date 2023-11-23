@@ -26,6 +26,7 @@ class Interaction(object):
     while True:
       try:
         b_message = socket.recv()
+        print(type(b_message), b_message)
         try:
           message = b_message.decode()
           response = self.Data.provide_view(message) #, feed_object, fqhost_object):
