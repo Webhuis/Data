@@ -55,6 +55,6 @@ for logname in ['Interaction_event', 'Interaction_error', 'ZMQ_event', 'ZMQ_erro
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
-socket.setsockopt(zmq.SNDTIMEO, 1000)
-socket.setsockopt(zmq.RCVTIMEO, 1000)
+socket.setsockopt(zmq.SNDTIMEO, 10000)
+socket.setsockopt(zmq.RCVTIMEO, 10000)
 socket.bind("tcp://10.68.171.111:5309")
