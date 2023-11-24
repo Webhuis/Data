@@ -31,7 +31,7 @@ class Interaction(object):
     while True:
 
       try:
-        b_message = socket.recv()
+        b_message = self.socket.recv()
         print(type(b_message), b_message)
         try:
           message = b_message.decode()
@@ -43,7 +43,7 @@ class Interaction(object):
             s_response = str(response[0])
             #print(type(s_response), s_response)
             #b_response = s_response.encode('utf8')
-            iself.socket.send_string(s_response)
+            self.socket.send_string(s_response)
             self.ZMQ_event.info(response[0])
           except Exception as e:
             self.ZMQ_error.info('Error sending message {}'.format(e.args))
