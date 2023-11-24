@@ -32,7 +32,7 @@ class Interaction(object):
 
       try:
         b_message = self.socket.recv()
-        print(type(b_message), b_message)
+        #print(type(b_message), b_message)
         try:
           message = b_message.decode()
           response = self.Data.provide_view(message) #, feed_object, fqhost_object):
