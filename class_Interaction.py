@@ -22,7 +22,7 @@ class Interaction(object):
     self.Interaction_error = fd.fetch_object(Interaction.loggers, 'Interaction_error')
     self.ZMQ_event = fd.fetch_object(Interaction.loggers, 'ZMQ_event')
     self.ZMQ_error = fd.fetch_object(Interaction.loggers, 'ZMQ_error')
-    self.zmq_init(self)
+    self.zmq_init()
 
   def run(self):
     min_sec_num = 0
@@ -56,7 +56,7 @@ class Interaction(object):
         min_sec_num += 1
         if min_sec > 99 and min_sec == min_sec_old:
           self.socket.close()
-          self.zmq_init(self)
+          self.zmq_init()
           min_sec_num = 0
           min_sec = dt.now().strftime("%M:%S")
           min_sec_old = min_sec
@@ -66,7 +66,7 @@ class Interaction(object):
     else:
       self.socket.close()
 
-  def zmq_init():
+  def zmq_init(self):
   
     self.context = zmq.Context()
     self.socket = context.socket(zmq.REP)
