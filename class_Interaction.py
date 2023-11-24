@@ -22,7 +22,6 @@ class Interaction(object):
     self.Interaction_error = fd.fetch_object(Interaction.loggers, 'Interaction_error')
     self.ZMQ_event = fd.fetch_object(Interaction.loggers, 'ZMQ_event')
     self.ZMQ_error = fd.fetch_object(Interaction.loggers, 'ZMQ_error')
-    self.context = zmq.Context()
     self.zmq_init()
 
   def run(self):
@@ -68,8 +67,8 @@ class Interaction(object):
       self.socket.close()
 
   def zmq_init(self):
-  
-    self.socket = context.socket(zmq.REP)
+    self.context = zmq.Context()
+    self.socket = self.context.socket(zmq.REP)
     self.socket.setsockopt(zmq.SNDTIMEO, 10000)
     self.socket.setsockopt(zmq.RCVTIMEO, 10000)
     self.socket.bind("tcp://10.68.171.111:5309")
