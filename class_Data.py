@@ -64,9 +64,7 @@ class Data(object):
 
     self.organisation_data = self.organisation_object.get_organisation_data(self.organisation_name)
     self.fqhost_data = self.fqhost_object.get_fqhost_view()
-    print('fqhost_data', self.fqhost_data)
     self.response = json.dumps(self.fqhost_data)
-    print('response', self.response)
 
     return self.response
 
