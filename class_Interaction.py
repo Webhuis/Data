@@ -66,13 +66,13 @@ class Interaction(object):
     else:
       self.socket.close()
 
-def zmq_init():
-
-  self.context = zmq.Context()
-  self.socket = context.socket(zmq.REP)
-  self.socket.setsockopt(zmq.SNDTIMEO, 10000)
-  self.socket.setsockopt(zmq.RCVTIMEO, 10000)
-  self.socket.bind("tcp://10.68.171.111:5309")
+  def zmq_init():
+  
+    self.context = zmq.Context()
+    self.socket = context.socket(zmq.REP)
+    self.socket.setsockopt(zmq.SNDTIMEO, 10000)
+    self.socket.setsockopt(zmq.RCVTIMEO, 10000)
+    self.socket.bind("tcp://10.68.171.111:5309")
 
 for logname in ['Interaction_event', 'Interaction_error', 'ZMQ_event', 'ZMQ_error']:
   fd.add_logger.log = fd.add_logger(logname)
