@@ -54,7 +54,10 @@ class Interaction(object):
         self.ZMQ_error.info('zmq.error.InterruptedSystemCall {}'.format(e.args))
         min_sec_old = min_sec
         min_sec = dt.now().strftime("%M:%S")
-        min_sec_num += 1
+        if min_sec == min_sec_old:
+          min_sec_num += 1
+        else:
+          min_sec_num = 0
         print(min_sec, min_sec_num)
         if min_sec_num > 99 and min_sec == min_sec_old:
           self.socket.close()
