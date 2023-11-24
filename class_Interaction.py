@@ -55,7 +55,7 @@ class Interaction(object):
         min_sec = dt.now().strftime("%M:%S")
         min_sec_num += 1
         print(min_sec, min_sec_num)
-        if min_sec > 99 and min_sec == min_sec_old:
+        if min_sec_num > 99 and min_sec == min_sec_old:
           self.socket.close()
           self.zmq_init()
           min_sec_num = 0
