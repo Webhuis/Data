@@ -52,6 +52,7 @@ class Interaction(object):
           self.Interaction_error.info('Error creating task.{}'.format(e.args))
       except zmq.error.ZMQError as e:
         self.ZMQ_error.info('zmq.error.InterruptedSystemCall {}'.format(e.args))
+        min_sec_old = min_sec
         min_sec = dt.now().strftime("%M:%S")
         min_sec_num += 1
         print(min_sec, min_sec_num)
